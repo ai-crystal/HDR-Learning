@@ -1,0 +1,10 @@
+# 构建中间产物
+书/build/html/
+书/build/pdf/
+书/build/outline.json
+书/build/last_output.txt
+# 生成的书稿（体积大，按需另行归档）
+书籍输出/*.pdf
+# Python 缓存
+__pycache__/
+*.pyc
