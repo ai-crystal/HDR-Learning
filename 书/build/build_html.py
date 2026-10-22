@@ -48,32 +48,30 @@ CSS_COVER = r"""
 * { box-sizing:border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 html,body{ margin:0; padding:0; }
 body{ font-family:"Source Han Serif SC","SimSun","宋体",serif; }
-.page{ position:relative; width:210mm; height:297mm; overflow:hidden;
-       background:linear-gradient(150deg,#08111d 0%,#0f2a44 48%,#08111d 100%); color:#fff; }
-.cv-glow{ position:absolute; width:430mm; height:430mm; left:-130mm; top:-170mm;
-          background:radial-gradient(circle at center, rgba(230,126,34,0.30) 0%, rgba(230,126,34,0) 55%); }
-.cv-glow2{ position:absolute; width:360mm; height:360mm; right:-150mm; bottom:-190mm;
-          background:radial-gradient(circle at center, rgba(52,152,219,0.22) 0%, rgba(52,152,219,0) 58%); }
-.cv-frame{ position:absolute; inset:15mm; border:0.8pt solid rgba(255,255,255,0.22);
-           display:flex; flex-direction:column; justify-content:space-between; padding:22mm 18mm 18mm; }
-.cv-top{ text-align:left; }
-.cv-kicker{ font-family:"Microsoft YaHei",sans-serif; letter-spacing:5pt; font-size:9.5pt; color:#e67e22; }
-.cv-mid{ text-align:left; margin-top:-4mm; }
-.cv-en{ font-family:"Georgia","Times New Roman",serif; font-size:98pt; line-height:1;
-        font-weight:700; letter-spacing:5pt; color:#ffffff; }
-.cv-cn{ font-family:"Source Han Serif SC","SimSun",serif; font-size:41pt; font-weight:700;
-        letter-spacing:14pt; margin-top:5mm; color:#ffffff; }
-.cv-bar-wrap{ margin:13mm 0 8mm; width:100%; }
-.cv-bar{ height:3.2mm; border-radius:2mm;
-         background:linear-gradient(90deg,#000 0%,#2b2b2b 25%,#8a8a8a 55%,#dcdcdc 80%,#ffffff 100%);
-         border:0.5pt solid rgba(255,255,255,0.35); }
-.cv-bar-labels{ display:flex; justify-content:space-between; margin-top:2.5mm;
-                font-family:"Microsoft YaHei",sans-serif; font-size:7.5pt; color:#9fb0c2; letter-spacing:0.5pt; }
-.cv-sub{ font-family:"Microsoft YaHei",sans-serif; font-size:15pt; color:#cdd8e4; letter-spacing:3pt; }
-.cv-bottom{ display:flex; flex-direction:column; align-items:flex-start; }
-.cv-author{ font-family:"Microsoft YaHei",sans-serif; font-size:14pt; letter-spacing:4pt; }
-.cv-date{ font-family:"Microsoft YaHei",sans-serif; font-size:9.5pt; color:#8fa1b4; margin-top:2.5mm; }
-.cv-logo{ width:66mm; margin-top:11mm; }
+.page{ position:relative; width:210mm; height:297mm; overflow:hidden; background:#05070d; color:#fff; }
+.cv-bg{ position:absolute; inset:0;
+        background-image:url("图片/logo/cover_bg.jpg");
+        background-size:cover; background-position:center center; }
+.cv-scrim{ position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(5,7,13,0.74) 0%, rgba(5,7,13,0.22) 16%, rgba(5,7,13,0.04) 32%, rgba(5,7,13,0.40) 52%, rgba(5,7,13,0.90) 66%, #05070d 82%),
+    radial-gradient(130% 85% at 50% 52%, rgba(5,7,13,0) 38%, rgba(5,7,13,0.55) 100%); }
+.cv-frame{ position:absolute; inset:13mm; border:0.7pt solid rgba(255,255,255,0.20); }
+.cv-kicker{ position:absolute; left:26mm; top:24mm;
+            font-family:"Microsoft YaHei",sans-serif; font-size:8.5pt; letter-spacing:5pt;
+            color:#d8b26a; }
+.cv-content{ position:absolute; left:26mm; right:26mm; bottom:28mm; }
+.cv-en{ font-family:"Georgia","Times New Roman",serif; font-size:102pt; line-height:0.92;
+        font-weight:700; letter-spacing:6pt; color:#ffffff;
+        text-shadow:0 2mm 12mm rgba(0,0,0,0.60); }
+.cv-cn{ font-family:"Source Han Serif SC","SimSun",serif; font-size:43pt; font-weight:700;
+        letter-spacing:16pt; margin-top:4mm; color:#ffffff;
+        text-shadow:0 1mm 8mm rgba(0,0,0,0.55); }
+.cv-rule{ width:46mm; height:1.6pt; background:#d8b26a; margin:9mm 0 7mm; }
+.cv-sub{ font-family:"Microsoft YaHei",sans-serif; font-size:14.5pt; letter-spacing:3pt; color:#e9eff7; }
+.cv-meta{ margin-top:13mm; display:flex; justify-content:space-between; align-items:flex-end; }
+.cv-author{ font-family:"Microsoft YaHei",sans-serif; font-size:14pt; letter-spacing:4pt; color:#fff; }
+.cv-date{ font-family:"Microsoft YaHei",sans-serif; font-size:9.5pt; letter-spacing:1.5pt; color:#9fb0c2; }
 """
 
 CSS_TITLE = r"""
@@ -187,25 +185,18 @@ def render_cover(text):
     m=re.match(r'^\s*HDR\s*(.*)$', title, re.I)
     if m:
         cn=m.group(1).strip() or '超详解'
-    return ('<div class="cv-glow"></div><div class="cv-glow2"></div>'
-            '<div class="cv-frame">'
-            '<div class="cv-top"><span class="cv-kicker">JUPITER　SPATIAL　REALITY</span></div>'
-            '<div class="cv-mid">'
+    return ('<div class="cv-bg"></div><div class="cv-scrim"></div>'
+            '<div class="cv-frame"></div>'
+            '<div class="cv-kicker">A COMPLETE GUIDE TO HDR</div>'
+            '<div class="cv-content">'
             f'<div class="cv-en">{en}</div>'
             f'<div class="cv-cn">{cn}</div>'
-            '<div class="cv-bar-wrap">'
-            '<div class="cv-bar"></div>'
-            '<div class="cv-bar-labels"><span>0.001 nit</span><span>1 nit</span>'
-            '<span>100 nit</span><span>10000 nit</span></div>'
-            '</div>'
+            '<div class="cv-rule"></div>'
             f'<div class="cv-sub">{sub}</div>'
-            '</div>'
-            '<div class="cv-bottom">'
+            '<div class="cv-meta">'
             f'<div class="cv-author">{author}</div>'
             f'<div class="cv-date">{date}</div>'
-            '<img class="cv-logo" src="图片/logo/JupiterSR_橙标+白字.png" alt="Jupiter Spatial Reality">'
-            '</div>'
-            '</div>')
+            '</div></div>')
 
 def render_titlepage(text):
     lines=[s.strip() for s in text.splitlines() if s.strip()]
