@@ -7,7 +7,6 @@
 ## 在线阅读
 
 - **在线阅读（推荐）**：[https://ai-crystal.github.io/HDR-Learning/](https://ai-crystal.github.io/HDR-Learning/)
-- 章节直达示例：[第 7 章 · PQ 与 HLG](https://ai-crystal.github.io/HDR-Learning/#/book/chapters/ch07)
 
 ## 下载
 
