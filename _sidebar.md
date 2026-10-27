@@ -11,7 +11,7 @@
   - [第 7 章 HDR 的两把尺子](book/chapters/ch07.md)
 - **第三篇　标准篇：HDR 世界的规则**
   - [第 8 章 HDR10](book/chapters/ch08.md)
-  - [第 9 章 Dolby Vision 与 HDR10+](book/chapters/ch09.md)
+  - [第 9 章 Dolby Vision、HDR10+ 与 HDR Vivid](book/chapters/ch09.md)
   - [第 10 章 位深、编码与色度采样](book/chapters/ch10.md)
 - **第四篇　硬件篇：光从哪里来**
   - [第 11 章 面板与背光](book/chapters/ch11.md)

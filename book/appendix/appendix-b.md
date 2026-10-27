@@ -92,3 +92,8 @@
 74. 维基百科，*CIE 1931 color space / Color space / Chromaticity*。<https://en.wikipedia.org/wiki/CIE_1931_color_space>
 75. 维基百科，*Liquid-crystal display / OLED / Mini-LED / Quantum dot display / Contrast ratio*。<https://en.wikipedia.org/wiki/Liquid-crystal_display>
 76. 维基百科，*HDMI / DisplayPort / Display Stream Compression / HDCP / EDID*。<https://en.wikipedia.org/wiki/HDMI>
+
+## 六、HDR Vivid / UWA 相关
+
+77. UWA（世界超高清视频产业联盟），T/UWA 005.1 系列《高动态范围（HDR）视频技术规范》。<https://www.uwa.org.cn>
+78. UWA，HDR Vivid 认证与生态说明（内容制作、终端显示、适配模式）。<https://www.uwa.org.cn>
