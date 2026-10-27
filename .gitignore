@@ -2,17 +2,12 @@
 _private/
 
 # 构建中间产物
-书/build/html/
-书/build/pdf/
-书/build/outline.json
-书/build/last_output.txt
-
-# 生成的书稿（PDF 单独放在 docs/ 供下载）
-书籍输出/*.pdf
+book/build/html/
+book/build/pdf/
+book/build/img_opt/
+book/build/outline.json
+book/build/last_output.txt
 
 # Python 缓存
 __pycache__/
 *.pyc
-
-# PDF 构建用的压缩图
-书/build/img_opt/
