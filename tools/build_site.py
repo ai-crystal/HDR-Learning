@@ -173,7 +173,7 @@ def main():
         "- 6 篇 20 章 · 90 余张原创示意图\n"
         "- 从光与颜色，到面板、接口、系统与调色\n\n"
         "[开始阅读](book/chapters/ch01.md)\n"
-        "[下载 PDF](output/HDR超详解.pdf)\n")
+        "[下载 PDF](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)\n")
 
     # 首页
     toc = []
@@ -193,7 +193,7 @@ def main():
         "最后落到选购、校准与排查。\n\n"
         "- **6 篇 20 章**，配 90 余张原创示意图\n"
         "- **在线阅读**：[https://ai-crystal.github.io/HDR-Learning/](https://ai-crystal.github.io/HDR-Learning/)\n"
-        "- 左侧目录逐章阅读，或 [**下载整本 PDF**](output/HDR超详解.pdf)\n\n"
+        "- 左侧目录逐章阅读，或 [**下载整本 PDF**](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)\n\n"
         "## 目录\n\n" + "\n".join(toc) + "\n"
         "\n## 构建与发布\n\n"
         "- Windows 一键编译：双击仓库根目录的 `build.cmd`（或 `book/build/build.cmd`），生成 `output/HDR超详解.pdf`。\n"

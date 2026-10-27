@@ -6,4 +6,4 @@
 - 从光与颜色，到面板、接口、系统与调色
 
 [开始阅读](book/chapters/ch01.md)
-[下载 PDF](output/HDR超详解.pdf)
+[下载 PDF](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)
