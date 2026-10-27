@@ -194,7 +194,10 @@ def main():
         "- **6 篇 20 章**，配 90 余张原创示意图\n"
         "- **在线阅读**：[https://ai-crystal.github.io/HDR-Learning/](https://ai-crystal.github.io/HDR-Learning/)\n"
         "- 左侧目录逐章阅读，或 [**下载整本 PDF**](output/HDR超详解.pdf)\n\n"
-        "## 目录\n\n" + "\n".join(toc) + "\n")
+        "## 目录\n\n" + "\n".join(toc) + "\n"
+        "\n## 构建与发布\n\n"
+        "- Windows 一键编译：双击仓库根目录的 `build.cmd`（或 `book/build/build.cmd`），生成 `output/HDR超详解.pdf`。\n"
+        "- 部署：GitHub **Settings → Pages**，Source 选 `main`，目录选 `/ (root)`。\n")
 
     open(BASE + "/index.html", "w", encoding="utf-8").write(INDEX)
     open(BASE + "/.nojekyll", "w", encoding="utf-8").write("")

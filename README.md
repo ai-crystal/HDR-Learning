@@ -4,6 +4,7 @@
 
 本书用最直白的方式讲清**高动态范围（HDR）**：从光与颜色的基础，到色域与传递函数，到 HDR10、杜比视界、HDR10+ 与 HLG 的规则，再到面板、接口、操作系统、播放软件与调色，最后落到选购、校准与排查。
 
+- **6 篇 20 章**，配 90 余张原创示意图
 - **在线阅读**：[https://ai-crystal.github.io/HDR-Learning/](https://ai-crystal.github.io/HDR-Learning/)
 - 左侧目录逐章阅读，或 [**下载整本 PDF**](output/HDR超详解.pdf)
 
@@ -39,3 +40,8 @@
 - [附录 A　术语速查表](book/appendix/appendix-a.md)
 - [附录 B　参考文献](book/appendix/appendix-b.md)
 - [后记](book/front/afterword.md)
+
+## 构建与发布
+
+- Windows 一键编译：双击仓库根目录的 `build.cmd`（或 `book/build/build.cmd`），生成 `output/HDR超详解.pdf`。
+- 部署：GitHub **Settings → Pages**，Source 选 `main`，目录选 `/ (root)`。
