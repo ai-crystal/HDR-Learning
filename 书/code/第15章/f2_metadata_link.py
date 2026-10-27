@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第15章 图2：AVI InfoFrame 携带 HDR 元数据的链路与字段示意。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch

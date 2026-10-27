@@ -2,7 +2,7 @@
 """第 20 章 f4_glossary_map：HDR 术语关系地图。
 中心是 HDR，六大门类（基础 / 色彩 / 标准 / 硬件 / 传输 / 软件）环绕，
 每个门类列出代表术语并标注对应章节，一张图串起全书词汇。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch

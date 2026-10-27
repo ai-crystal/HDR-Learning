@@ -6,7 +6,7 @@
   分区调光：只有亮区所在分区的背光给足 → 远处暗区只有 0.03 nit，但亮区所在
             分区内的暗处被一起照亮，渗出"光晕"。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from scipy.ndimage import gaussian_filter

@@ -3,7 +3,7 @@
 上半：像素总数/秒 × 每像素位数 × 开销因子 = 所需带宽 的链路框图；
 下半：逐因子放大——1080p60 8bit → 4K60 10bit → 4K120 10bit 的带宽增长。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

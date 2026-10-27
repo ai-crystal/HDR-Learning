@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """图 06-4：BT.1886（≈2.4）与 Gamma 2.2 对比，含黑位不为 0 的影响。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

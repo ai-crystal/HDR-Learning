@@ -4,7 +4,7 @@
 上图：线性坐标下每档翻倍，后段几乎"吃掉"整个高度；
 下图：对数坐标下每档等高——说明为什么描述亮度跨度要用"档"。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

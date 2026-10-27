@@ -4,7 +4,7 @@
 画一张纵向流程图，说明 Windows 上开启 HDR 的完整步骤链，
 并在右侧给出每一步的注意事项，底部给出务实建议。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch

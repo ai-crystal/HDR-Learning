@@ -3,7 +3,7 @@
 
 一句话：HDR10 不是一个技术，而是三样东西的组合，缺一样都不完整。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

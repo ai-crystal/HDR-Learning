@@ -5,7 +5,7 @@
 右图用曲线说明「校准在做什么」：实测的显示 EOTF 偏离目标 γ2.2，
 软件据此算出一条修正系数曲线（LUT），把屏幕拉回标准。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

@@ -6,8 +6,8 @@
 下：变换后的 CIE XYZ 匹配函数 x̄、ȳ、z̄ —— 全部非负，且 ȳ 恰等于亮度。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 import hdrfig as H
 import cie1931 as C

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第 18 章 图 3：游戏 HDR 三条路线（原生 / Auto HDR / RTX HDR）。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

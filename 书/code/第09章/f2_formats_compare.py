@@ -5,7 +5,7 @@
       HDR10 全片一套；HDR10+ 逐场景；DV 逐场景/逐帧。
 下半：属性对照表（元数据、授权、位深、色彩编码、向下兼容、生态）。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 

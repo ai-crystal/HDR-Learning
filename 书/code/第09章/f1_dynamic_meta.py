@@ -7,7 +7,7 @@
 下半：三个代表场景各自的映射曲线（烛光 / 室内 / 雪原），
       与 HDR10 那一条"全片通用"曲线对比，展示"每帧可调"的含义。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 

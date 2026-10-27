@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """第 20 章 f1_myths：十大 HDR 常见误区对照信息图（误区 × / 真相 √）。
 左红右绿：每格上半是"常见说法"，下半是"实际真相"。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch

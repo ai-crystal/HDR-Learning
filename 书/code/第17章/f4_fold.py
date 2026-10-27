@@ -4,7 +4,7 @@
 (a) 三种做法在"输入亮度 → 输出亮度"坐标里的差别：硬裁剪 / 等比压缩 / BT.2390 折弯。
 (b) 用亮度分布的视角看"折叠"：输入的亮度分布被压进 600 nit 以内，高光在顶端堆积。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

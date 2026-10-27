@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第 18 章 图 2：HEVC / VP9 / AV1 对 HDR 元数据的支持对比。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

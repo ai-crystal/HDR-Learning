@@ -8,8 +8,8 @@ import json
 import os
 import pymupdf
 
-BOOK = "E:/Study/HDR-Learning/书"
-OUTDIR = "E:/Study/HDR-Learning/书籍输出"
+BOOK = "E:/Study/HDR技术/书"
+OUTDIR = "E:/Study/HDR技术/书籍输出"
 
 last = BOOK + "/build/last_output.txt"
 if os.path.exists(last):
@@ -29,9 +29,13 @@ for lvl, title, page in toc:
         lvl = clean[-1][0] + 1
     clean.append([lvl, title, page])
 doc.set_toc(clean)
+try:
+    doc.subset_fonts()
+except Exception as e:
+    print("subset_fonts skipped:", e)
 
 tmp = PDF + ".tmp.pdf"
-doc.save(tmp, garbage=3, deflate=True)
+doc.save(tmp, garbage=4, deflate=True, clean=True)
 doc.close()
 
 try:

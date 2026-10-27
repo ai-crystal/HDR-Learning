@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """图 09-3：Dolby Vision 的 RPU —— 画面 + 参考处理单元，按设备能力逐级适配。"""
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.patches as mp

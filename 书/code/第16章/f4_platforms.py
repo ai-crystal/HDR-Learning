@@ -4,7 +4,7 @@
 2×2 卡片，每张卡含「关键机制 / 你要做的事 / 心法」，
 底部给出三条共通心法。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch

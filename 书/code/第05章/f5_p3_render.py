@@ -6,8 +6,8 @@
 右下：饱和度渐变条 —— 同一串码值，P3 那一行明显更艳。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.patches import Rectangle

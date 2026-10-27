@@ -5,7 +5,7 @@
 却比 DisplayHDR 1400 更适合夜景，因为它黑位低到 0.0005 nit。
 左图用峰值—黑位双对数散点叠加等对比度斜线；右图直接对比黑位（对数）。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

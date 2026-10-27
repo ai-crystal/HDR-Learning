@@ -5,8 +5,8 @@
 右：以 sRGB 为 1.0 的相对倍数。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 import hdrfig as H
 import cie1931 as C

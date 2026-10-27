@@ -34,7 +34,7 @@ DV / HDR10+（动态）：[镜头A:参数1][镜头B:参数2][镜头C:参数3]...
 
 这些数字随着播放进度不断变化，显示端读到一组就立刻调整一次，精度自然远超"全片一套参数"。
 
-![图 09-1　动态元数据：逐场景／逐帧调整，而不是全片一套](图片/09/f1_dynamic_meta.png)
+![图 09-1　动态元数据：逐场景／逐帧调整，而不是全片一套](../图片/09/f1_dynamic_meta.png)
 
 ## 9.2 Dolby Vision（杜比视界）：精细但专有
 
@@ -67,7 +67,7 @@ Dolby Vision 的内容在结构上分"**单层（single layer）**"和"**双层�
 
 这就是为什么很多 Dolby Vision 片源在普通 HDR10 设备上也能正常播放：它"藏了一份通用版"。
 
-![图 09-4　两条色彩编码路线：YCbCr 与 ICtCp 的对比](图片/09/f4_ictcp.png)
+![图 09-4　两条色彩编码路线：YCbCr 与 ICtCp 的对比](../图片/09/f4_ictcp.png)
 
 ### 常见 Profile（了解即可）
 
@@ -83,7 +83,7 @@ Dolby Vision 针对不同使用场景分了多个 **Profile**，我们不需要�
 
 > **类比**：Dolby Vision 像一位"高级摄影指导跟组拍摄"，每一幕都亲手调过光；而它内置的基础层，像"顺便留了一份给普通放映机的通用拷贝"。
 
-![图 09-3　Dolby Vision 的 RPU：画面加参考处理单元，逐帧适配不同屏幕](图片/09/f3_rpu.png)
+![图 09-3　Dolby Vision 的 RPU：画面加参考处理单元，逐帧适配不同屏幕](../图片/09/f3_rpu.png)
 
 ## 9.3 HDR10+：免版税的挑战者
 
@@ -124,7 +124,7 @@ flowchart TD
     style H10 fill:#e8f4ff
 ```
 
-![图 09-2　HDR10 / HDR10+ / Dolby Vision 三者对比](图片/09/f2_formats_compare.png)
+![图 09-2　HDR10 / HDR10+ / Dolby Vision 三者对比](../图片/09/f2_formats_compare.png)
 
 ## 9.5 对普通用户，这些差别意味着什么？
 

@@ -4,7 +4,7 @@
 上：逐帧峰值 / 平均亮度 + 两条水平统计线。
 下：两种极端画面的示意帧，说明为什么需要两个数字。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

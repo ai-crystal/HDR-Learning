@@ -6,7 +6,7 @@
   * 标注 100 / 1000 / 10000 nit 三个关键点及其对应码值。
   * 说明暗部（0–100 nit）就占用了一半码值。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.ticker import FuncFormatter

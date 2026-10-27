@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第12章 f3：ABL（自动亮度限制）——亮白场面积越大，峰值亮度越低。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

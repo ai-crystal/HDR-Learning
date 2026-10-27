@@ -5,7 +5,7 @@
 转换到目标色彩空间）；下排用色度图示意：源色域（如 DCI-P3）里超出目标
 设备（sRGB）能力的颜色，会被映射/裁剪到目标色域边界内。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

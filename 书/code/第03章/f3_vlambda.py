@@ -4,7 +4,7 @@
 上：两条光谱光视效率函数（峰 555 nm / 507 nm），下方附可见光谱色带。
 下：两者之比（暗视觉/明视觉），交点在约 526 nm，说明“浦肯野漂移”。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from scipy.interpolate import PchipInterpolator

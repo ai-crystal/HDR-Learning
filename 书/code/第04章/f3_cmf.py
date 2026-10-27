@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """第 04 章 图 3：CIE 1931 色匹配函数 x̄ ȳ z̄（并对照真实 RGB 响应）。"""
 import sys, os
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import hdrfig as H

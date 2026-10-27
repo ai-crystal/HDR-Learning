@@ -4,7 +4,7 @@
 左列：示意图（谁来决定怎么压）。
 右列：映射曲线的区别——显示端映射时两台屏各走各的曲线；源端映射时两台屏重合。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.patches import FancyBboxPatch, Rectangle

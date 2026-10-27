@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """第 04 章 图 5：XYZ → 色度坐标 (x, y) 与亮度 Y 的拆解。"""
 import sys, os
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import hdrfig as H

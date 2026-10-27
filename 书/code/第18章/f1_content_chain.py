@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第 18 章 图 1：HDR 内容链路图（内容 → 编解码 → 播放器 → 显示）。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch

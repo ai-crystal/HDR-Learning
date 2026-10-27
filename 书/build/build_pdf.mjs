@@ -10,9 +10,9 @@ const { PDFDocument, rgb } = require('./pdf-lib.min.js');
 let fontkit = require('./fontkit.umd.js');
 if (fontkit && fontkit.default) fontkit = fontkit.default;
 
-const BUILD = 'E:/Study/HDR-Learning/书/build';
+const BUILD = 'E:/Study/HDR技术/书/build';
 const PDFDIR = BUILD + '/pdf';
-const OUTDIR = 'E:/Study/HDR-Learning/书籍输出';
+const OUTDIR = 'E:/Study/HDR技术/书籍输出';
 const OUT = OUTDIR + '/HDR超详解.pdf';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const SIMHEI = 'C:/Windows/Fonts/simhei.ttf';

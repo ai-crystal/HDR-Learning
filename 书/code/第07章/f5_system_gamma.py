@@ -4,7 +4,7 @@
 左图：系统 gamma 随显示峰值亮度变化（γ = 1.2 + 0.42·log10(Lw/1000)），标出 1000 nit → 1.2。
 右图：同一条 HLG 信号在不同峰值屏幕上的 OOTF 曲线 —— 整体提亮/压暗，但相对关系保留。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

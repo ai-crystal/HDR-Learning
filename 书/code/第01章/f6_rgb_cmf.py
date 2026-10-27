@@ -6,8 +6,8 @@
 用实际三原色配不出来、要给红原色加负强度"的数学表现。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 import hdrfig as H
 import cie1931 as C

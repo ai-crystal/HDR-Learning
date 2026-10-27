@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """图 06-2：sRGB 分段 EOTF —— 暗部直线 + 亮部 2.4 次方，并放大低段。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

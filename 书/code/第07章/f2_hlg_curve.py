@@ -4,7 +4,7 @@
 左图：OETF 全貌（场景线性 E → 信号 V），低段 γ≈0.5 平方根，高段对数，E=1/12 处拼接。
 右图：同一曲线的对数横轴版本，突出高光段的对数压缩能力。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.ticker import FuncFormatter

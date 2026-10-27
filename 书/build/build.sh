@@ -12,4 +12,4 @@ echo "[2/3] HTML -> PDF ..."
 "$NODE" build_pdf.mjs
 echo "[3/3] Writing PDF bookmarks ..."
 "$PY" apply_outline.py
-echo "Done. -> E:/Study/HDR-Learning/书籍输出/HDR超详解.pdf"
+echo "Done. -> E:/Study/HDR技术/书籍输出/HDR超详解.pdf"

@@ -2,7 +2,7 @@
 """第 14 章 图 14-4：带宽需求热图（分辨率 × 帧率），叠加各接口的有效带宽能力线。
 三个面板分别是 8bit 4:4:4 / 10bit 4:4:4 / 10bit 4:2:0 三种每像素位数。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

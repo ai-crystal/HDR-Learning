@@ -6,8 +6,8 @@
 下方：同一台屏两个口径给出的数字对比（这正是营销话术的来路）。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.patches import Polygon, Patch

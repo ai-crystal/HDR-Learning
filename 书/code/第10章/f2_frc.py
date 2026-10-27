@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """f2_frc：8bit + FRC 抖动示意——时间上交替显示相邻两级，平均出中间灰。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

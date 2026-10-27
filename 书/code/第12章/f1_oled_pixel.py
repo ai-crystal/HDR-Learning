@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第12章 f1：OLED 每像素自发光、可完全熄灭示意。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

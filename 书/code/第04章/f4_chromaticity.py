@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """第 04 章 图 4：CIE 1931 马蹄形色度图（光谱轨迹、白点、普朗克轨迹、标色点）。"""
 import sys, os
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import matplotlib.path as mpath

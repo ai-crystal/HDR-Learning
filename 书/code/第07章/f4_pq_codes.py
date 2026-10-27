@@ -5,7 +5,7 @@
 右图：逐码值的亮度间距 ΔL（绝对 nit，对数轴，左轴）与相对间距 ΔL/L（%，右轴），
       说明 PQ 让"每一级台阶的感知差别"在常用亮度区大致相等。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.ticker import FuncFormatter

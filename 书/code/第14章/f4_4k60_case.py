@@ -3,7 +3,7 @@
 左：三种 4K60 组合的"纯像素位 + 协议开销"堆叠柱，叠加接口能力线；
 右：每像素位数是怎么来的（通道位宽分解，含 4:2:0 的色度折扣）。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

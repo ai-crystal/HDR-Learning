@@ -4,7 +4,7 @@
 用「峰值条 + 黑位条」两个亮度水平 + 比值标注，
 说明同一台显示器在不同「口径」下能算出天差地别的对比度。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.patches import Patch

@@ -2,7 +2,7 @@
 """第 20 章 f2_troubleshoot：HDR 排查流程图。
 顺序：内容 → 显卡 → 线材 → 接口 → HDCP → 显示器 → 设置与映射；
 每一环左边是"检查点"，右边是"不通过时的修复动作"。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch

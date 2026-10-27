@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """f4_ycbcr：RGB → YCbCr 分离示意（Y / Cb / Cr 三通道图像化）。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.colors as mcolors

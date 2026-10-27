@@ -4,7 +4,7 @@
   "kind": "cover",
   "title": "HDR 超详解",
   "toc": null,
-  "html": "E:/Study/HDR-Learning/书/build/html/cover.html",
+  "html": "E:/Study/HDR技术/书/build/html/cover.html",
   "numbered": false
  },
  {
@@ -12,7 +12,7 @@
   "kind": "title",
   "title": "title",
   "toc": null,
-  "html": "E:/Study/HDR-Learning/书/build/html/title.html",
+  "html": "E:/Study/HDR技术/书/build/html/title.html",
   "numbered": false
  },
  {
@@ -20,7 +20,7 @@
   "kind": "plain",
   "title": "copyright",
   "toc": null,
-  "html": "E:/Study/HDR-Learning/书/build/html/copyright.html",
+  "html": "E:/Study/HDR技术/书/build/html/copyright.html",
   "numbered": false
  },
  {
@@ -28,7 +28,7 @@
   "kind": "plain",
   "title": "前言",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/preface.html",
+  "html": "E:/Study/HDR技术/书/build/html/preface.html",
   "numbered": false
  },
  {
@@ -36,7 +36,7 @@
   "kind": "toc",
   "title": "目录",
   "toc": null,
-  "html": "E:/Study/HDR-Learning/书/build/html/toc.html",
+  "html": "E:/Study/HDR技术/书/build/html/toc.html",
   "numbered": false
  },
  {
@@ -44,7 +44,7 @@
   "kind": "numbered",
   "title": "第一篇　基础篇：为什么会有 HDR",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part1.html",
+  "html": "E:/Study/HDR技术/书/build/html/part1.html",
   "numbered": true
  },
  {
@@ -52,7 +52,7 @@
   "kind": "numbered",
   "title": "第 01 章 从 SDR 说起：8 位、sRGB 与它的时代",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch01.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch01.html",
   "numbered": true
  },
  {
@@ -60,7 +60,7 @@
   "kind": "numbered",
   "title": "第 02 章 亮度、对比度与动态范围：把话说白",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch02.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch02.html",
   "numbered": true
  },
  {
@@ -68,7 +68,7 @@
   "kind": "numbered",
   "title": "第 03 章 人眼如何看光：对数视觉与 HDR 的意义",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch03.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch03.html",
   "numbered": true
  },
  {
@@ -76,7 +76,7 @@
   "kind": "numbered",
   "title": "第二篇　色彩科学篇：颜色的物理与数学",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part2.html",
+  "html": "E:/Study/HDR技术/书/build/html/part2.html",
   "numbered": true
  },
  {
@@ -84,7 +84,7 @@
   "kind": "numbered",
   "title": "第 04 章 颜色的坐标系：CIE、色度图与三刺激值",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch04.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch04.html",
   "numbered": true
  },
  {
@@ -92,7 +92,7 @@
   "kind": "numbered",
   "title": "第 05 章 色域漫游：sRGB / Rec.709 / DCI-P3 / Rec.2020",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch05.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch05.html",
   "numbered": true
  },
  {
@@ -100,7 +100,7 @@
   "kind": "numbered",
   "title": "第 06 章 传递函数与 Gamma：从 CRT 到 sRGB",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch06.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch06.html",
   "numbered": true
  },
  {
@@ -108,7 +108,7 @@
   "kind": "numbered",
   "title": "第 07 章 HDR 的两把尺子：PQ（ST 2084）与 HLG",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch07.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch07.html",
   "numbered": true
  },
  {
@@ -116,7 +116,7 @@
   "kind": "numbered",
   "title": "第三篇　标准篇：HDR 世界的规则",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part3.html",
+  "html": "E:/Study/HDR技术/书/build/html/part3.html",
   "numbered": true
  },
  {
@@ -124,7 +124,7 @@
   "kind": "numbered",
   "title": "第 08 章 HDR10：开放标准的基石",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch08.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch08.html",
   "numbered": true
  },
  {
@@ -132,7 +132,7 @@
   "kind": "numbered",
   "title": "第 09 章 Dolby Vision 与 HDR10+：动态元数据的较量",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch09.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch09.html",
   "numbered": true
  },
  {
@@ -140,7 +140,7 @@
   "kind": "numbered",
   "title": "第 10 章 位深、编码与色度采样：10bit、4:2:0 与 ICtCp",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch10.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch10.html",
   "numbered": true
  },
  {
@@ -148,7 +148,7 @@
   "kind": "numbered",
   "title": "第四篇　硬件篇：光从哪里来",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part4.html",
+  "html": "E:/Study/HDR技术/书/build/html/part4.html",
   "numbered": true
  },
  {
@@ -156,7 +156,7 @@
   "kind": "numbered",
   "title": "第 11 章 面板与背光：LCD、FALD 与 Mini-LED",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch11.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch11.html",
   "numbered": true
  },
  {
@@ -164,7 +164,7 @@
   "kind": "numbered",
   "title": "第 12 章 自发光时代：OLED、QD-OLED 与 MicroLED",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch12.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch12.html",
   "numbered": true
  },
  {
@@ -172,7 +172,7 @@
   "kind": "numbered",
   "title": "第 13 章 认证怎么读：VESA DisplayHDR 与亮度/黑位/调光",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch13.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch13.html",
   "numbered": true
  },
  {
@@ -180,7 +180,7 @@
   "kind": "numbered",
   "title": "第五篇　传输与系统篇：把 HDR 送到眼前",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part5.html",
+  "html": "E:/Study/HDR技术/书/build/html/part5.html",
   "numbered": true
  },
  {
@@ -188,7 +188,7 @@
   "kind": "numbered",
   "title": "第 14 章 接口与带宽：HDMI、DisplayPort 与 USB-C",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch14.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch14.html",
   "numbered": true
  },
  {
@@ -196,7 +196,7 @@
   "kind": "numbered",
   "title": "第 15 章 链路握手：EDID、元数据、HDCP 与 DSC",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch15.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch15.html",
   "numbered": true
  },
  {
@@ -204,7 +204,7 @@
   "kind": "numbered",
   "title": "第 16 章 操作系统里的 HDR：Windows、macOS、主机与手机",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch16.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch16.html",
   "numbered": true
  },
  {
@@ -212,7 +212,7 @@
   "kind": "numbered",
   "title": "第六篇　软件与实战篇：从会用到精通",
   "toc": "part",
-  "html": "E:/Study/HDR-Learning/书/build/html/part6.html",
+  "html": "E:/Study/HDR技术/书/build/html/part6.html",
   "numbered": true
  },
  {
@@ -220,7 +220,7 @@
   "kind": "numbered",
   "title": "第 17 章 Tone Mapping：HDR 如何落进显示器",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch17.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch17.html",
   "numbered": true
  },
  {
@@ -228,7 +228,7 @@
   "kind": "numbered",
   "title": "第 18 章 内容世界：游戏、影视与创作软件",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch18.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch18.html",
   "numbered": true
  },
  {
@@ -236,7 +236,7 @@
   "kind": "numbered",
   "title": "第 19 章 选购、校准与色彩管理",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch19.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch19.html",
   "numbered": true
  },
  {
@@ -244,7 +244,7 @@
   "kind": "numbered",
   "title": "第 20 章 常见误区、术语速查与精通路线",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/ch20.html",
+  "html": "E:/Study/HDR技术/书/build/html/ch20.html",
   "numbered": true
  },
  {
@@ -252,7 +252,7 @@
   "kind": "numbered",
   "title": "附录 A　术语速查表",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/appendix.html",
+  "html": "E:/Study/HDR技术/书/build/html/appendix.html",
   "numbered": true
  },
  {
@@ -260,7 +260,7 @@
   "kind": "numbered",
   "title": "附录 B　参考文献",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/refs.html",
+  "html": "E:/Study/HDR技术/书/build/html/refs.html",
   "numbered": true
  },
  {
@@ -268,7 +268,7 @@
   "kind": "numbered",
   "title": "后记",
   "toc": "entry",
-  "html": "E:/Study/HDR-Learning/书/build/html/afterword.html",
+  "html": "E:/Study/HDR技术/书/build/html/afterword.html",
   "numbered": true
  },
  {
@@ -276,7 +276,7 @@
   "kind": "back",
   "title": "back",
   "toc": null,
-  "html": "E:/Study/HDR-Learning/书/build/html/back.html",
+  "html": "E:/Study/HDR技术/书/build/html/back.html",
   "numbered": false
  }
 ]

@@ -4,7 +4,7 @@
 上：不同环境光场景下，眼睛的工作区间（约 3.2 个数量级）在 log 亮度轴上的位置。
 下：同一块 300 nit 屏幕，落在不同适应曲线上，得到完全不同的主观响应。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from matplotlib.ticker import NullFormatter

@@ -2,7 +2,7 @@
 """第 14 章 图 14-5：带宽不足时的降级顺序流程图（左），以及降级后带宽阶梯（右）。
 所有带宽都用同一条公式估算：像素数/秒 × 每像素位数 × 1.25 开销。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

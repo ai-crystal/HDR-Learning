@@ -1,10 +1,18 @@
+# 不上传：写作规范、大纲、参考资料、改写清单等
+_private/
+
 # 构建中间产物
 书/build/html/
 书/build/pdf/
 书/build/outline.json
 书/build/last_output.txt
-# 生成的书稿（体积大，按需另行归档）
+
+# 生成的书稿（PDF 单独放在 docs/ 供下载）
 书籍输出/*.pdf
+
 # Python 缓存
 __pycache__/
 *.pyc
+
+# PDF 构建用的压缩图
+书/build/img_opt/

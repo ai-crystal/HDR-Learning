@@ -9,7 +9,7 @@
 （直接并排画整条渐变是看不出区别的——因为输出图片本身只有 8bit。）
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 

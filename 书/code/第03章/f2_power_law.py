@@ -4,7 +4,7 @@
 左图：物理亮度（线性轴）→ 主观亮度，幂律曲线 vs 线性 vs 费希纳对数。
 右图：双对数上把“倍数”讲清楚——物理 ×8，主观才 ×2。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from matplotlib.ticker import NullFormatter

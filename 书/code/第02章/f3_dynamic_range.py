@@ -4,7 +4,7 @@
 用横向亮度条对比 SDR、HDR、人眼瞬时与人眼总范围，
 在每条上标注「同时可呈现」的最亮 / 最暗与折合的档数。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.transforms import blended_transform_factory as btf

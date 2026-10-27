@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """第 04 章 图 1：电磁波谱与可见光窗口（380–780 nm）。"""
 import sys, os
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import matplotlib.patches as mpatches

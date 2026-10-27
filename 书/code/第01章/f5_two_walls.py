@@ -5,7 +5,7 @@
 右：sRGB 三角形之外的颜色（BT.2020 里有一大堆）画不出来。
 运行：D:/DevTools/Anaconda3/python.exe f5_two_walls.py
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np

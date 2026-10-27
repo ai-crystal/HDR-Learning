@@ -3,7 +3,7 @@
 所有章节的绘图脚本都应 import 本模块，以保证全书图示风格一致。
 
 用法：
-    import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+    import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
     import hdrfig as H
     fig, ax = H.plt.subplots(figsize=(7.2, 4))
     ...
@@ -54,7 +54,7 @@ LGRAY = "#d5dbe2"
 DARK = "#12233b"
 PALETTE = [NAVY, ORANGE, TEAL, RED, PURPLE, GREEN, BLUE, GOLD, GRAY]
 
-OUTROOT = "E:/Study/HDR-Learning/书/图片"
+OUTROOT = "E:/Study/HDR技术/书/图片"
 
 
 def outdir(ch):

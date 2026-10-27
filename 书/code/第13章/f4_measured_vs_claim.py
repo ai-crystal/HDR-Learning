@@ -4,7 +4,7 @@
 要点：厂商标的“峰值 xxx nit”来自小窗口测量；一旦亮场铺满全屏，
 LCD/Mini-LED 会因功耗与散热略降，OLED 则因 ABL 大跌（本图约打到 42%）。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

@@ -4,7 +4,7 @@
 左：4K/1080p 的像素数与各类背光的分区数（对数条形）；
 右：一块 4K 屏上"每个分区要罩住多少像素"，与像素级控光差了多少。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.gridspec as gridspec

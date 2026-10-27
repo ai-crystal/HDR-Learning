@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第12章 f2：WOLED（白光 + 滤光片）vs QD-OLED（蓝光 + 量子点）结构对比。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

@@ -5,8 +5,8 @@
 右：同一张纯白在三种白点下的实际观感，以及把色偏差放大约 6 倍后的示意。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.patches import Rectangle

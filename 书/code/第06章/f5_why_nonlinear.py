@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """图 06-5：非线性编码为什么省位深 —— 暗部台阶更密。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

@@ -4,7 +4,7 @@
 用 PIL 直接绘制像素图：两块内部灰块的 RGB 完全相同（均为 140），
 周围背景一黑一白；下方再加一条黑→白渐变背景，放 7 块同样的灰。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from PIL import Image, ImageDraw

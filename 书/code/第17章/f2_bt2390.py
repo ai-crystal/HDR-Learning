@@ -9,7 +9,7 @@ EETF = Electrical-Electrical Transfer Function，ITU-R BT.2390 给出的参考�
     u >= KS : 用分段三次 Hermite 样条把 [KS,1] 平滑收进 [KS,maxLum]
               （起点斜率 1，终点斜率 0 —— 所以高光是"缓缓减速"而不是硬折）
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

@@ -4,7 +4,7 @@
 从“看到‘支持 HDR’”出发，先问有没有 VESA 认证，再看实测峰值与分区调光，
 最后落到“入门可用 / 谨慎乐观 / 假 HDR”三类结论，并在底部列出五个典型特征。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 from matplotlib.patches import FancyBboxPatch, Polygon
 

@@ -5,8 +5,8 @@
 数据：CIE 1931 2° 标准观察者（第 04 章 cie1931.py 提供色匹配函数）。
 """
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/第04章")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/第04章")
 import numpy as np
 from matplotlib.path import Path
 from matplotlib.patches import Patch

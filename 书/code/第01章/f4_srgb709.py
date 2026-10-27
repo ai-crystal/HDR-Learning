@@ -5,7 +5,7 @@
 数据：本地 cie1931.py（CIE 1931 2° 标准观察者，5 nm）。
 运行：D:/DevTools/Anaconda3/python.exe f4_srgb709.py
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np

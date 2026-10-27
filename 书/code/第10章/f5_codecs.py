@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """f5_codecs：HEVC / VP9 / AV1 对 HDR 的支持对比（矩阵 + 压缩效率）。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.patches import Rectangle

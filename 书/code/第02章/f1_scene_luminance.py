@@ -4,7 +4,7 @@
 把现实世界常见发光 / 反射表面的亮度放到一条对数轴上，
 直观展示「从星光到太阳横跨约十亿倍」。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

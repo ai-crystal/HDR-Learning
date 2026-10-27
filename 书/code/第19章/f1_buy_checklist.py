@@ -6,7 +6,7 @@
 （P1 先看 → P2 再看 → P3 最后看），徽章边框用各条目的主题色区分。
 底部是记忆口诀与按用途选屏的提醒。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch

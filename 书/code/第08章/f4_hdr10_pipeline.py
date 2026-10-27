@@ -3,7 +3,7 @@
 
 画面（视频数据）与元数据两条支路，经接口一起送到显示端，在显示端汇合后做色调映射。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

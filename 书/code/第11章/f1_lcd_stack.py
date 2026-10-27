@@ -4,7 +4,7 @@
 从观众的眼睛往里看：一片恒亮的背光，夹在两片偏光片之间的液晶"百叶窗"，
 以及把每个像素拆成 R/G/B 三个子像素的彩色滤光片。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.patches as mpatch

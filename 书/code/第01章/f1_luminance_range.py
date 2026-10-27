@@ -4,7 +4,7 @@
 要点：SDR 把参考白锁在约 100 nit —— 这就是"第一道墙"。
 运行：D:/DevTools/Anaconda3/python.exe f1_luminance_range.py
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

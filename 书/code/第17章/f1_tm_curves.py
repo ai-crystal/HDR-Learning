@@ -8,7 +8,7 @@
 
 这样归一化后，"45° 直线"就代表"照搬不压缩"，各条曲线谁贴得近、谁压得狠一目了然。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

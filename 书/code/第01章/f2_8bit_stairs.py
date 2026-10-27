@@ -5,7 +5,7 @@
 下：暗部台阶放大曲线 —— 8bit 一级跳多少 nit、10bit 细 4 倍。
 运行：D:/DevTools/Anaconda3/python.exe f2_8bit_stairs.py
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

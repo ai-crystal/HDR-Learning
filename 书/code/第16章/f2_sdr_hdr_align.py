@@ -5,7 +5,7 @@
          标出 SDR 参考白点 100 nit、舒适区、显示峰值。
 右panel：同一张 SDR 桌面在滑块过低 / 合适 / 过高时的观感示意。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

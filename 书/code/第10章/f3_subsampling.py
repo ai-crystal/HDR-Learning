@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """f3_subsampling：4:4:4 / 4:2:2 / 4:2:0 的亮度与色度采样点阵。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """图 06-1：Gamma 2.2 曲线 vs 线性 —— 码值 → 光。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

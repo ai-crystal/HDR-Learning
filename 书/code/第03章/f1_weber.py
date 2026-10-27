@@ -5,7 +5,7 @@
       极暗处退化为恒定阈值（绝对阈值主导）。
 右图：同样的物理增量 ΔL，在不同背景亮度下占背景的比例天差地别。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from matplotlib.ticker import NullFormatter

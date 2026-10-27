@@ -2,7 +2,7 @@
 """第 14 章 图 14-1：各接口版本的带宽条形图（原始带宽 vs 有效带宽）。
 HDMI 1.4 / 2.0 / 2.1，DP 1.2 / 1.4 / 2.x；虚线标出常见 HDR 组合的需求线。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

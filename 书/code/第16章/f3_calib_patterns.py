@@ -7,7 +7,7 @@
   左下 最大帧平均亮度 —— 大面积亮场，校大片亮场的容忍度
   右下 校准结果 → ICC 配置文件（含 HGiG 建议）
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

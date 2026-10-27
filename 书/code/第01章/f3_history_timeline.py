@@ -5,7 +5,7 @@
 版式：单条主轴上/下方分两条"泳道"放事件标签，说明文字一律放在远离主轴的一侧，避免连线压字。
 运行：D:/DevTools/Anaconda3/python.exe f3_history_timeline.py
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch, Rectangle

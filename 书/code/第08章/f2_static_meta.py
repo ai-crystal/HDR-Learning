@@ -4,7 +4,7 @@
 上：逐帧亮度随时间变化（24 fps，示意内容）——不管暗场还是雪原，都看同一组参数。
 下：全片唯一一条色调映射曲线（对比“本应分场景切换”的两条理想曲线）。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.pyplot as plt

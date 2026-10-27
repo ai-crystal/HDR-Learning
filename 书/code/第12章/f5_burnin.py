@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第12章 f5：烧屏（burn-in）示意见图：长时间静态高亮 → 残影 + 老化曲线。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

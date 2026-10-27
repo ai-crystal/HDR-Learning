@@ -4,7 +4,7 @@
 左图：线性纵轴（输出归一化到各自 0–1），看三条曲线形状差异。
 右图：对数纵轴，暗部差异被放大 —— PQ 明显比 HLG、Gamma 更"陡"。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.ticker import FuncFormatter

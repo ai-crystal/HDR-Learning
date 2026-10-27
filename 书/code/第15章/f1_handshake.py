@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """第 15 章 图 15-1：EDID → 模式协商 → 元数据 → HDCP → 显示 的链路握手时序图。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle

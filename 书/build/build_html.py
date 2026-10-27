@@ -4,10 +4,32 @@
 渲染与合成 PDF 由 build_pdf.mjs 完成。"""
 import os, re, json, markdown
 
-BASE = "E:/Study/HDR-Learning/书"
+BASE = "E:/Study/HDR技术/书"
 BUILD = BASE + "/build"
 HTMLDIR = BUILD + "/html"
 os.makedirs(HTMLDIR, exist_ok=True)
+
+IMGROOT = BASE + "/图片"
+IMGOPT = BUILD + "/img_opt"
+
+def ensure_opt_images(max_w=1400, quality=88):
+    """把 PNG 插图转成压缩 JPEG，仅用于 PDF 构建（原图保留）。"""
+    try:
+        from PIL import Image
+    except Exception:
+        return
+    import glob
+    for png in glob.glob(IMGROOT + "/[0-9][0-9]/*.png"):
+        rel = os.path.relpath(png, IMGROOT)
+        dst = os.path.join(IMGOPT, os.path.splitext(rel)[0] + ".jpg")
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(png):
+            continue
+        im = Image.open(png).convert("RGB")
+        w, h = im.size
+        if w > max_w:
+            im = im.resize((max_w, int(h * max_w / w)), Image.LANCZOS)
+        im.save(dst, "JPEG", quality=quality, optimize=True)
 
 CSS_NORMAL = r"""
 @page { size: A4; margin: 20mm 20mm 22mm 20mm; }
@@ -103,7 +125,7 @@ body{ font-family:"Source Han Serif SC","SimSun","宋体",serif; color:#1b1b1b; 
 
 TEMPLATE = r"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
-<base href="file:///E:/Study/HDR-Learning/%E4%B9%A6/">
+<base href="file:///E:/Study/HDR技术/%E4%B9%A6/">
 <title>{title}</title>
 <style>{css}</style>
 </head>
@@ -111,12 +133,12 @@ TEMPLATE = r"""<!doctype html>
 <main class="page {pagecls}">
 {body}
 </main>
-<script src="file:///E:/Study/HDR-Learning/%E4%B9%A6/build/mermaid.min.js"></script>
+<script src="file:///E:/Study/HDR技术/%E4%B9%A6/build/mermaid.min.js"></script>
 <script>try{{mermaid.initialize({{startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{{htmlLabels:true}}}});}}catch(e){{}}</script>
 <script>
 window.MathJax = {{ tex: {{ inlineMath: [['$','$']], displayMath: [['$$','$$']] }}, svg: {{ fontCache: 'global' }} }};
 </script>
-<script src="file:///E:/Study/HDR-Learning/%E4%B9%A6/build/tex-svg.js"></script>
+<script src="file:///E:/Study/HDR技术/%E4%B9%A6/build/tex-svg.js"></script>
 </body></html>
 """
 
@@ -160,6 +182,8 @@ def md_to_html(text):
             return '<figure>'+tag+'<figcaption>'+cap+'</figcaption></figure>'
         return '<figure>'+tag+'</figure>'
     html = re.sub(r'<p>\s*(<img[^>]*>)\s*</p>', fig, html)
+    html = html.replace('src="../图片/', 'src="图片/')
+    html = re.sub(r'src="图片/([^"]+)\.png"', r'src="build/img_opt/\1.jpg"', html)
     return html
 
 def read(p):
@@ -285,6 +309,7 @@ add('afterword','numbered','后记.md', toc='entry')
 add('back','back','封底.md')
 
 # ---------- normalize titles & write ----------
+ensure_opt_images()
 manifest = []
 for sec in S:
     src = sec.get('src')

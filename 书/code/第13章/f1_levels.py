@@ -4,7 +4,7 @@
 黑位那一列才是 HDR 观感的灵魂：从 0.4 nit 到 0.02 nit 差了 20 倍，
 对应对比度从 1000:1 一路涨到约 70000:1。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 

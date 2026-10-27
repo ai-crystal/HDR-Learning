@@ -4,7 +4,7 @@
 用两个容器的「高度（以档为单位）」表示动态范围，
 说明 HDR 不只是把杯子换成桶，而是同时抬高上限、压低下限。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 from matplotlib.patches import Polygon, FancyArrowPatch

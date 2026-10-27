@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """图 06-3：OETF 打包 → 传输 → EOTF 解包 的采集-显示链路。"""
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

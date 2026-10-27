@@ -6,7 +6,7 @@
 右图：3D LUT 是一张三通道联合的三维查找表（如 17³ / 33³ 网格点），
       能表达通道之间的交叉影响，精度更高，适合专业调色与影视监看。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """图 09-4：YCbCr 与 ICtCp —— 两条色彩编码路线的对比（示意）。"""
 import sys
-sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import hdrfig as H
 import numpy as np
 import matplotlib.patches as mp

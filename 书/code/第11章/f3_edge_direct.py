@@ -4,7 +4,7 @@
 上排：两种背光的结构剖面（灯珠在哪里、光怎么走、机身多厚）；
 下排：两种方案能做出的"分区形态"——条状 vs 二维网格。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 import matplotlib.patches as mpatch

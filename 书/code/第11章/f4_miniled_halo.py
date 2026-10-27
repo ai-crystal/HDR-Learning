@@ -5,7 +5,7 @@
 于是同一分区里的"暗处"也被一起照亮 —— 这就是光晕。
 下排给出不同分区数下的亮度剖面：分区越少，光晕越宽。
 """
-import sys; sys.path.insert(0, "E:/Study/HDR-Learning/书/code/common")
+import sys; sys.path.insert(0, "E:/Study/HDR技术/书/code/common")
 import numpy as np
 import hdrfig as H
 from scipy.ndimage import gaussian_filter
