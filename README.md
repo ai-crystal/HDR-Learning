@@ -6,11 +6,7 @@
 
 ## 在线阅读
 
-本站用 [docsify](https://docsify.js.org/) 构建，章节用 `#/` 路由切换，每章都有独立链接：
-
-- 首页：`https://<用户名>.github.io/<仓库名>/`
-- 某一章：`https://<用户名>.github.io/<仓库名>/#/book/chapters/ch07`
-- 本地预览：在仓库根目录运行 `python -m http.server 8765`，打开 `http://127.0.0.1:8765/`
+- 首页：`https://ai-crystal.github.io/HDR-Learning/`
 
 ## 下载
 
@@ -18,7 +14,6 @@
 
 ## 目录
 
-> 书稿只有一份：`book/chapters/`。网页与 GitHub 都直接读它。
 
 ### 第一篇 基础篇：为什么会有 HDR
 1. [从 SDR 说起](book/chapters/ch01.md)
@@ -55,23 +50,6 @@
 - [附录 A 术语速查表](book/appendix/appendix-a.md)
 - [附录 B 参考文献](book/appendix/appendix-b.md)
 
-## 仓库结构
-
-```text
-book/
-├── chapters/        第 01–20 章（唯一的书稿正文）
-├── front/           封面/扉页/版权/前言/篇首/后记/封底
-├── appendix/        术语速查、参考文献
-├── images/          插图（按章分目录）
-├── code/            生成插图的 Python 代码（按章）
-└── build/           PDF 构建脚本
-
-tools/build_site.py  docsify 站点生成脚本
-output/              整本 PDF（下载）
-index.html           在线阅读入口（docsify）
-```
-
-本仓库只包含**书稿、插图和绘图代码**；写作规范、大纲、参考资料等不在此仓库。
 
 ## 本地构建
 
@@ -87,11 +65,3 @@ cd ../..
 python tools/build_site.py
 ```
 
-## 部署到 GitHub Pages
-
-1. 把仓库推到 GitHub；
-2. 仓库 **Settings → Pages → Build and deployment**；
-3. Source 选 **Deploy from a branch**，分支 `main`，目录选 **`/ (root)`**；
-4. 保存后访问 `https://<用户名>.github.io/<仓库名>/`。
-
-根目录已放 `.nojekyll`，避免 Jekyll 处理带下划线的文件（`_sidebar.md` 等）。
