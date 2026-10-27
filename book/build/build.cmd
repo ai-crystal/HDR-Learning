@@ -9,14 +9,17 @@ if errorlevel 1 set "NODE=C:\Program Files\nodejs\node.exe"
 echo [1/3] Markdown to HTML ...
 "%PY%" "build_html.py"
 if errorlevel 1 goto err
+
 echo [2/3] HTML to PDF ...
 "%NODE%" "build_pdf.mjs"
 if errorlevel 1 goto err
+
 echo [3/3] Writing PDF bookmarks ...
 "%PY%" "apply_outline.py"
 if errorlevel 1 goto err
+
 echo.
-echo Done. PDF -> E:\Study\HDR技术\output
+echo Done. PDF is in the output folder.
 goto :eof
 
 :err
