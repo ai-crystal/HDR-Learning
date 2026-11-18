@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>第 09 章 Dolby Vision、HDR10+ 与 HDR Vivid：动态元数据的较量</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-numbered">
+<main class="page ">
+<h1 id="09-dolby-visionhdr10-hdr-vivid">第 09 章 Dolby Vision、HDR10+ 与 HDR Vivid：动态元数据的较量</h1>
+<p>上一章说到，HDR10 的静态元数据有个先天短板：整部片子只有一套参数，暗场和亮场只能折中。业界补这个短板的办法是<strong>动态元数据（dynamic metadata）</strong>，让元数据随场景、甚至随每一帧变化。围绕这条路，市场上形成了两大阵营：<strong>Dolby Vision（杜比视界）</strong>和 <strong>HDR10+</strong>。这一章要搞清楚它们各自是什么、怎么实现、谁更强，以及最重要的，对普通用户意味着什么。</p>
+<h2 id="91">9.1 动态元数据：每一幕换一张曝光表</h2>
+<p>先复习一下第 8 章的类比：<strong>HDR10 = 整部电影只用一张曝光表</strong>。</p>
+<p><strong>动态元数据</strong>要做的，就是把这张表拆开——<strong>每个场景用一张，甚至每一帧用一张</strong>。片子里出现烛光晚餐，就配一套适合暗场的参数；切到正午雪原，立刻换一套适合超亮场景的参数。</p>
+<pre><code class="language-text">HDR10（静态）：[———————— 一部电影，一套参数 ————————]
+                       ↑ 只能折中
+
+DV / HDR10+（动态）：[镜头A:参数1][镜头B:参数2][镜头C:参数3]...
+                       ↑ 每个场景/每帧都能单独调
+</code></pre>
+<p>这带来什么实际好处？说起来很朴素：<strong>暗场不糊、亮场不爆</strong>。</p>
+<ul>
+<li>暗场镜头：可以放心地压暗，让黑位更黑、更接近导演想要的观感。</li>
+<li>高光镜头：可以专门为这片区域的亮度做映射，保留太阳、火光、灯牌的细节。</li>
+<li>中间调场景：不用为了迁就极端场景而牺牲，忠于母版。</li>
+</ul>
+<p>代价也明显：<strong>元数据量变大、传输和处理更复杂，而且内容、设备、链路全都得支持</strong>。所以动态元数据虽好，并不是"处处都有"。</p>
+<p>动态元数据具体长什么样？可以把它想成一串"每帧的调色备注"，大致是这样一组数字：</p>
+<table>
+<thead>
+<tr>
+<th>帧/场景</th>
+<th>该帧的峰值亮度</th>
+<th>该帧的亮度分布</th>
+<th>建议的映射强度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场景 1（烛光晚餐）</td>
+<td>约 300 nit</td>
+<td>大多很暗</td>
+<td>强压高光、保护暗部</td>
+</tr>
+<tr>
+<td>场景 2（室内白天）</td>
+<td>约 800 nit</td>
+<td>中等</td>
+<td>温和映射</td>
+</tr>
+<tr>
+<td>场景 3（正午雪原）</td>
+<td>约 4000 nit</td>
+<td>大面积明亮</td>
+<td>重点压缩大范围高光</td>
+</tr>
+</tbody>
+</table>
+<p>这些数字随着播放进度不断变化，显示端读到一组就立刻调整一次，精度自然远超"全片一套参数"。</p>
+<figure><img alt="图 09-1　动态元数据：逐场景／逐帧调整，而不是全片一套" src="build/img_opt/09/f1_dynamic_meta.jpg" /><figcaption>图 09-1　动态元数据：逐场景／逐帧调整，而不是全片一套</figcaption></figure>
+<h2 id="92-dolby-vision">9.2 Dolby Vision（杜比视界）：精细但专有</h2>
+<p><strong>Dolby Vision</strong> 是目前业界公认最精细的 HDR 方案之一，由杜比（Dolby）公司主导。它的关键词是"<strong>专有</strong>"和"<strong>逐级适配</strong>"。</p>
+<h3 id="_1">它特别在哪</h3>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>专有/需授权</strong></td>
+<td>不是免费开放标准。从内容制作到播放设备，都要经过杜比授权与认证，才能打上 Dolby Vision 标志</td>
+</tr>
+<tr>
+<td><strong>支持 12bit 亮度精度</strong></td>
+<td>母版和处理链路可支持 12bit，比 HDR10 的 10bit 留出更细的余地（注意：这不等于普通消费级屏就是"真 12bit"，见第 10 章）</td>
+</tr>
+<tr>
+<td><strong>使用 ICtCp 色彩编码</strong></td>
+<td>相比传统的 YCbCr，ICtCp 在广色域、高亮度下更稳定（本章先点到，第 10 章详解）</td>
+</tr>
+<tr>
+<td><strong>用 RPU 承载元数据</strong></td>
+<td><strong>参考处理单元（Reference Processing Unit, RPU）</strong>：一段随画面走的"处理说明"，包含动态元数据，告诉显示端这一帧该怎么映射</td>
+</tr>
+<tr>
+<td><strong>逐级适配</strong></td>
+<td>同一份内容可以针对不同能力的设备给出不同映射方案，"高端屏有高端屏的版本，普通屏有普通屏的版本"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dolby-vision">单层与双层：Dolby Vision 的组织方式</h3>
+<p>Dolby Vision 的内容在结构上分"<strong>单层（single layer）</strong>"和"<strong>双层（dual layer）</strong>"两种组织方式：</p>
+<ul>
+<li><strong>双层</strong>：一个 <strong>HDR10 基础层</strong>（大家都能放的"通用版"）+ 一个 <strong>增强层</strong>（额外信息，让支持 DV 的设备看到更完整的效果）。信息量最大，常见于 UHD 蓝光。</li>
+<li><strong>单层</strong>：把信息整合在一起，文件更轻，常见于流媒体。</li>
+</ul>
+<p>理解这个结构的用处在于：它解释了"为什么有些 DV 片源能在普通 HDR10 设备上放、有些却完全放不出"，差别就藏在这里。</p>
+<h3 id="rpudolby-vision">RPU：Dolby Vision 的核心机关</h3>
+<p><strong>RPU</strong> 可以理解成"<strong>贴在每一帧旁边的调色备注</strong>"。它是动态元数据的载体，内容里除了一份"HDR 版"，还内置一个"<strong>基础层</strong>"，由此得到一个很实用的特性：</p>
+<blockquote>
+<p><strong>向下兼容</strong>：Dolby Vision 的内容里通常包含一个 <strong>HDR10 基础层（base layer）</strong>。如果播放链路的某一段不支持 Dolby Vision，设备和内容可以退回去按 HDR10 播放，画面照样能看，只是少了动态元数据的精细调校。</p>
+</blockquote>
+<p>这就是为什么很多 Dolby Vision 片源在普通 HDR10 设备上也能正常播放：它"藏了一份通用版"。</p>
+<figure><img alt="图 09-4　两条色彩编码路线：YCbCr 与 ICtCp 的对比" src="build/img_opt/09/f4_ictcp.jpg" /><figcaption>图 09-4　两条色彩编码路线：YCbCr 与 ICtCp 的对比</figcaption></figure>
+<h3 id="profile">常见 Profile（了解即可）</h3>
+<p>Dolby Vision 针对不同使用场景分了多个 <strong>Profile</strong>，我们不需要记全，只要建立它"分档"的印象：</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>大致用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Profile 5</strong></td>
+<td>流媒体常用，单层、不含 HDR10 基础层（所以<strong>不做 HDR10 兼容</strong>）</td>
+</tr>
+<tr>
+<td><strong>Profile 7</strong></td>
+<td>UHD 蓝光常用，双层（基础层 + 增强层），信息量最大</td>
+</tr>
+<tr>
+<td><strong>Profile 8</strong></td>
+<td>流媒体/设备常见，单层，<strong>带 HDR10 向后兼容基础层</strong></td>
+</tr>
+</tbody>
+</table>
+<p>编号不必背，只要知道 <strong>Profile 决定了这份内容"能不能退回 HDR10 播放"，以及它有多"重"</strong>。</p>
+<blockquote>
+<p><strong>类比</strong>：Dolby Vision 像一位"高级摄影指导跟组拍摄"，每一幕都亲手调过光；而它内置的基础层，像"顺便留了一份给普通放映机的通用拷贝"。</p>
+</blockquote>
+<figure><img alt="图 09-3　Dolby Vision 的 RPU：画面加参考处理单元，逐帧适配不同屏幕" src="build/img_opt/09/f3_rpu.jpg" /><figcaption>图 09-3　Dolby Vision 的 RPU：画面加参考处理单元，逐帧适配不同屏幕</figcaption></figure>
+<h2 id="93-hdr10">9.3 HDR10+：免版税的挑战者</h2>
+<p>Dolby Vision 很强，但"专有+授权"这套模式让不少厂商不太愿意被绑定。于是出现了 <strong>HDR10+</strong>——它的定位非常明确：<strong>动态元数据 + 免版税（royalty-free）</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>动态元数据</strong></td>
+<td>逐场景提供映射信息，补上了 HDR10 的最大短板</td>
+</tr>
+<tr>
+<td><strong>免版税</strong></td>
+<td>开放使用，不收取类似的授权费，对厂商更友好，主要由三星（Samsung）、亚马逊等推动</td>
+</tr>
+<tr>
+<td><strong>基于 HDR10 扩展</strong></td>
+<td>可以理解为"HDR10 的动态元数据升级版"，天然向下兼容 HDR10</td>
+</tr>
+<tr>
+<td><strong>硬件支持相对较弱</strong></td>
+<td>相比 Dolby Vision，实际支持 HDR10+ 的设备、片源和内容生态<strong>目前仍偏少</strong>，尤其在某些电视品牌和播放设备上支持度不一致</td>
+</tr>
+</tbody>
+</table>
+<p>总结起来：<strong>HDR10+ 在技术上完全能打，短板主要在生态</strong>。很多设备"支持 HDR10+ 是支持了，但内容不一定多"；反过来，很多流媒体平台给的是 Dolby Vision 或 HDR10，未必给 HDR10+。</p>
+<blockquote>
+<p><strong>类比</strong>：如果 Dolby Vision 是"必须买门票的高级影厅"，HDR10+ 就是"免费开放的升级版普通影厅"——性价比高，但排片（内容）还得看院线（平台和厂商）脸色。</p>
+</blockquote>
+<h2 id="94-hdr-vivid">9.4 HDR Vivid：中国主导的动态元数据标准</h2>
+<p>前面两节是国际市场上的两位主角。国内还有一套同样基于动态元数据的标准——<strong>HDR Vivid</strong>，由世界超高清视频产业联盟（UWA）主导制定，核心规范编号为 <strong>T/UWA 005.1</strong> 系列，覆盖内容制作、编码、传输到终端显示的整条链路。</p>
+<p>它的技术底座与 HDR10 一致：<strong>PQ + 10bit + BT.2020 容器</strong>；在此基础上叠加<strong>逐场景/逐帧的动态元数据</strong>，让显示端按内容意图做色调映射。可以把它理解成"中国版的 HDR10+"：同样是动态元数据增强、同样保留 HDR10 兼容基础层，差别主要在元数据格式、认证体系与生态推动方。</p>
+<h3 id="_2">支持在屏幕端还是设备端？</h3>
+<p>这是最容易混淆的一点：<strong>HDR Vivid 的"支持"不是单端的事，而是由"适配模式"决定谁来做色调映射。</strong></p>
+<table>
+<thead>
+<tr>
+<th>适配模式</th>
+<th><strong>接收端适配模式（主流）</strong></th>
+<th><strong>监视器适配模式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统/播放设备角色</td>
+<td>负责解码，并将<strong>原始的动态元数据</strong>封装后发送给显示设备</td>
+<td>读取屏幕的硬件能力（EDID），<strong>代替屏幕</strong>完成色彩动态范围转换和校正</td>
+</tr>
+<tr>
+<td>屏幕硬件角色</td>
+<td>接收动态元数据，并依据标准（T/UWA 005.1）<strong>自行完成色调映射（Tone Mapping）</strong>，使画面适配自身硬件能力</td>
+<td><strong>不处理动态元数据</strong>，仅接收播放设备已处理好的图像信号，进行必要的显示转换后呈现</td>
+</tr>
+<tr>
+<td>动态元数据的"处理者"</td>
+<td>屏幕硬件（结合其固件/驱动）</td>
+<td>播放设备（系统/驱动）</td>
+</tr>
+</tbody>
+</table>
+<p>两种模式的分工可以这样记：</p>
+<ul>
+<li><strong>接收端适配模式</strong>：播放器只负责"把话带到"，<strong>屏幕自己决定怎么显示</strong>。动态元数据一路原样送到屏幕，由屏幕的固件/驱动结合自身亮度、黑位、色域做映射——这也是目前的主流做法。</li>
+<li><strong>监视器适配模式</strong>：<strong>播放器替屏幕做决定</strong>。播放器先读 EDID 了解屏幕能力，自己完成色彩与动态范围的转换，再把"已经处理好的画面"送给屏幕，屏幕只做必要的显示转换。常见于部分 PC 显卡驱动、专业播放器与老显示器/投影的组合。</li>
+</ul>
+<blockquote>
+<p>UWA 规范的建议：播放设备应优先以"接收端适配模式"连接 HDR Vivid 显示设备，以充分利用屏幕自身的适配能力。原因很直接——屏幕最了解自己的峰值亮度、黑位与分区/像素级控光，让它自己映射，通常比播放器"盲猜"更准。</p>
+</blockquote>
+<h3 id="hdr10">动态元数据会不会被降级成 HDR10？</h3>
+<p>会，而且很常见。HDR Vivid 内容通常带一个 <strong>HDR10 兼容的基础层</strong>（PQ + 10bit + BT.2020 + 静态元数据）。只要链路上有一环不支持 Vivid——播放器不识别、系统/驱动没开、线材/接口带宽不够、显示器不支持——播放器就会<strong>忽略动态元数据，按 HDR10 解码显示</strong>。</p>
+<p>这时你看到的仍然是正常的 HDR10 画面（亮度、色彩通常是对的），只是失去了"逐场景优化"的那部分收益：暗场可能不够透、高光可能压得不够聪明。<strong>降级不等于出错，它是兼容性设计。</strong></p>
+<h3 id="_3">对硬件的要求</h3>
+<p>HDR Vivid 对两端都有要求，缺一不可：</p>
+<ul>
+<li><strong>显示端</strong>：10bit 面板（真 10bit，或至少 8bit+FRC 且能稳定呈现）；广色域（BT.2020 容器，实际覆盖通常要求达到 DCI-P3 以上）；足够的峰值亮度与黑位（LCD 需要分区调光，OLED 靠像素级熄灭）；固件/驱动需支持按 T/UWA 005.1 解析动态元数据并完成色调映射。</li>
+<li><strong>播放端</strong>：能解码 HEVC/AV1 等主流编码，并正确解析/透传动态元数据；系统或驱动支持 Vivid；HDMI/DP 链路带宽足够（4K60 10bit 4:4:4 起步，高刷/8K 还需 DSC）。</li>
+<li><strong>内容端</strong>：母版与元数据按 UWA 规范制作，否则终端再强也无从发挥。</li>
+</ul>
+<p>具体认证门槛（亮度、色域、分区等数值）以 UWA 最新规范与认证细则为准，不同档位的显示设备能力差别很大。</p>
+<blockquote>
+<p>和 Dolby Vision、HDR10+ 一样，<strong>"支持 HDR Vivid"只是入场券</strong>：母版质量、屏幕的映射实现、以及是否真的走对了适配模式，才决定最终观感。</p>
+</blockquote>
+<h2 id="95-hdr10-hdr10-dolby-vision">9.5 三者对比：HDR10 / HDR10+ / Dolby Vision</h2>
+<p>下面这张表把三者摆在一起，值得多看两眼：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th><strong>HDR10</strong></th>
+<th><strong>HDR10+</strong></th>
+<th><strong>Dolby Vision</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元数据</td>
+<td>静态（全片一套）</td>
+<td>动态（逐场景/帧）</td>
+<td>动态（逐场景/帧）</td>
+</tr>
+<tr>
+<td>授权</td>
+<td>开放免费</td>
+<td>开放免费</td>
+<td>专有、需授权认证</td>
+</tr>
+<tr>
+<td>位深（母版/链路）</td>
+<td>10bit</td>
+<td>10bit</td>
+<td>可支持 12bit</td>
+</tr>
+<tr>
+<td>色彩编码</td>
+<td>BT.2020 + YCbCr</td>
+<td>BT.2020 + YCbCr</td>
+<td>常用 ICtCp</td>
+</tr>
+<tr>
+<td>动态元数据载体</td>
+<td>无</td>
+<td>随码流</td>
+<td>RPU</td>
+</tr>
+<tr>
+<td>向下兼容</td>
+<td>——（它就是基础）</td>
+<td>兼容 HDR10</td>
+<td>通常含 HDR10 基础层（视 Profile）</td>
+</tr>
+<tr>
+<td>生态支持</td>
+<td><strong>最广，几乎人人支持</strong></td>
+<td>中等，硬件与内容支持偏少</td>
+<td>较广，但依赖授权认证</td>
+</tr>
+<tr>
+<td>效果潜力</td>
+<td>够用，暗亮两端折中</td>
+<td>优于 HDR10</td>
+<td>通常最精细（视母版与设备）</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart TD
+    H10[&quot;HDR10&lt;br/&gt;静态元数据·全片一套参数·最通用&quot;] --&gt; H10P[&quot;HDR10+&lt;br/&gt;动态元数据·免版税·生态偏少&quot;]
+    H10 --&gt; DV[&quot;Dolby Vision&lt;br/&gt;动态元数据·专有·RPU·ICtCp·可 12bit&quot;]
+    H10P --&gt;|&quot;向下兼容&quot;| H10
+    H10 --&gt; VIVID[&quot;HDR Vivid&lt;br/&gt;动态元数据·UWA 标准·开放生态&quot;]
+    VIVID --&gt;|&quot;向下兼容&quot;| H10
+    DV --&gt;|&quot;通常含 HDR10 基础层&quot;| H10
+    style H10 fill:#e8f4ff
+</pre>
+<figure><img alt="图 09-2　HDR10 / HDR10+ / Dolby Vision 三者对比" src="build/img_opt/09/f2_formats_compare.jpg" /><figcaption>图 09-2　HDR10 / HDR10+ / Dolby Vision 三者对比</figcaption></figure>
+<h2 id="96">9.6 对普通用户，这些差别意味着什么？</h2>
+<p>技术讲完，落到你最关心的问题：<strong>我该在意哪一个？</strong></p>
+<p><strong>先看内容。</strong> 片源给的是什么，比你的志向更重要。一部只发 HDR10 的片子，你的 Dolby Vision 电视也只能按 HDR10 放。</p>
+<p><strong>再看全链路。</strong> 动态元数据要生效，得<strong>播放器、显卡/芯片、线材、接口、显示器</strong>全都支持并正确握手。任意一环掉链子，就会"降级"到 HDR10，甚至掉回 SDR。（见第 15 章）</p>
+<p><strong>别迷信标志。</strong> 看到"Dolby Vision"或"HDR10+"标志，不代表画面一定更好看。观感取决于<strong>母版做得好不好</strong>（内容质量才是天花板），取决于<strong>设备的映射实现水平</strong>（同样的 DV，不同电视差异很大），也取决于<strong>你调没调对</strong>（设置、校准）。</p>
+<p><strong>向下兼容是福利，别当成性能。</strong> "能退回 HDR10 播放"是兼容性设计，不等于你在享受 Dolby Vision 的精细度。</p>
+<pre><code class="language-text">能不能看到&quot;最好&quot;的 HDR，是三重门：
+   内容支持 DV/HDR10+ ？  →  链路全程支持 ？  →  设备映射实现好 ？
+        └────────── 三道全绿灯，才轮到谈&quot;谁更精细&quot;
+</code></pre>
+<p>三者的关系可以这样看：<strong>HDR10 是地基，HDR10+ 和 Dolby Vision 是地基上的两栋精装房；房子装得再好，地基（内容与链路）不行也白搭。</strong></p>
+<p>此外，杜比视界是一项需要硬件层面认证的技术，一台仅支持HDR10的电视无法通过后续的固件升级来获得完整的杜比视界支持，因为它缺少必要的硬件基础。HDR10通常要求10-bit色深（约10.7亿种颜色），而杜比视界的目标规格支持12-bit色深（约687亿种颜色），能带来更平滑的色彩过渡，减少色带现象。只支持HDR10的屏幕在物理上就无法呈现12-bit的色彩信息。</p>
+<p>目前许多流媒体和部分蓝光内容使用杜比视界 Profile 8.1。这种格式的设计本身就考虑了向后兼容性，它的基础层（Base Layer）就是标准的HDR10信号，动态元数据作为额外信息附加在上面。因此，在仅支持HDR10的屏幕上播放Profile 8.1内容时，播放器会忽略掉杜比视界的动态元数据，仅使用HDR10基础层进行解码和显示。你看到的画面是一个正常的HDR10画面，虽然不是杜比视界的最佳效果，但至少色彩和亮度通常是正确的。</p>
+<h2 id="_4">本章小结与常见误区</h2>
+<ul>
+<li><strong>动态元数据</strong>让映射参数<strong>逐场景、甚至逐帧</strong>变化，解决了 HDR10"全片一套参数"的折中困境，实现<strong>暗场不糊、亮场不爆</strong>。</li>
+<li><strong>Dolby Vision</strong>：专有、需授权认证；可支持 12bit；使用 <strong>ICtCp</strong>；动态元数据由 <strong>RPU</strong> 承载；有多个 <strong>Profile</strong>（如 5/7/8）；通常含 HDR10 基础层，可向下兼容。</li>
+<li><strong>HDR10+</strong>：<strong>免版税</strong>的动态元数据方案，主要由三星、亚马逊等推动；基于 HDR10 扩展，天然兼容 HDR10；但<strong>硬件与内容生态支持相对偏少</strong>。</li>
+<li><strong>HDR Vivid</strong>：由 <strong>UWA</strong>（世界超高清视频产业联盟）主导，规范编号 <strong>T/UWA 005.1</strong>；底座与 HDR10 相同（PQ + 10bit + BT.2020），叠加逐场景/逐帧动态元数据。支持分两种适配模式：<strong>接收端适配（主流，屏幕端做 tone mapping）</strong>与<strong>监视器适配（播放设备代做映射）</strong>；不支持时降级为 HDR10。UWA 建议<strong>优先用“接收端适配模式”</strong>连接 Vivid 显示设备。</li>
+<li><strong>三者对比</strong>：HDR10 最通用但只有静态元数据；HDR10+ 免费且动态，生态待成长；Dolby Vision 最精细但专有。</li>
+<li><strong>对用户</strong>：看内容给什么、看链路全不全、看设备实现好不好、别被标志带节奏。</li>
+</ul>
+<p><strong>几个容易混淆的点：</strong></p>
+<ol>
+<li><strong>误区：设备上挂着 Dolby Vision 标，画面就一定比 HDR10 好看。</strong>
+   不一定。观感取决于<strong>母版质量 + 设备映射实现 + 设置校准</strong>。同一部 DV 片在不同电视上差别可能很大；实现不佳的 DV 甚至可能不如调校良好的 HDR10。</li>
+<li><strong>误区：HDR10+ 和 Dolby Vision 可以互相替代、随便选。</strong>
+   不能。它们<strong>不是同一套技术</strong>，元数据格式、载体、兼容方式都不同。设备支持哪个就得用哪个；两者都能播放同一部片的前提，是片源本身就带了对应版本。</li>
+<li><strong>误区：“支持 HDR Vivid”就等于一定能看到 Vivid 效果。</strong>
+   不一定。还要看<strong>适配模式是否走对</strong>（接收端适配 vs 监视器适配）、链路是否全程支持；任一环不支持就会降级成 HDR10，只是降级后仍是正常的 HDR10 画面。</li>
+</ol>
+<h2 id="_5">下一章预告</h2>
+<p>动态元数据、12bit、ICtCp 这些名词背后，都指向同一个问题——<strong>数据量和精度</strong>：HDR 到底要多少位深、怎么压缩才不露馅？下一章我们揭开位深、编码与色度采样的秘密。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

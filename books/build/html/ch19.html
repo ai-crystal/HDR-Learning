@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>第 19 章 选购、校准与色彩管理</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-numbered">
+<main class="page ">
+<h1 id="19">第 19 章 选购、校准与色彩管理</h1>
+<p>前面十八章，我们把 HDR 的原理、标准、硬件、系统和软件都过了一遍。现在到了最实际的一步：<strong>你手里要买什么、买回来怎么调</strong>。这一章不谈厂商广告，只给一份"防坑型"的选购清单，和一套能照着做的校准流程。核心观点先摆在这里：<strong>好 HDR = 硬件能力 + 正确设置 + 校准，三者缺一不可</strong>。只买贵的，或者只看纸面参数，都可能踩坑。读到这里，你已经能判断哪些参数真有用、哪些只是营销词，这一章要做的，就是把这些判断变成具体动作。</p>
+<h2 id="191-hdr">19.1 好 HDR 的三条腿</h2>
+<p>很多人以为"买台贵的 HDR 显示器就完事了"，其实好 HDR 靠三样东西撑起来：</p>
+<pre><code class="language-text">好 HDR 观感
+   ├─ 硬件能力：能亮、能黑、色域够
+   ├─ 正确设置：系统/播放器/游戏都配对
+   └─ 校准：把偏差修正到你实际的环境
+</code></pre>
+<p>少了任何一条，观感都会打折。比如硬件很好但系统里一直开着 HDR 看桌面，SDR 内容就发灰；或者设置全对但从没校准，颜色偏得离谱。</p>
+<h2 id="192">19.2 选购清单：七件事</h2>
+<p>买 HDR 显示器时，按下面这份清单逐项问自己。<strong>优先级从高到低</strong>排列：</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>看什么</th>
+<th>为什么重要</th>
+<th>怎么看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>峰值亮度</td>
+<td>HDR 的"上限"，决定高光冲击力</td>
+<td>看认证等级或实测，别只看标称</td>
+</tr>
+<tr>
+<td>2</td>
+<td>分区调光 / 黑位</td>
+<td>决定暗部纯净度和对比度</td>
+<td>LCD 看分区数与 FALD；OLED 天然好</td>
+</tr>
+<tr>
+<td>3</td>
+<td>对比度与黑位</td>
+<td>黑得下去，亮才有意义</td>
+<td>别信"动态对比度"的百万比一</td>
+</tr>
+<tr>
+<td>4</td>
+<td>色域覆盖</td>
+<td>决定颜色能多"艳"</td>
+<td>看"DCI-P3 覆盖率"，注明参照</td>
+</tr>
+<tr>
+<td>5</td>
+<td>色深</td>
+<td>10bit 起步，避免色带</td>
+<td>看清是"真 10bit"还是 8bit+FRC</td>
+</tr>
+<tr>
+<td>6</td>
+<td>认证</td>
+<td>一份可信的"下限保证"</td>
+<td>DisplayHDR 等级 / True Black（见第 13 章）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>面板类型</td>
+<td>决定对比、可视角度、响应</td>
+<td>IPS/VA/OLED 各有取舍（见第 11、12 章）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>选购口诀</strong>：<strong>先看黑位和峰值，再看色域和色深，最后看认证是否达标。</strong> 峰值亮度单独拎出来看没什么意义：一台能到 1000 nit 却黑不下去的屏，HDR 观感未必比黑位完美的 OLED 好。</p>
+<figure><img alt="图 19-1　HDR 显示器选购七件事（优先级从高到低）" src="build/img_opt/19/f1_buy_checklist.jpg" /><figcaption>图 19-1　HDR 显示器选购七件事（优先级从高到低）</figcaption></figure>
+<h2 id="193">19.3 按用途选：你主要拿它做什么</h2>
+<p>没有"万能最好"的屏幕，只有"更适合你的用途"：</p>
+<ul>
+<li><strong>游戏为主</strong>：优先<strong>响应速度、刷新率、低延迟</strong>，其次才是色准。分区调光带来的高光体验很爽，但要注意某些调光算法会造成游戏画面闪烁。</li>
+<li><strong>影视为主</strong>：优先<strong>黑位、对比度、映射质量</strong>。OLED 的完美黑位在暗场电影里优势明显；大屏观看时分区调光的光晕也要重点考察。</li>
+<li><strong>创作 / 调色为主</strong>：优先<strong>色准、色域覆盖、可校准性、硬件 LUT 支持</strong>，峰值亮度反而不是第一位的。专业创作更看重"准确"而不是"够亮"。</li>
+<li><strong>办公为主</strong>：<strong>未必需要 HDR</strong>。办公长时间看文字，一台色彩准确的 SDR 屏可能比"高亮度 HDR 屏"更舒服。别为了一个用不上的卖点多花钱。</li>
+</ul>
+<h2 id="194">19.4 预算分档建议（只看能力，不谈价格）</h2>
+<p>这里只讲"不同投入量级能买到什么能力"，<strong>不给具体价格和型号</strong>：价格随市场剧烈波动，型号也在快速迭代。怎么判断能力够不够，还是回到上一节的清单。</p>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>大致能获得的能力</th>
+<th>适合谁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>入门档</td>
+<td>约 400 nit 级、无或极少分区调光、色域一般；能开 HDR 但"含水量"高</td>
+<td>只想偶尔体验、预算有限</td>
+</tr>
+<tr>
+<td>主流档</td>
+<td>约 600～1000 nit、有分区调光、覆盖大部分 DCI-P3</td>
+<td>多数游戏/影音用户，性价比区间</td>
+</tr>
+<tr>
+<td>进阶档</td>
+<td>约 1000 nit 以上或 OLED 完美黑位、广色域、认证达标</td>
+<td>追求观感的玩家/爱好者</td>
+</tr>
+<tr>
+<td>专业档</td>
+<td>高色准、硬件 LUT、可精细校准、支持参考级工作流</td>
+<td>调色、影视、设计创作</td>
+</tr>
+</tbody>
+</table>
+<p><strong>提醒</strong>：从"能开 HDR"到"看得舒服"，<strong>主流档往往是甜蜜点</strong>；再往上每一分提升的边际收益都在递减，是否值得要看你有多在意。</p>
+<h2 id="195">19.5 环境光与观看条件</h2>
+<p>校准和观感都跟<strong>环境</strong>强相关，这一条常被忽视：</p>
+<ul>
+<li><strong>环境光越暗，HDR 越"惊艳"</strong>：因为人眼在暗环境下对高光对比更敏感（见第 3 章）。暗室看 HDR 电影，比在明亮客厅看，冲击力完全不同。</li>
+<li><strong>但全黑也不行</strong>：完全黑暗会让暗部细节"糊"在一起。影视行业一般建议显示器背后有一点偏暗的<strong>偏置照明（bias light）</strong>，既能缓解眼疲劳又不破坏对比感。</li>
+<li><strong>白天办公</strong>：环境光强时，屏幕亮度要相应提高才能看清暗部，这时 HDR 的暗场优势反而不明显。所以同一台屏幕"白天和晚上看起来不一样"是正常的。</li>
+</ul>
+<p><strong>结论</strong>：先把观看环境定下来，再谈校准。否则今天校好，明天光线一变又白费。</p>
+<h2 id="196">19.6 校准是什么，为什么要校准</h2>
+<p><strong>校准（calibration）</strong> 就是"拿一个标准仪器去测量屏幕实际发出什么光，再把它的偏差修正过来"。</p>
+<p>非校不可的理由，大致有三个：</p>
+<ul>
+<li>出厂设置是<strong>折中</strong>的：厂商要在"各种环境、各种内容下都不至于难看"之间取舍，而不是为你的房间和你爱看的片调。</li>
+<li>每块面板都有<strong>个体差异</strong>：同型号两台机器颜色可能就不一样。</li>
+<li>面板会<strong>随时间漂移</strong>：用了久了，白点和亮度都会变。</li>
+</ul>
+<p><strong>出厂 ≠ 完美。校准，就是把屏幕拉回标准的过程。</strong></p>
+<p>你屏幕上看到的颜色，很可能并不是它“应该”呈现的颜色。这种偏差会一路误导你的视觉判断，摄影、设计这类对色彩挑剔的工作尤其吃亏。
+在电脑上精修一整天的照片，打印出来颜色不对，任谁都要皱眉头。
+我曾经有个屏幕，色彩非常不准，显示的颜色总比同学的电脑绿一点儿，导致论文的配图在正常屏幕上显示的配色非常丑。</p>
+<p>显示器的色彩失准相当普遍，而且一直存在，原因大概有这几条：
+- 出厂设置并不可靠：许多显示器，即便标称广色域，出厂时也可能偏色或白平衡不准。一些经过“出厂校色”的专业显示器，准确度通常也就到 90% 左右，校色后有望提升到 98% 以上。
+- 色彩会随时间漂移：面板用久了，色彩稳定性会一点点下降。好的显示器也许 4 个月校一次就够，入门级显示器可能 1 个月就准不起来了。不校准，误差只会一直累积。
+- 多屏协作的“灾难”：几台显示器不统一校准，同一张图在这块屏上偏红、在那块屏上偏绿，整条工作流的连贯性都会被搅乱。</p>
+<h2 id="197">19.7 工具：校色仪与软件</h2>
+<ul>
+<li><strong>校色仪（色度计/分光光度计）</strong>：常见品牌有 <strong>X-Rite / Calibrite</strong>（如 ColorChecker 系列）、<strong>Datacolor</strong>（如 Spyder 系列）。它是你"测量屏幕"的尺子，没有它，校准就只能靠眼睛——而眼睛极不可靠。</li>
+<li><strong>校准软件</strong>：<strong>DisplayCAL</strong>（免费开源，功能强大，适合入门到进阶）、<strong>Calman</strong>（商用，专业影视常用）。校准软件负责"读测量值 → 计算修正曲线"。</li>
+</ul>
+<figure><img alt="图 19-2　校准流程：校色仪→软件→ICC/LUT→系统应用" src="build/img_opt/19/f2_calib_flow.jpg" /><figcaption>图 19-2　校准流程：校色仪→软件→ICC/LUT→系统应用</figcaption></figure>
+<p>校色仪干的事很朴素：用客观的硬件测量替代肉眼的估计，把一套可信的色彩基准立起来。以红蜘蛛校色仪（Spyder X）为例，讲一遍校色过程。
+- 修正基础偏差，还原真实色彩：红蜘蛛的光学传感器实际测量屏幕发出的光线，与已知标准比对，再由硬件和软件配合完成校正。色偏被有效消掉，灰阶更中性，肤色看起来也更自然。Datacolor 官方指出，未校色的显示器色彩可能偏移，阴影细节可能丢失，肤色可能失真，最终削弱你的每一个创意决定。
+- 生成 ICC 配置文件，实现可管理的色彩：校色的一项重要产出，是给显示器生成 ICC 配置文件。它相当于显示器的“色彩身份证”，把这块屏实际的色彩特性告诉操作系统和色彩管理软件（如 Photoshop）。有了它，软件才能在设备之间正确转换和显示色彩，跨设备一致性也才有基础。
+- 统一多显示器与跨设备工作流：多屏用户可以用红蜘蛛（尤其是专业型号）的工作室匹配（StudioMatch）功能，测量并匹配多台显示器的亮度、白点和伽马，让它们看起来尽量一致。再进一步，软打样能在校准过的屏幕上模拟图像在特定打印机、纸张或其他手机/平板上的效果，输出之前就能预判最终样子。</p>
+<p>校色只能修正偏色，变不出面板本身显示不了的颜色。色域严重不足（比如低于 95% sRGB）或素质很差的显示器，校色后同样达不到专业标准。它能让普通显示器在自己的能力范围内发挥到最好，仅此而已，变不成专业级设备。</p>
+<p>另外，校色不是一劳永逸的事：显示器会持续老化，环境光线也会变。要求严格的工作，建议按显示器素质定期复校（比如每 1～4 个月）。</p>
+<h2 id="198-icc-3d-lut">19.8 ICC 配置文件与 3D LUT</h2>
+<ul>
+<li><strong>ICC 配置文件</strong>：一份"描述这块屏幕特性的文件"。它告诉操作系统"在这块屏上，颜色应该怎么修正才准"。适合日常使用和大部分消费级工作流。</li>
+<li><strong>3D LUT</strong>：一张更精细的"颜色映射表"，能对 RGB 三通道的组合做三维修正，适合专业调色、影视监看。很多高端显示器和专业软件都支持加载 3D LUT。</li>
+</ul>
+<p><strong>ICC 是"通用矫正处方"，3D LUT 是"更精细的定制处方"</strong>，这个比方大致不差。普通用户用 ICC 就够了；搞创作、尤其影视调色，才会动到 LUT。</p>
+<p>用红蜘蛛这类校色仪做完基础校色，生成的 ICC 配置文件是一条作用于全局的色彩转换规则。它不关心某个具体像素落在屏幕的哪个位置，只定义一套数学变换：输入的颜色数值（比如 RGB 值）经过它，才能在这块显示器上呈现准确的颜色。</p>
+<p>按 ICC 标准，这类转换靠逐通道的色调再现曲线加 3×3 矩阵完成，处理对象是颜色数值，跟像素的物理坐标无关。所以一个红色像素不管出现在屏幕中央还是角落，只要 RGB 输入值相同，经过 ICC 之后得到的校正指令就一样。这是校色最基础、也最核心的一环，为的是让显示器的色彩响应符合标准。</p>
+<p>逐像素校色是更精细的一层，修补的是“物理不均匀”，对付的是显示器硬件的“先天缺陷”。
+背光、面板制造公差等原因，会让屏幕不同区域在输入同一颜色信号时亮度和色温略有差异，比如中心比边缘更亮。要修正这种空间上的不均，就得做逐像素或分区域的补偿。</p>
+<p>实现方式通常有两种：
+- 硬件级逐像素补偿：一些高端显示器（如 EIZO 的部分型号）内置数字均匀性均衡器（DUE）这类技术。出厂前先测量屏幕各点，生成“不均匀补偿图谱”存进芯片；工作时实时分析输入信号，对每个像素的亮度单独增减，让整块屏幕的亮度和色彩看起来尽量一致。
+- 软件/算法级的分区与逐像素校正：有些校准系统用两步法，先以“块”为单位粗调，修正区域性的偏差，再逐个像素微调，用更精细的修正值补个体差异。逐像素的补偿数据量极大，因此离不开高效的查找表（LUT）和算法。</p>
+<p>普通校色仪和基础校色流程，做的多是整体色彩校准。逐像素的均匀性补偿一般出现在高端专业显示器（作为硬件功能）或更复杂的校准系统里，为的是极致的屏幕一致性。</p>
+<p>逐像素校色的 LUT 跟 3D LUT 并不是同一回事。3D LUT 同样是整体校色，只是把 RGB 转换调得更细；走到这一步，一个简单的 3D 矩阵已经不够用了。3D LUT 本身是一张颜色查找表：任意输入 RGB 三元组，查表得到输出 RGB 三元组，跟像素在屏幕上的坐标无关。屏幕中心和角落的两个相同 RGB 值，经过同一个 3D LUT，输出必然相同。简单矩阵能描述的只有线性混合和有限校正，3D LUT 则可以表达：
+- 通道间非线性串扰；
+- 不同亮度/饱和度下的非线性色偏；
+- 更精确的色域映射和软打样；
+- 某些显示器硬件校色中的高精度校准。</p>
+<p>红蜘蛛的基础校色产出 ICC/校准曲线，属于全局色彩校准，通常不做逐像素均匀性补偿；那类补偿更多见于 EIZO DUE、高端监视器或专业校准系统的均匀性校正功能。</p>
+<figure><img alt="图 19-3　ICC 配置文件与 3D LUT 的形状差异" src="build/img_opt/19/f3_icc_lut.jpg" /><figcaption>图 19-3　ICC 配置文件与 3D LUT 的形状差异</figcaption></figure>
+<h2 id="199-windows-hdr">19.9 Windows HDR 校准流程（推荐步骤）</h2>
+<p>Windows 自带一个 <strong>"Windows HDR 校准"应用</strong>，会显示三种测试图案让你手动调。推荐流程如下：</p>
+<ol>
+<li><strong>先做基础校准</strong>：用校色仪 + 校准软件，先把屏幕的 SDR 基础状态（白点、亮度、色域）校到标准。</li>
+<li><strong>打开 HDR</strong>：在系统设置里开启 HDR。</li>
+<li><strong>运行 HDR 校准应用</strong>：依次调整——
+   - <strong>最小亮度</strong>：让最暗的图案刚好可见、不发灰；
+   - <strong>最大亮度（峰值）</strong>：让最亮的图案刚好能分辨、不糊白；
+   - <strong>最大帧平均亮度</strong>：配合你屏幕的实际能力调。</li>
+<li><strong>生成配置文件</strong>：应用会生成一份 ICC 配置文件，系统在 HDR 模式下会用它。</li>
+<li><strong>打开 HGIG（如支持）</strong>：如果显示器/游戏支持 HGiG，建议一起打开（见第 17 章）。</li>
+<li><strong>日常用法建议</strong>：<strong>平时用 SDR，看片、玩游戏时再开 HDR</strong>；一直开着 HDR，SDR 内容会发灰（见第 16 章）。</li>
+</ol>
+<p><strong>没有校色仪怎么办？</strong> 至少把这个 Windows 校准应用走一遍，照图案提示调，体验也能改善不少，只是到不了专业精度。</p>
+<figure><img alt="图 19-4　色彩管理链路：源→配置文件→目标" src="build/img_opt/19/f4_color_mgmt.jpg" /><figcaption>图 19-4　色彩管理链路：源→配置文件→目标</figcaption></figure>
+<h2 id="1910-hdr">19.10 实测验证：HDR 到底生效没</h2>
+<p>校准完、设置完，最后一步是<strong>验证</strong>。别只看"屏幕上出现了 HDR 字样"，要实际测：</p>
+<ul>
+<li><strong>看 HDR 标识</strong>：播放 HDR 片时，显示器/电视通常会有提示或信息页显示"HDR10 / Dolby Vision 接收中"。</li>
+<li><strong>看画面是否"拉开"</strong>：真正的 HDR 高光应该更亮、暗部更干净；如果画面反而发灰发暗，多半是映射或设置不对。</li>
+<li><strong>用测试图/测试片</strong>：网上有专门的 HDR 测试图案（如亮度渐变、色阶），能看出是否出现"高光爆白""暗部糊块""色带"。</li>
+<li><strong>用校色仪实测</strong>：测量开启 HDR 后的峰值亮度、色域覆盖率，和自己的目标对比，能客观判断"达没达标"。</li>
+</ul>
+<p>HDR 这东西，<strong>眼见不一定为实，用工具测才作数。</strong></p>
+<h2 id="_1">本章小结与常见误区</h2>
+<ul>
+<li>好 HDR = <strong>硬件能力 + 正确设置 + 校准</strong>，缺一不可。</li>
+<li>选购看七件事：峰值亮度、分区调光/黑位、对比度、色域覆盖、色深、认证、面板类型；<strong>优先黑位与峰值</strong>。</li>
+<li><strong>按用途选</strong>：游戏看响应、影视看黑位、创作看色准、办公未必需要 HDR。</li>
+<li><strong>预算分档只看能力不看价格</strong>，主流档通常是性价比甜蜜点。</li>
+<li><strong>环境光</strong>直接影响 HDR 观感，先定环境再校准。</li>
+<li>校准靠<strong>校色仪 + 软件</strong>（DisplayCAL / Calman），产出 <strong>ICC 配置文件</strong>，专业场景用 <strong>3D LUT</strong>。</li>
+<li>Windows HDR 校准应用建议按"基础校准 → 开 HDR → 三项调整 → 生成 ICC"的顺序走。</li>
+<li>最后一定要<strong>实测验证</strong>，别只看有没有"HDR"字样。</li>
+</ul>
+<p><strong>几个容易混淆的点：</strong></p>
+<ol>
+<li><strong>"出厂即完美，不用校。"</strong> 错。出厂是折中设置，且有面板个体差异和随时间漂移，校准才能贴近标准。</li>
+<li><strong>"校一次就一劳永逸。"</strong> 错。屏幕会老化漂移，通常需要定期复校（比如每隔一段时间或大改环境后）。</li>
+<li><strong>"色准高 = 好看。"</strong> 这是常见混淆。<strong>色准是"准"，好看是"合我口味"</strong>，两者并不总是一回事：创作要准，娱乐可以稍微偏好。</li>
+</ol>
+<h2 id="_2">下一章预告</h2>
+<p>到这里，HDR 的方方面面都走了一遍。最后一章把常见的坑集中起来，配一张排查流程图，再给一份"继续深造"的路线图。学完它，你差不多就能称得上懂 HDR 了。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

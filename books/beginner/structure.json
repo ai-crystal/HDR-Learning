@@ -1,0 +1,46 @@
+{
+ "sections": [
+  {"id": "cover", "kind": "cover", "src": "front/cover.md"},
+  {"id": "title", "kind": "title", "src": "front/title.md"},
+  {"id": "copyright", "kind": "plain", "src": "front/copyright.md"},
+  {"id": "preface", "kind": "plain", "src": "front/preface.md", "toc": "entry"},
+  {"id": "toc", "kind": "toc"},
+
+  {"id": "part1", "kind": "numbered", "src": "front/part1.md", "toc": "part"},
+  {"id": "ch01", "kind": "numbered", "src": "chapters/ch01.md", "toc": "entry"},
+  {"id": "ch02", "kind": "numbered", "src": "chapters/ch02.md", "toc": "entry"},
+  {"id": "ch03", "kind": "numbered", "src": "chapters/ch03.md", "toc": "entry"},
+
+  {"id": "part2", "kind": "numbered", "src": "front/part2.md", "toc": "part"},
+  {"id": "ch04", "kind": "numbered", "src": "chapters/ch04.md", "toc": "entry"},
+  {"id": "ch05", "kind": "numbered", "src": "chapters/ch05.md", "toc": "entry"},
+  {"id": "ch06", "kind": "numbered", "src": "chapters/ch06.md", "toc": "entry"},
+  {"id": "ch07", "kind": "numbered", "src": "chapters/ch07.md", "toc": "entry"},
+
+  {"id": "part3", "kind": "numbered", "src": "front/part3.md", "toc": "part"},
+  {"id": "ch08", "kind": "numbered", "src": "chapters/ch08.md", "toc": "entry"},
+  {"id": "ch09", "kind": "numbered", "src": "chapters/ch09.md", "toc": "entry"},
+  {"id": "ch10", "kind": "numbered", "src": "chapters/ch10.md", "toc": "entry"},
+
+  {"id": "part4", "kind": "numbered", "src": "front/part4.md", "toc": "part"},
+  {"id": "ch11", "kind": "numbered", "src": "chapters/ch11.md", "toc": "entry"},
+  {"id": "ch12", "kind": "numbered", "src": "chapters/ch12.md", "toc": "entry"},
+  {"id": "ch13", "kind": "numbered", "src": "chapters/ch13.md", "toc": "entry"},
+
+  {"id": "part5", "kind": "numbered", "src": "front/part5.md", "toc": "part"},
+  {"id": "ch14", "kind": "numbered", "src": "chapters/ch14.md", "toc": "entry"},
+  {"id": "ch15", "kind": "numbered", "src": "chapters/ch15.md", "toc": "entry"},
+  {"id": "ch16", "kind": "numbered", "src": "chapters/ch16.md", "toc": "entry"},
+
+  {"id": "part6", "kind": "numbered", "src": "front/part6.md", "toc": "part"},
+  {"id": "ch17", "kind": "numbered", "src": "chapters/ch17.md", "toc": "entry"},
+  {"id": "ch18", "kind": "numbered", "src": "chapters/ch18.md", "toc": "entry"},
+  {"id": "ch19", "kind": "numbered", "src": "chapters/ch19.md", "toc": "entry"},
+  {"id": "ch20", "kind": "numbered", "src": "chapters/ch20.md", "toc": "entry"},
+
+  {"id": "appendix-a", "kind": "numbered", "src": "appendix/appendix-a.md", "toc": "entry"},
+  {"id": "appendix-b", "kind": "numbered", "src": "appendix/appendix-b.md", "toc": "entry"},
+  {"id": "afterword", "kind": "numbered", "src": "front/afterword.md", "toc": "entry"},
+  {"id": "back", "kind": "back", "src": "front/back.md"}
+ ]
+}

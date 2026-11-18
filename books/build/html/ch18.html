@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>第 18 章 内容世界：游戏、影视与创作软件</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-numbered">
+<main class="page ">
+<h1 id="18">第 18 章 内容世界：游戏、影视与创作软件</h1>
+<p>前几章花了大量篇幅讲标准、硬件、系统设置，可还有一件事没落地：<strong>设备全对，没有 HDR 内容，屏幕也演不出 HDR</strong>。这一章把镜头转向"供给侧"：HDR 的内容到底从哪来、长什么样、要用什么软件播放和制作。主线有三条——游戏、影视、创作工具，顺带把编解码和播放器的角色讲清楚。最后还要澄清一个最容易被搞混的概念：<strong>摄影里说的"HDR 合成"，和我们本文讲的"显示 HDR"，几乎不是一回事。</strong></p>
+<h2 id="181-hdr">18.1 HDR 内容从哪来：三条供给线</h2>
+<p>可以把 HDR 内容的来源分成三条线：</p>
+<pre><code class="language-text">            ┌─ 游戏：实时渲染 → 显卡直接输出 HDR
+HDR 内容 ───┼─ 影视：母版调色 → 压缩成 HEVC/AV1 码流
+            └─ 创作：照片/视频后期 → 导出 HDR 文件供人看
+</code></pre>
+<p>三条线的共同点：都要"源端做过 HDR 处理"；区别在于<strong>实时性、压缩方式和播放链路</strong>完全不同。分清了这三条线，遇到 HDR 问题就知道该往哪个方向查。</p>
+<figure><img alt="图 18-1　HDR 内容链路：内容 → 编解码 → 播放器 → 显示，任一环掉链子都会让 HDR 退回 SDR" src="build/img_opt/18/f1_content_chain.jpg" /><figcaption>图 18-1　HDR 内容链路：内容 → 编解码 → 播放器 → 显示，任一环掉链子都会让 HDR 退回 SDR</figcaption></figure>
+<h2 id="182-pc-hdr">18.2 游戏：PC 上最容易尝到 HDR 的入口</h2>
+<p>游戏是 PC 上最容易尝到 HDR 的地方，原因很直接：<strong>显卡实时渲染，天生就知道每个像素该有多亮</strong>，不需要压缩，也不用元数据绕圈，直接把 HDR 信号送给显示器就行。很多人"第一次真正被 HDR 震撼"，就发生在游戏里。</p>
+<h3 id="hdr">原生 HDR</h3>
+<p>游戏引擎（如 Unreal、Unity 等）内部本来就用高动态范围的光照计算，只要开发者愿意，就能直接输出 PQ 编码的 HDR 信号。<strong>这叫原生 HDR（native HDR）</strong>。</p>
+<ul>
+<li>优点：效果最好，高光、暗部、色彩都按开发者设计走。</li>
+<li>前提：游戏设置里要有 HDR 开关，且系统、显卡、显示器链路都支持。</li>
+<li>注意：不少游戏的 HDR 默认调校一般，需要你在<strong>游戏内校准</strong>里手动调（下面讲）。</li>
+</ul>
+<h3 id="auto-hdr">Auto HDR</h3>
+<p><strong>Auto HDR</strong> 是 Windows 提供的一项功能（主要在较新的 Windows 版本上）：它用一套算法，<strong>把原本只有 SDR 的老游戏"猜"成 HDR</strong>，自动把画面亮度拉开。</p>
+<ul>
+<li>好处：让大量没有原生 HDR 的老游戏也能有 HDR 味道，几乎零成本。</li>
+<li>局限：算法"猜"的，不是开发者设计的，<strong>效果不稳定</strong>——有的游戏惊艳，有的则过曝或偏色。</li>
+<li>适用：想快速体验、又懒得折腾时的省事选项。</li>
+</ul>
+<h3 id="rtx-hdr">RTX HDR 类方案</h3>
+<p>英伟达（NVIDIA）等厂商也提供了类似的"驱动级 HDR 转换"方案（常被称为 RTX HDR 之类），同样是把 SDR 游戏实时转成 HDR 输出，还会带上 AI 增强。可以把它理解为 Auto HDR 的"强化版备选"。</p>
+<ul>
+<li>好处：覆盖面广、可调参数多。</li>
+<li>局限：需要新显卡、有性能开销，效果依然取决于算法。</li>
+</ul>
+<blockquote>
+<p>Auto HDR 和 RTX HDR 属于"AI/算法补出来的 HDR"，跟原生 HDR 是两码事，别指望它们能干过开发者精心调的原生实现。</p>
+</blockquote>
+<h3 id="_1">游戏内校准</h3>
+<p>很多游戏（尤其是原生 HDR 的）会在设置里给一套校准界面，通常包含几个滑块：</p>
+<table>
+<thead>
+<tr>
+<th>校准项</th>
+<th>调的是什么</th>
+<th>调错会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最大亮度（纸白亮度）</td>
+<td>屏幕能到多亮</td>
+<td>过高高光爆白，过低整体偏暗</td>
+</tr>
+<tr>
+<td>黑位 / 黑场</td>
+<td>最暗处基准</td>
+<td>调错暗部发灰或糊成黑块</td>
+</tr>
+<tr>
+<td>峰值亮度</td>
+<td>高光上限</td>
+<td>影响高光的"冲击力"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>做法</strong>：按屏幕实际能力调到"图案刚好不糊、细节刚好可见"为止。这一步做对，画质提升比换一根贵线明显得多。至于第三方工具 HGiG 的思路（把映射权交给游戏），见第 17 章。</p>
+<figure><img alt="图 18-3　游戏 HDR 三条路线（原生 / Auto HDR / RTX HDR）与四维度对比" src="build/img_opt/18/f3_game_hdr.jpg" /><figcaption>图 18-3　游戏 HDR 三条路线（原生 / Auto HDR / RTX HDR）与四维度对比</figcaption></figure>
+<h2 id="183">18.3 影视：蓝光与流媒体</h2>
+<p>影视内容和游戏最大的区别：<strong>它是"预先做好、压缩过"的</strong>，播放时只需要解码。</p>
+<h3 id="uhd">UHD 蓝光</h3>
+<p><strong>UHD 蓝光（Ultra HD Blu-ray）</strong> 是目前画质天花板级别的家用载体：</p>
+<ul>
+<li>大多以 <strong>HDR10</strong> 为基础，不少片还带 <strong>Dolby Vision</strong> 或 <strong>HDR10+</strong> 动态元数据（见第 8、9 章）。</li>
+<li>码率很高（通常几十 Mbps 量级），画质损失极小。</li>
+<li>需要配套的 4K 蓝光机或光驱 + 支持 HDCP 2.2 以上的完整链路（见第 15 章）。</li>
+</ul>
+<h3 id="_2">流媒体</h3>
+<p>Netflix、Disney+、YouTube、Bilibili 等平台提供的 HDR：</p>
+<ul>
+<li>片源以 <strong>HDR10</strong> 为主力，部分带 <strong>Dolby Vision</strong>（视平台与会员等级）。</li>
+<li>YouTube 大量使用 <strong>VP9 / AV1</strong>，B 站、国内平台多用 <strong>HEVC</strong>。</li>
+<li>画质受<strong>码率</strong>限制：同样的 HDR 内容，码率低就会出现暗部色带、块状噪点。很多平台到 4K HDR 需要的带宽通常在 <strong>15～25 Mbps</strong> 甚至更高，比 SDR 1080p 高一大截。</li>
+</ul>
+<h3 id="_3">码率与带宽</h3>
+<table>
+<thead>
+<tr>
+<th>内容形态</th>
+<th>典型码率量级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>流媒体 1080p SDR</td>
+<td>约 5～8 Mbps</td>
+<td>基础清晰度</td>
+</tr>
+<tr>
+<td>流媒体 4K HDR</td>
+<td>约 15～25 Mbps 起</td>
+<td>HDR + 高分辨率，需求翻倍</td>
+</tr>
+<tr>
+<td>UHD 蓝光 HDR</td>
+<td>数十 Mbps</td>
+<td>几乎无压缩损失</td>
+</tr>
+</tbody>
+</table>
+<p><strong>常识</strong>：HDR 不等于"更清晰"，可它对带宽的要求<strong>实打实更高</strong>。10bit、更高分辨率、更大的色域范围都要更多数据，压缩器还得额外保护暗部不出现色带。</p>
+<h2 id="184-hevcvp9av1">18.4 编解码：HEVC、VP9、AV1</h2>
+<p><strong>编解码（codec）</strong> 就是"把巨大的原始画面数据压缩成能传输、能存储的码流"的技术。HDR 常用的三种：</p>
+<ul>
+<li><strong>HEVC（H.265）</strong>：目前最普及的 HDR 编解码，蓝光、多数流媒体都用它。压缩效率比老的 H.264 高不少。</li>
+<li><strong>VP9</strong>：Google 主导，YouTube 大量使用，免版税，但对 HDR 元数据的支持不如 HEVC 成熟。</li>
+<li><strong>AV1</strong>：新一代免版税编解码，压缩效率更高，被认为会逐渐接替 HEVC/VP9；目前支持它的硬件和软件还在普及中。</li>
+</ul>
+<p><strong>HDR 的元数据（静态或动态）必须"跟着码流一起走"</strong>。编解码器除了压画面，还得把"这片子多亮、什么色域、逐场景映射参数"一并打包。选错了编解码器，可能出现"画面是 HDR，但元数据丢了"的尴尬。</p>
+<p>还有一点容易漏掉：<strong>HDR 视频几乎都是 10bit 起步</strong>。原因跟"好看"无关，是 PQ 曲线在暗部特别陡（见第 7、10 章），8bit 走这条曲线会压出一圈圈"色带"。判断一个平台是不是"真 HDR"，可以顺带看看它给的是不是真 10bit 码流：省流量的平台有时会偷偷降回 8bit。</p>
+<figure><img alt="图 18-2　HEVC / VP9 / AV1 对 HDR 元数据的支持对比与相对码率" src="build/img_opt/18/f2_codec_support.jpg" /><figcaption>图 18-2　HEVC / VP9 / AV1 对 HDR 元数据的支持对比与相对码率</figcaption></figure>
+<h2 id="185-madvr-mpv">18.5 播放器：madVR / mpv 的角色</h2>
+<p>在 PC 上看 HDR 影视，观感的大头往往落在<strong>播放器</strong>上，显示器反而次要。</p>
+<ul>
+<li><strong>PotPlayer / MPC-HC 等主流播放器</strong>：普通播放够用，但 HDR 映射能力一般，直连时可能出现发灰或过曝。</li>
+<li><strong>madVR</strong>：一套强大的视频渲染器，以"优秀的色调映射"闻名，能根据屏幕能力做高质量映射，是很多影音爱好者折腾的重点（配置门槛也高）。</li>
+<li><strong>mpv</strong>：开源播放器，脚本化能力强、映射可控，配合各种配置能玩出很多花样，适合愿意钻研的人。</li>
+</ul>
+<p>播放器在这里扮演的是"<strong>色调映射引擎</strong>"（见第 17 章）。同一部 HDR 片，换一个映射做得好的播放器，观感能差出好几条街。</p>
+<h2 id="186">18.6 创作软件：调色与图片</h2>
+<p>如果你想自己"做"HDR 内容，得先认识这些工具：</p>
+<ul>
+<li><strong>视频调色</strong>：DaVinci Resolve（免费版就很强）、Adobe Premiere、Apple Final Cut。它们能读取 HDR 素材、做 HDR 分级，并导出带 HDR 元数据的成片。<strong>做 HDR 调色通常需要一台能做 HDR 参考监看的显示器</strong>，否则你调的是"猜的"。</li>
+<li><strong>图片处理</strong>：Photoshop、Lightroom 等已逐步支持 10bit HDR 图片格式与宽色域工作流。</li>
+<li><strong>参考显示器（参考监看）</strong>：专业 HDR 创作依赖能显示目标亮度/色域的屏，家用设备基本做不到严格意义上的"参考级"。</li>
+</ul>
+<p>创作端对自己的显示设备和色彩知识的要求，比消费端高得多。</p>
+<p>如果你只是普通爱好者，也不必被这些专业工具吓住。想给自己拍的视频加一点 HDR 味道，用手机或相机录一段支持 HLG 的素材，再在一个支持 HLG 的 HDR 屏上回放，就已经是完整的"采集 → 播放"小闭环了。入门可以从这里开始，之后再决定要不要深入专业调色。</p>
+<h2 id="187-hdr-hdr">18.7 特别澄清：摄影的"HDR 合成" ≠ 显示 HDR</h2>
+<p>这一节专门把一个误会说清楚。</p>
+<p><strong>摄影里的"HDR"</strong>（HDR 合成 / HDR merge）是一种<strong>拍摄与后期技巧</strong>：对同一场景用不同曝光拍好几张（-2EV、0、+2EV……），再合成一张"暗部也亮、亮部也有细节"的普通图片。它做的是<strong>把多张照片的信息压进一张普通图像</strong>，最终这张图依然是<strong>用普通 SDR 屏幕看的</strong>。</p>
+<p><strong>我们本文讲的"显示 HDR"</strong>，是<strong>从内容编码、传输、到显示器发光</strong>的一整套体系：10bit、PQ、BT.2020、HDR10……</p>
+<p>两者只是恰好共用了"HDR"这三个字。可以这样记：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>摄影的 HDR 合成</th>
+<th>显示 HDR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目的</td>
+<td>一张图里塞下更多亮度层次</td>
+<td>让屏幕真的发出更亮/更纯的光</td>
+</tr>
+<tr>
+<td>载体</td>
+<td>普通 JPEG/RAW（SDR）</td>
+<td>PQ 编码的 10bit 视频流</td>
+</tr>
+<tr>
+<td>需要 HDR 屏吗</td>
+<td>不需要</td>
+<td>需要（否则要靠映射）</td>
+</tr>
+<tr>
+<td>关键词</td>
+<td>多张曝光合成</td>
+<td>传递函数 + 元数据 + 广色域</td>
+</tr>
+</tbody>
+</table>
+<p><strong>所以</strong>：一张"HDR 合成"的照片，绝大多数情况只是一张普通 SDR 图片；而一部"HDR10 电影"，也跟摄影的曝光合成毫无关系。</p>
+<figure><img alt="图 18-4　摄影的“HDR 合成”与显示 HDR 的全链路对比" src="build/img_opt/18/f4_photo_vs_display.jpg" /><figcaption>图 18-4　摄影的“HDR 合成”与显示 HDR 的全链路对比</figcaption></figure>
+<h2 id="_4">本章小结与常见误区</h2>
+<ul>
+<li>HDR 内容有三条供给线：<strong>游戏（实时渲染）</strong>、<strong>影视（预压缩码流）</strong>、<strong>创作（后期导出）</strong>。</li>
+<li>游戏是 PC 上最容易体验 HDR 的入口：<strong>原生 HDR</strong> 最好，<strong>Auto HDR / RTX HDR</strong> 是算法补出的近似款。</li>
+<li>影视主力是 <strong>UHD 蓝光</strong>（画质天花板）与 <strong>流媒体</strong>（方便但吃带宽）。</li>
+<li>常见 HDR 编解码：<strong>HEVC、VP9、AV1</strong>，元数据随码流传输。</li>
+<li><strong>播放器（尤其 madVR/mpv）相当于色调映射引擎</strong>，直接决定观感。</li>
+<li>创作端需要 HDR 参考监看，门槛远高于消费端。</li>
+<li><strong>摄影的"HDR 合成"和"显示 HDR"是两回事</strong>，只共用了同一个词。</li>
+</ul>
+<p><strong>几个容易混淆的点：</strong></p>
+<ol>
+<li><strong>"把一张 JPEG 照片全屏播放，就是看 HDR 了。"</strong> 错。JPEG 绝大多数是 8bit SDR 内容，打开 HDR 模式只会让它被映射得发灰或过曝，不会凭空变成 HDR。</li>
+<li><strong>"流媒体标了 HDR 就画质无敌。"</strong> 错。码率不足时 HDR 反而更容易暴露暗部色带和压缩噪点，带宽是硬门槛。</li>
+</ol>
+<h2 id="_5">下一章预告</h2>
+<p>内容会看、也会播了，接下来是所有人最关心的问题：<strong>到底怎么挑一台好 HDR 显示器，买回来又该怎么校准？</strong> 下一章给你完整的选购清单与色彩管理流程。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

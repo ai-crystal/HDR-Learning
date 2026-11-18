@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>第 04 章 颜色的坐标系：CIE、色度图与三刺激值</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-numbered">
+<main class="page ">
+<h1 id="04-cie">第 04 章 颜色的坐标系：CIE、色度图与三刺激值</h1>
+<p>本章要回答一个听起来有点哲学的问题：颜色到底是什么？为什么"红色"这种主观感受，可以用两个数字描述出来？答案要靠一套<strong>颜色的坐标系</strong>——有了它，颜色才能被计算、被比较，后面讲色域、白点、色彩空间时也不至于变成天书。这一章几乎不需要数学，跟着几个比喻走完就行。</p>
+<h2 id="41">4.1 颜色不在光里，而在"光 + 眼睛 + 大脑"里</h2>
+<p>先纠正一个直觉：<strong>颜色不是光的物理属性，而是人脑的感知结果。</strong></p>
+<p>光是电磁波。按波长排开，就是熟悉的电磁波谱：无线电、微波、红外、可见光、紫外、X 射线……其中<strong>可见光</strong>只占窄窄的一小段，波长大约从 380 nm（纳米，十亿分之一米）到 780 nm。</p>
+<p>这段区间里，不同波长给人的感觉大致是：短波偏紫蓝，中段是绿，长波偏红。但<strong>波长本身没有"颜色"</strong>。380 nm 和 780 nm 的电磁波，物理上都是振动，差别只在频率。是眼睛里的接收器把不同波长翻译成不同信号，大脑再把它读成"紫"或"红"。</p>
+<p>可以这样想：刀割在手上，刀是物理的，<strong>痛</strong>是感觉。电磁波是物理的，<strong>颜色</strong>是感觉。要研究颜色，就得同时研究"光"和"这双眼睛怎么接收光"。</p>
+<figure><img alt="图 04-1　电磁波谱与可见光窗口：可见光只是 380–780 nm 的一小段" src="build/img_opt/04/f1_spectrum.jpg" /><figcaption>图 04-1　电磁波谱与可见光窗口：可见光只是 380–780 nm 的一小段</figcaption></figure>
+<h2 id="42">4.2 人眼的三种接收器：三条并行的传感器通道</h2>
+<p>人眼视网膜上有两类感光细胞：</p>
+<ul>
+<li><strong>视杆细胞（rods）</strong>：数量多、极其敏感，负责在暗处看清轮廓，但不分辨颜色。</li>
+<li><strong>视锥细胞（cones）</strong>：数量少一些（约几百万个），负责明亮环境下的颜色和细节。</li>
+</ul>
+<p>关键在于：视锥细胞不止一种，而是分成 <strong>S、M、L 三种</strong>，分别对短波（Short，偏蓝）、中波（Medium，偏绿）、长波（Long，偏红）最敏感。它们的响应曲线又宽又彼此重叠，所以并不存在"蓝光只刺激 S、红光只刺激 L"这种事，任何一种光都会按不同比例同时刺激三种视锥。</p>
+<p>这样一来，人眼对颜色的"输入"只剩 <strong>3 个数字</strong>——三种视锥各被刺激了多少。这个事实叫<strong>三色视觉（trichromacy）</strong>。</p>
+<p>推论相当有力：<strong>只要两种光能让 S/M/L 产生完全相同的刺激比例，人眼就认为它们是同一种颜色</strong>，哪怕这两种光的物理光谱差得很远。电视用三种原色（红、绿、蓝）就能模拟出千千万万种颜色，靠的就是这一点。</p>
+<figure><img alt="图 04-2　S / M / L 三种视锥的响应曲线（右：一个波长刺激出三个数）" src="build/img_opt/04/f2_cones.jpg" /><figcaption>图 04-2　S / M / L 三种视锥的响应曲线（右：一个波长刺激出三个数）</figcaption></figure>
+<h2 id="43">4.3 三刺激值：把颜色写成三个数</h2>
+<p>既然眼睛只认三个数，能不能反过来，用三个数描述任意一种颜色？可以。这三个数叫<strong>三刺激值（tristimulus values）</strong>。</p>
+<p>它的实验基础是"色匹配实验"：让人看左边一个待测颜色，右边用三种原色（红、绿、蓝）的灯光混合，调节三种灯的比例，直到两边看起来一模一样。这时三种原色所用的比例，就是这种颜色的三刺激值。</p>
+<p>色匹配函数描述的正是这件事：对每一个波长，三种原色各需要多少量才能把它配出来。</p>
+<p>不过这早期用真实红绿蓝原色搭起来的系统有个麻烦：有些颜色（比如非常饱和的青），靠加光怎么都配不出来，得"往待测色里加红"才能匹配，数学上于是出现负数，很不方便。</p>
+<p>1931 年，国际照明委员会（Commission Internationale de l'Éclairage, CIE）做了一件聪明事：<strong>用数学变换把真实的红绿蓝响应，换成一组人为构造的、永远非负的曲线</strong>，记作 X、Y、Z。这就是<strong>CIE 1931 XYZ</strong> 色彩空间的来历。</p>
+<ul>
+<li><strong>X、Y、Z</strong>：三种"虚拟原色"的刺激量，都由光谱能量乘以对应的<strong>色匹配函数（color matching functions）</strong>再积分得到。</li>
+<li>其中 <strong>Y 被特意设计成正好等于亮度（luminance）</strong>，这一点后面会反复用到。</li>
+</ul>
+<p><strong>XYZ 并不对应真实的光，它是一套为了计算方便而发明出来的"翻译坐标系"。</strong></p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>是什么</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S/M/L 视锥</td>
+<td>人眼真实的三种接收器</td>
+<td>相机里的三种传感器</td>
+</tr>
+<tr>
+<td>色匹配函数</td>
+<td>人为定义的响应曲线 x̄(λ)、ȳ(λ)、z̄(λ)</td>
+<td>参照标准，方便换算</td>
+</tr>
+<tr>
+<td>三刺激值 X, Y, Z</td>
+<td>一种颜色的三个坐标</td>
+<td>一个点的三个坐标值</td>
+</tr>
+</tbody>
+</table>
+<p>补充一句：CIE 1931 用的是约 2° 的小视场（只看视野中心），后来还有 10° 视场的版本，数据略有不同。知道"实验条件会影响数据"就够了。</p>
+<figure><img alt="图 04-3　CIE 1931 色匹配函数 x̄ ȳ z̄（对照真实 RGB 响应会出现负值）" src="build/img_opt/04/f3_cmf.jpg" /><figcaption>图 04-3　CIE 1931 色匹配函数 x̄ ȳ z̄（对照真实 RGB 响应会出现负值）</figcaption></figure>
+<h3 id="rgb-xyz">从 RGB 到 XYZ 的流程</h3>
+<p>负值在工程和计算里很麻烦：光强不能为负，很多颜色计算也希望三个刺激值都非负；再加上还希望其中一个量直接代表亮度。于是 CIE 做了一次线性变换：</p>
+<p>$$ 
+\begin{bmatrix}
+X \\
+Y \\
+Z
+\end{bmatrix}
+=
+M
+\begin{bmatrix}
+R \\
+G \\
+B
+\end{bmatrix}
+$$</p>
+<p>这里的 R,G,B 是原来实验得到的 CIE RGB 三刺激值，M 是一个精心选择的 3×3 矩阵。 变换后得到新的三条色匹配函数 </p>
+<p>$\bar{x}(\lambda),\ \bar{y}(\lambda),\ \bar{z}(\lambda)$</p>
+<p>这个变换做的事情，是换一组新的“虚拟原色”作为基。</p>
+<p>颜色混合满足叠加原理，这是 Grassmann 定律的核心： 如果光谱 A 产生三刺激值 $(X_A, Y_A, Z_A)$； 光谱 B 产生 $(X_B, Y_B, Z_B)$； 那么光谱 $A + B$ 产生 $(X_A + X_B, Y_A + Y_B, Z_A + Z_B)$。系统是线性的，这一点由此而来：复杂光谱无非是许多单色光相加，它的三刺激值也就是各个单色光三刺激值之和。</p>
+<p>再往前一步，无论 RGB 色度曲线还是 XYZ 色度曲线，都可以理解成一组基函数。但严格来说， $\bar{x},\bar{y},\bar{z}$ 不是颜色空间的基，而是线性泛函的核。对于任意一个光谱功率分布 $S(\lambda)$，它的 XYZ 三刺激值是：</p>
+<p>$$
+X = k \int S(\lambda)\bar{x}(\lambda)\,d\lambda $$</p>
+<p>$$
+Y = k \int S(\lambda)\bar{y}(\lambda)\,d\lambda $$</p>
+<p>$$
+Z = k \int S(\lambda)\bar{z}(\lambda)\,d\lambda
+$$</p>
+<p>其中，$S(\lambda)$ 是光源或物体反射光的光谱能量分布； $\bar{x},\bar{y},\bar{z}$ 是CIE 1931 XYZ 色匹配函数； $k$ 是归一化常数，常取 683 lm/W，使 Y 直接对应亮度； 积分范围一般是 360–830 nm 或 380–780 nm。物理意义很直观：把光谱里每个波长的能量，乘上该波长对 X、Y、Z 三种虚拟原色的“贡献权重”，再全部加起来。只是要分清，功率谱有强弱之分，色度曲线本身并不含强弱。</p>
+<h2 id="44-xyz">4.4 从 XYZ 到色度图：把"亮度"从坐标里抽走</h2>
+<p>X、Y、Z 三个数放在一起，既描述了"颜色种类"，又混进了"有多亮"。可我们通常想分开谈：这块红<strong>是什么红</strong>，和它<strong>有多亮</strong>，是两件事。</p>
+<p>于是引入<strong>色度坐标（chromaticity coordinates）</strong>：</p>
+<pre><code class="language-text">x = X / (X + Y + Z)
+y = Y / (X + Y + Z)
+z = Z / (X + Y + Z)
+</code></pre>
+<p>因为 x + y + z = 1，所以<strong>只需要 x、y 两个数</strong>就能定位"是什么颜色"，第三个数被自动确定。亮度 Y 则单独拿出来表示"多亮"。</p>
+<p>把所有可能颜色的 (x, y) 画在一张二维图上，就得到著名的 <strong>CIE 色度图（chromaticity diagram）</strong>，形状像一个马蹄或舌头。</p>
+<figure><img alt="图 04-4　CIE 1931 马蹄形色度图：光谱轨迹、白点 D65、黑体轨迹与标色点" src="build/img_opt/04/f4_chromaticity.jpg" /><figcaption>图 04-4　CIE 1931 马蹄形色度图：光谱轨迹、白点 D65、黑体轨迹与标色点</figcaption></figure>
+<p>怎么读这张图：</p>
+<ul>
+<li><strong>外侧弯曲的边界</strong>（光谱轨迹，spectral locus）是单波长纯色，最饱和，人眼能看到的最极端颜色都在这一圈上。</li>
+<li><strong>底边那条直边</strong>（紫线，line of purples）不是真实光谱，而是人为把红端和紫端连起来，代表"红紫混合"这类颜色。</li>
+<li><strong>越靠中间越"白"、越不饱和</strong>；越靠边缘越鲜艳。</li>
+<li>图外（马蹄之外）的点<strong>不存在</strong>——没有任何光能对应那些坐标。</li>
+</ul>
+<p><strong>色度图就是一张"颜色地图"</strong>：图上的位置对应"什么颜色"，某台显示设备能覆盖的区域，就是它在这张地图上的"领土"。</p>
+<p>有一点容易混淆：用 R、G、B 三原色做匹配实验得到的响应值，并不是所谓的 sRGB。那套实验要尽可能全面地囊括所有光的颜色，而 sRGB 只是这全部颜色里的一个子集。</p>
+<p>从色度图上也能看出来，有色区域并不紧贴坐标轴，最小的 X、Y 坐标值都不为 0。原因在于向 XYZ 的变换要求把 Y 对应到亮度。</p>
+<h3 id="_1">虚拟原色</h3>
+<p>X、Y、Z 是“虚拟原色”，它们不是真实存在的三种光，而是数学坐标轴。 在色度图上，所有真实可见颜色构成一个马蹄形区域，边界是光谱轨迹。 而 X、Y、Z 三个原色对应的点，落在这个马蹄形外面。 你没法用一台由 X、Y、Z 三种灯组成的显示器把它们物理实现出来，它们只是数学上的基向量。任何真实颜色都可以写成： </p>
+<p>$$ C = X \cdot X_{\text{原色}} + Y \cdot Y_{\text{原色}} + Z \cdot Z_{\text{原色}} $$</p>
+<p>其中 X,Y,Z 非负。 三个原色本身不可实现，它们的非负线性组合却能覆盖所有可见色。</p>
+<p>Y 直接代表亮度，这是 CIE 设计 XYZ 时故意做的。 他们让 $\bar{y}(\lambda)$ 等于人眼的明视觉光谱光视效率函数 $V(\lambda)$。 $V(\lambda)$ 描述人眼对不同波长光的亮度感知效率，峰值在 555 nm 附近。 于是：</p>
+<p>$$Y = k \int S(\lambda)\bar{y}(\lambda)\,d\lambda$$</p>
+<p>就直接正比于人眼感知的亮度。 而 X 和 Z 对亮度没有贡献。 XYZ 空间的好处就在这里： Y 管亮度； X、Z 只贡献色度。</p>
+<h2 id="45">4.5 白点：颜色地图的"原点"</h2>
+<p>地图需要原点。色度图上的"纯白"也不唯一，不同光源的"白"色度并不相同：白炽灯的白偏黄，正午天空的白偏蓝。</p>
+<p>所以每种色彩空间都得<strong>指定一个白点（white point）</strong>，也就是"把哪一对 (x, y) 当作纯白"。常见的有：</p>
+<table>
+<thead>
+<tr>
+<th>白点</th>
+<th>大致含义</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>典型白炽灯，偏暖黄</td>
+<td>部分照明计算</td>
+</tr>
+<tr>
+<td>D50</td>
+<td>偏暖的日光</td>
+<td>印刷、摄影</td>
+</tr>
+<tr>
+<td><strong>D65</strong></td>
+<td>平均正午日光，约 6500 K</td>
+<td>sRGB、BT.709、BT.2020 通用</td>
+</tr>
+<tr>
+<td>DCI 白点</td>
+<td>略暖（约 6300 K 量级）</td>
+<td>数字电影 DCI-P3</td>
+</tr>
+</tbody>
+</table>
+<p>这里的"K"是<strong>色温（color temperature）</strong>的单位：把理想黑体加热到某温度时发出的光色，用来描述"这个白偏冷还是偏暖"。6500 K 大致算中性偏冷。</p>
+<p><strong>sRGB 和 BT.709 都以 D65 为白点</strong>，这条值得单独记一下。白点不一致，是"同一张图在两台设备上颜色不一样"的常见原因之一（见第 5 章、第 19 章）。</p>
+<h2 id="46-y">4.6 亮度住在 Y 里</h2>
+<p>XYZ 里最容易记混的一点，是 <strong>Y 分量就是亮度（luminance）</strong>。</p>
+<ul>
+<li><strong>x、y</strong> 描述"什么颜色"（色调 + 饱和度）。</li>
+<li><strong>Y</strong> 描述"有多亮"。</li>
+</ul>
+<p>同一个 (x, y) 下把 Y 慢慢调大，颜色会从深红变到亮红，再往刺眼的白红走。这也解释了后面讲视频编码时，为什么要把图像拆成"亮度 + 两个色度"通道——亮度对人眼重要得多，可以多分配数据（见第 10 章）。</p>
+<figure><img alt="图 04-5　由三刺激值 XYZ 拆出色度坐标 (x, y) 与亮度 Y" src="build/img_opt/04/f5_xyY.jpg" /><figcaption>图 04-5　由三刺激值 XYZ 拆出色度坐标 (x, y) 与亮度 Y</figcaption></figure>
+<h2 id="47">4.7 用这张地图描述"能到哪儿"</h2>
+<p>最后把工具用起来。一台显示设备的三种基色，在色度图上是三个点，连起来就是一个<strong>三角形</strong>。三角形内部是这台设备能显示的全部颜色，三角形之外它显示不了——这就是<strong>色域（color gamut）</strong>的几何含义。</p>
+<pre class="mermaid">graph LR
+  A[&quot;红基色点&quot;] --&gt; B[&quot;绿基色点&quot;]
+  B --&gt; C[&quot;蓝基色点&quot;]
+  C --&gt; A
+  A -.-&gt; D[&quot;三角形内部 = 可显示颜色范围&quot;]
+</pre>
+<p>三角形越大，设备"能到的领土"越广。第 5 章我们就用这套语言，把 sRGB、DCI-P3、BT.2020 挨个量一遍。</p>
+<h2 id="48">4.8 三个必须避开的坑</h2>
+<ol>
+<li><strong>XYZ 不等于"绝对颜色"</strong>：它仍依赖观察者（标准观察者模型）和观测条件（视场大小、光源）。不同人、不同条件下，同一组数值带来的感受并不完全一致。</li>
+<li><strong>色度图的 x、y 不是感知均匀的</strong>：图上距离相等，不代表"看起来差得一样多"。后来出现 1960 均匀色度标尺、1976 u'v' 图，原因就在这里。</li>
+<li><strong>三角形面积大 ≠ 观感提升成正比</strong>：面积大只说明"领土大"，不代表日常画面就一定好看，还要看覆盖是否落在常用颜色区间、白点准不准、内容是否真用到那些颜色。</li>
+</ol>
+<h2 id="_2">本章小结与常见误区</h2>
+<ul>
+<li>颜色是<strong>感知</strong>，不是光的物理属性；光只是电磁波的一段（约 380–780 nm）。</li>
+<li>人眼有三种视锥（S/M/L），因此颜色可以用<strong>三个数</strong>描述，这是"三色视觉"。</li>
+<li><strong>三刺激值</strong>用三个数表示一种颜色；<strong>CIE 1931 XYZ</strong> 是为计算方便人为构造的一套非负坐标系。</li>
+<li>引入<strong>色度坐标 x、y</strong> 后，颜色种类（x, y）与亮度（Y）可以分开描述。</li>
+<li><strong>色度图</strong>是一张"颜色地图"：外圈是纯色光谱轨迹，中间越来越白，图外颜色不存在。</li>
+<li><strong>白点</strong>是地图的"原点"，D65 是 sRGB/BT.709/BT.2020 的通用白点。</li>
+<li><strong>色域</strong>就是设备三基色在色度图上连成的三角形，三角形越大，能显示的颜色范围越广。</li>
+</ul>
+<p><strong>几个容易混淆的点：</strong></p>
+<ol>
+<li><strong>误区：XYZ 能描述"绝对颜色"。</strong> 不对。它依赖标准观察者和观测条件，只是"足够好用的约定"，不是物理真理。</li>
+<li><strong>误区：色度图面积大一倍，观感就好一倍。</strong> 不对。xy 不是感知均匀坐标，面积差和"看得出的提升"不成正比。</li>
+</ol>
+<h2 id="_3">下一章预告</h2>
+<p>有了这张颜色地图，下一章就拿它当尺子，把 sRGB、DCI-P3、BT.2020 这几个常见色域挨个量一遍，顺便破除"色域越大越好"的迷信。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

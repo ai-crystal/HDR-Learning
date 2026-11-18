@@ -1,9 +1,9 @@
-# HDR 超详解
+# HDR 技术系列
 
-> 从像素到眼睛的完整指南
+> 从像素到眼睛，再到色彩科学与工程实现
 
-- 6 篇 20 章 · 90 余张原创示意图
-- 从光与颜色，到面板、接口、系统与调色
+- 入门篇 · 色彩科学篇 · HDR 技术篇
+- 三册共用一套术语与图示风格
 
-[开始阅读](book/chapters/ch01.md)
-[下载 PDF](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)
+[开始阅读](books/beginner/chapters/ch01.md)
+[下载入门篇](https://ai-crystal.github.io/HDR-Learning/output/HDR-Basics.pdf)

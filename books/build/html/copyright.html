@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>copyright</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-plain">
+<main class="page ">
+<h2 id="_1">版本信息</h2>
+<p><strong>书名</strong>　HDR 超详解：从像素到眼睛的完整指南</p>
+<p><strong>作者</strong> Dezeming</p>
+<p><strong>成文日期</strong>　2026 年 10 月</p>
+<p><strong>版本</strong>　第一版</p>
+<hr />
+<h3 id="_2">内容简介</h3>
+<p>高动态范围（HDR）技术是一条从内容制作到你的眼睛的完整链路。本文用最直白的话，把这条链路一截一截讲清楚——从光与颜色的基础，到色域与传递函数，到 HDR10、杜比视界、HDR10+ 与 HLG 的规则，再到面板、接口、操作系统、播放软件与调色，最后落到选购、校准与排查。读完之后，你不仅能看懂显示器参数表，还能自己动手把设备调到最佳状态。</p>
+<h3 id="_3">撰写说明</h3>
+<p>现有 HDR 书籍与网络资料质量不一，部分表述相互矛盾，部分内容对初学者不够友好。
+我们在撰写前曾遇到大量 HDR 调试方面的疑问，而不同资料（包括通用 AI 工具给出的解释）常出现不一致甚至自相矛盾之处，往往需要查阅更多资料进行交叉验证。
+基于这一经历，我希望系统汇总相关资料，编写一本力求系统、准确、可追溯的 HDR 参考资料。</p>
+<p>我们起初低估了完成本书的难度，实际完成时间比我预估的时间更长。
+本书并非简单概念汇编，而是力图从“是什么”推进到“为什么”，解释其背后的技术原理。
+其中不少内容与常识或直觉相悖，涉及百余年的技术积累。</p>
+<p>为尽可能保证内容准确，本书技术内容以截至写作时已发布的相关标准与论文为主要依据，参考文献见附录。
+对于标准未明确覆盖、存在争议或需要经验判断之处，书中将明确说明其依据、性质与适用范围，避免将推断表述为既定结论。</p>
+<p>本书采用人工检索与 DeepSeek v4 辅助搜集、交叉排查资料；在广泛资料搜集的基础上，使用 DeepSeek v4 生成大纲和各章简版，再逐章补充、完善内容。
+各章附图由 GPT 5.6 生成绘图代码并渲染，随后经人工审查；所有插图均未采用直接文生图方式生成。</p>
+<p>我们对全书进行了审查与校正，并补充、完善了缺失的技术原理；额外补充与说明的内容超过全文篇幅的 50%，以进一步丰富相关知识理论体系。
+全文符号均经重新审查，以尽量避免歧义。
+我对文中每句话的含义与原理均进行了核查，力求不引入未经理解或无法说明依据的内容。</p>
+<p>受资料可及性与作者能力所限，书中仍可能存在疏漏，恳请读者指正。</p>
+<h3 id="_4">阅读提示</h3>
+<ul>
+<li>本文亮度单位统一使用 <strong>nit</strong>（读作“尼特”，即 cd/m²，二者等价）。</li>
+<li>涉及的行业标准与产品参数会随版本演进而变化，如需用于专业制作，请以官方最新标准文档为准。</li>
+<li>本文不涉及更复杂的技术，例如屏幕硬件、材料学、光学、波形分析、测量技术等。</li>
+</ul>
+<h3 id="_5">免责声明</h3>
+<p>本文为学习与科普读物，力求内容准确、表述清楚。因 HDR 涉及众多国际标准、厂商实现与产品型号，个别数值与实现细节可能随版本更新而变化，本文不对第三方产品或标准的后续变化承担责任。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

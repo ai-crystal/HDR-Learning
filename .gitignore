@@ -2,12 +2,9 @@
 _private/
 
 # 构建中间产物
-book/build/html/
-book/build/pdf/
-book/build/img_opt/
-book/build/outline.json
-book/build/last_output.txt
-
-# Python 缓存
+books/build/tmp/
 __pycache__/
 *.pyc
+
+# 本地参考论文（不上传）
+papers/

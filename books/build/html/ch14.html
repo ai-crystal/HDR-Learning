@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<base href="file:///E:/Study/HDR技术/book/">
+<title>第 14 章 接口与带宽：HDMI、DisplayPort 与 USB-C</title>
+<style>
+@page { size: A4; margin: 20mm 20mm 22mm 20mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html,body{ margin:0; padding:0; }
+body{ font-family:"Source Han Serif SC","Noto Serif CJK SC","SimSun","宋体",serif;
+      font-size:10.5pt; line-height:1.78; color:#1b1b1b; }
+.page{ }
+h1,h2,h3,h4{ font-family:"Microsoft YaHei","微软雅黑","SimHei",sans-serif; color:#12233b; line-height:1.35; }
+h1{ font-size:19pt; margin:0 0 14pt; padding-bottom:7pt; border-bottom:2.4pt solid #1f4e79; }
+h2{ font-size:14pt; margin:18pt 0 8pt; }
+h3{ font-size:11.5pt; margin:14pt 0 6pt; color:#1f4e79; }
+h4{ font-size:10.5pt; margin:12pt 0 5pt; }
+p{ margin:0 0 8pt; text-align:justify; }
+ul,ol{ margin:0 0 8pt; padding-left:2.6em; }
+li{ margin:2pt 0; }
+blockquote{ margin:10pt 0; padding:6pt 12pt; border-left:3pt solid #1f4e79; background:#f3f6fa; color:#3f3f3f; }
+table{ width:100%; border-collapse:collapse; margin:10pt 0; font-size:9pt; }
+th,td{ border:0.6pt solid #c3ccd6; padding:4pt 6pt; vertical-align:top; text-align:left; }
+th{ background:#eaf0f6; font-family:"Microsoft YaHei",sans-serif; }
+pre{ background:#f6f8fa; border:0.6pt solid #d8dee6; border-radius:4pt; padding:8pt 10pt;
+     font-size:8.4pt; line-height:1.5; white-space:pre-wrap; word-break:break-word; overflow:hidden; }
+code{ font-family:"Cascadia Mono","Consolas","Courier New",monospace; font-size:9pt; background:#eef1f4; padding:0 2pt; border-radius:2pt; }
+pre code{ background:none; padding:0; font-size:8.4pt; }
+img{ max-width:100%; height:auto; display:block; margin:10pt auto; }
+figure{ margin:12pt 0; text-align:center; }
+figcaption{ font-size:8.8pt; color:#666; margin-top:4pt; }
+hr{ border:none; border-top:0.6pt solid #ccd3da; margin:14pt 0; }
+a{ color:#1f4e79; text-decoration:none; }
+pre.mermaid{ background:transparent; border:none; text-align:center; padding:6pt 0; }
+table,pre,blockquote,figure,li{ break-inside:avoid; }
+h1,h2,h3,h4{ break-after:avoid; }
+.part-title{ break-before:auto; }
+</style>
+</head>
+<body class="kind-numbered">
+<main class="page ">
+<h1 id="14-hdmidisplayport-usb-c">第 14 章 接口与带宽：HDMI、DisplayPort 与 USB-C</h1>
+<p>这一章要讲的事很实在，却常被忽略：<strong>画面再好，也得有根线能把它搬过去</strong>。你可能买了一台标称 1000 nit 的 HDR 显示器，插上配套的那根线，一开 HDR 就闪屏、掉到 30Hz，甚至干脆黑屏。问题往往不在屏幕，而在"接口的带宽不够"。本章先用水管作类比，把 HDMI、DisplayPort、USB-C 这几条主流水管的版本和粗细（带宽）说清，再用一条公式亲手算出"4K60 10bit 要多大水管"，最后谈谈线材认证。</p>
+<hr />
+<h2 id="_1">一、先打个比方：接口像水管，带宽像管径</h2>
+<p>把数据想成水，接口就是水管，<strong>带宽（bandwidth）就是水管的直径</strong>。分辨率、帧率、色深、色度采样，决定的是"你这台设备同时要流多少水"。</p>
+<p>SDR 时代常年在 "1080p 60Hz 8bit" 这种小流量下跑，一根细管绰绰有余。到了 HDR，画质要求一下变多：</p>
+<ul>
+<li>分辨率更高（1080p → 4K），像素数变成约 4 倍；</li>
+<li>帧率更高（60 → 120Hz），每秒要多画一倍；</li>
+<li>色深更高（8bit → 10bit），每个像素的颜色信息更多；</li>
+<li>还要额外塞进 HDR 元数据。</li>
+</ul>
+<p>结果就是：HDR 高帧率高色深，等于"同时要更多水"。<strong>接口带宽不够，画面要么降级（掉色深、掉帧率、加压缩），要么直接断流。</strong> 这也是本篇（传输与系统篇）之所以重要的原因——HDR 从来不是单点的事，"内容→显卡→线→接口→屏幕"整条链路要一起达标。</p>
+<hr />
+<h2 id="_2">二、你桌上这些口都是什么来头</h2>
+<h3 id="hdmihigh-definition-multimedia-interface">HDMI（High-Definition Multimedia Interface，高清多媒体接口）</h3>
+<p>影音设备最常见的口，电视、显示器、游戏主机、机顶盒都用它。关键版本：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>大致带宽</th>
+<th>你能得到什么（直观说法）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDMI 1.4</td>
+<td>约 10.2 Gbps</td>
+<td>4K30 时代的口，HDR 基本无望</td>
+</tr>
+<tr>
+<td>HDMI 2.0 / 2.0b</td>
+<td>约 18 Gbps</td>
+<td>4K60 的主流口，HDR10 靠它起步</td>
+</tr>
+<tr>
+<td>HDMI 2.1 / 2.1a</td>
+<td>约 48 Gbps</td>
+<td>4K120、8K60、VRR、eARC 等新功能</td>
+</tr>
+</tbody>
+</table>
+<p>这里有个坑：<strong>型号里带 HDR 字样 ≠ 一定支持 HDR</strong>。真正让 HDMI 能传 HDR10 的，是 <strong>HDMI 2.0a 及以上</strong>（它加入了传输静态元数据的能力，见第 8 章、第 15 章）。HDMI 2.1 则把带宽一口气拉到约 48 Gbps，还顺带带来一批新特性（VRR、ALLM、eARC，第 15 章细讲）。</p>
+<h3 id="displayport-dp">DisplayPort（简称 DP）</h3>
+<p>PC 显卡和显示器之间的主力口，高刷新率、多屏、专业显示基本都靠它。关键版本：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>大致带宽（原始 / 有效）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DP 1.2</td>
+<td>约 21.6 / 17.3 Gbps</td>
+<td>4K60 的老口</td>
+</tr>
+<tr>
+<td>DP 1.4</td>
+<td>约 32.4 / 25.9 Gbps</td>
+<td>HDR、4K120（配合 DSC）常见</td>
+</tr>
+<tr>
+<td>DP 2.0 / 2.1</td>
+<td>最高约 80 Gbps</td>
+<td>4K高刷、8K、多屏的"大水管"</td>
+</tr>
+</tbody>
+</table>
+<p>表里出现两个数字，得看清楚：<strong>"原始带宽"和"有效带宽"不是一个数</strong>。DP 1.x 用 8b/10b 编码，每传 8 位有效数据要额外搭 2 位（约 25% 开销），所以 DP 1.4 标称 32.4 Gbps，真正能装画面的有效带宽约 25.9 Gbps。买口、选线时照"有效带宽"算更实在。</p>
+<h3 id="usb-c-thunderbolt">USB-C 与雷电（Thunderbolt）</h3>
+<p>USB-C 是那个"正反都能插"的椭圆形接口。它本身只是一种<strong>物理形状</strong>，决定能不能传画面的是里面跑的"协议模式"：</p>
+<ul>
+<li><strong>DP Alt Mode（替代模式）</strong>：让 USB-C 借 DP 通道输出视频，是目前笔记本外接显示器最常见的玩法。</li>
+<li><strong>雷电（Thunderbolt）</strong>：把 PCIe 数据、USB、DP 视频打包在一起的"全能通道"，外接显示、硬盘、扩展坞一根线搞定。</li>
+</ul>
+<p>所以 <strong>USB-C 能不能放 HDR，取决于它背后接的到底是 DP 1.4、雷电，还是只支持 USB 2.0 的"假视频口"</strong>。买扩展坞和线之前，先确认它支持 DP Alt Mode 的哪个版本。</p>
+<h3 id="dvivga">退场的老朋友：DVI、VGA</h3>
+<p>DVI 和 VGA 是上一代接口。VGA 走模拟信号，DVI 的带宽和功能也落后，<strong>两者都无缘 HDR</strong>。见到这两个口，基本可以判定这是台老机器。</p>
+<figure><img alt="图 14-1　DVI 与 VGA 接口：都无缘 HDR 的老接口" src="build/img_opt/14/f1_dvi_vga.jpg" /><figcaption>图 14-1　DVI 与 VGA 接口：都无缘 HDR 的老接口</figcaption></figure>
+<figure><img alt="图 14-2　HDMI 与 DisplayPort 各版本带宽：原始 vs 有效" src="build/img_opt/14/f2_bandwidth_bars.jpg" /><figcaption>图 14-2　HDMI 与 DisplayPort 各版本带宽：原始 vs 有效</figcaption></figure>
+<hr />
+<h2 id="_3">三、一条公式，算出你要多少带宽</h2>
+<p>不用背一堆表，<strong>基础带宽估算公式</strong>只有这一条：</p>
+<pre><code class="language-text">所需带宽 ≈ 像素总数/秒 × 每像素位数 × 开销因子
+
+其中：
+  像素总数/秒 = 横向像素 × 纵向像素 × 帧率
+  每像素位数  = 色深 × 通道数 ×（受色度采样影响的折扣）
+  开销因子    = 协议编码、空白间隙等额外开销，通常约 1.1 ~ 1.25
+</code></pre>
+<p>每个符号的意思：</p>
+<ul>
+<li><strong>横向/纵向像素</strong>：4K 是 3840 × 2160。</li>
+<li><strong>帧率</strong>：每秒画多少张，60Hz 就是 60。</li>
+<li><strong>色深 × 通道数</strong>：RGB 三通道，10bit 即 3 × 10 = 30 位。</li>
+<li><strong>色度采样折扣</strong>：4:4:4 不折扣；4:2:0 只保留 1/4 的色度信息，每像素能省下不少位（见第 10 章）。</li>
+<li><strong>开销因子</strong>：真实协议还要编码、留同步间隙，实际所需比"纯像素位"要高。</li>
+</ul>
+<figure><img alt="图 14-3　带宽估算公式的三个因子，以及逐因子放大后的需求增长" src="build/img_opt/14/f3_bw_formula.jpg" /><figcaption>图 14-3　带宽估算公式的三个因子，以及逐因子放大后的需求增长</figcaption></figure>
+<h3 id="4k60-10bit-444">活例子：4K60 10bit 4:4:4 要多少？</h3>
+<pre><code class="language-text">像素总数/秒 = 3840 × 2160 × 60 ≈ 4.98 亿像素/秒
+纯像素位    = 4.98 亿 × 30 bit ≈ 149 亿 bit/s ≈ 14.9 Gbps
+加约 25% 开销 ≈ 18.7 Gbps
+</code></pre>
+<p>结论：<strong>4K60 10bit 4:4:4 大约要 18.7 Gbps 的有效带宽</strong>。这个数字正好卡在 HDMI 2.0 的 18 Gbps 门槛之上，所以它上不去。</p>
+<figure><img alt="图 14-4　4K60 10bit 4:4:4 ≈18.7 Gbps 的算例分解" src="build/img_opt/14/f4_4k60_case.jpg" /><figcaption>图 14-4　4K60 10bit 4:4:4 ≈18.7 Gbps 的算例分解</figcaption></figure>
+<hr />
+<h2 id="hdmi-20">四、为什么 HDMI 2.0 只能"降一点"</h2>
+<p>4K60 10bit 4:4:4 要 18.7 Gbps，HDMI 2.0 只有 18 Gbps，想装下就得"降一点"。常见两条路：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>每像素平均位数</th>
+<th>大致所需</th>
+<th>HDMI 2.0 能上吗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4K60 8bit 4:4:4</td>
+<td>24 bit</td>
+<td>约 14.9 Gbps</td>
+<td>✅ 可以</td>
+</tr>
+<tr>
+<td>4K60 10bit 4:2:0</td>
+<td>约 15 bit</td>
+<td>约 9.3 Gbps</td>
+<td>✅ 可以</td>
+</tr>
+<tr>
+<td>4K60 10bit 4:4:4</td>
+<td>30 bit</td>
+<td>约 18.7 Gbps</td>
+<td>❌ 不行</td>
+</tr>
+</tbody>
+</table>
+<p>在 HDMI 2.0 上想要 HDR（10bit），多半得<strong>把色度采样降到 4:2:0</strong>（色彩细节打折），或者<strong>把色深降到 8bit</strong>（牺牲 HDR 的暗部层次）。鱼和熊掌很难兼得。</p>
+<p>想"既要 4K60、又要 10bit 4:4:4"，出路有三条：</p>
+<ol>
+<li>换 <strong>HDMI 2.1</strong>（约 48 Gbps），带宽富余，一步到位；</li>
+<li>用 <strong>DP 1.4</strong>（有效约 25.9 Gbps），已经够跑；</li>
+<li>开启 <strong>DSC（Display Stream Compression，显示流压缩）</strong>，把数据视觉无损地压到约 1/3，让有限带宽也能跑高分高刷（第 15 章细讲）。</li>
+</ol>
+<blockquote>
+<p>提醒：厂商标的"支持 4K120"，背后可能是靠 DSC 或色度采样换来的。看到高规格，顺手确认一句"是 4:4:4 吗？开 DSC 了吗？"，你就比大多数人懂行。</p>
+</blockquote>
+<h3 id="_4">常见组合的"带宽账"（速查表）</h3>
+<p>下面这张表用上面同一条公式、同一个开销因子（约 1.25）估算，方便一眼判断"我的口够不够"：</p>
+<table>
+<thead>
+<tr>
+<th>组合</th>
+<th>大致所需带宽</th>
+<th>谁能上</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1080p60 8bit 4:4:4</td>
+<td>约 3.7 Gbps</td>
+<td>几乎所有接口</td>
+</tr>
+<tr>
+<td>1440p144 8bit 4:4:4</td>
+<td>约 15.9 Gbps</td>
+<td>HDMI 2.0 / DP 1.4 起</td>
+</tr>
+<tr>
+<td>4K60 8bit 4:4:4</td>
+<td>约 14.9 Gbps</td>
+<td>HDMI 2.0 起</td>
+</tr>
+<tr>
+<td>4K60 10bit 4:2:0</td>
+<td>约 9.3 Gbps</td>
+<td>HDMI 2.0 起（HDR 常见档）</td>
+</tr>
+<tr>
+<td>4K60 10bit 4:4:4</td>
+<td>约 18.7 Gbps</td>
+<td>HDMI 2.1 / DP 1.4 起</td>
+</tr>
+<tr>
+<td>4K120 10bit 4:4:4</td>
+<td>约 37 Gbps</td>
+<td>HDMI 2.1（常配 DSC）/ DP 2.x</td>
+</tr>
+<tr>
+<td>8K60 10bit 4:2:0</td>
+<td>约 37 Gbps</td>
+<td>HDMI 2.1（常配 DSC）/ DP 2.x</td>
+</tr>
+</tbody>
+</table>
+<p>看懂这张表，很多日常问题就能自己回答。<strong>"我这台老电视插电脑能不能 4K60 HDR？"</strong> 查一下它是 HDMI 2.0 还是 2.1，再对照表里 HDR 的典型组合（4K60 10bit 4:2:0）放不放得下，答案就出来了。表里的数都是<strong>约值</strong>，真实协议与时序开销会有小幅出入，够用就行。</p>
+<figure><img alt="图 14-5　分辨率 × 帧率 × 色深的带宽需求热图，叠加各接口能力线" src="build/img_opt/14/f5_demand_heatmap.jpg" /><figcaption>图 14-5　分辨率 × 帧率 × 色深的带宽需求热图，叠加各接口能力线</figcaption></figure>
+<h3 id="8k-144hz">为什么很少有 8K 144Hz屏幕</h3>
+<p>实现8K 144Hz最大的阻碍在于数据传输带宽和硬件性能。
+- 接口带宽触顶：当前主流接口（如HDMI 2.1，带宽48Gbps）在无压缩下仅能支持4K 120Hz。要传输8K 144Hz的海量数据，必须依赖显示流压缩（DSC） 技术，但这可能带来轻微的画质损失。即便是更新的接口，要完美驱动8K 144Hz也相当吃力。
+- 硬件性能跟不上：即便是顶级的显卡，也很难在8K分辨率下为3A游戏提供稳定的144帧体验。因此，许多厂商认为当前8K的实用价值有限，更倾向于先普及8K 120Hz或探索5K分辨率。</p>
+<p>尽管原生8K 144Hz尚未普及，但市场上已有以下极具代表性的产品：
+- 8K 120Hz 显示器：这是目前最接近你需求的产品。例如京东方（BOE） 已展示并计划量产31.5英寸8K 120Hz面板，其特色是可切换至4K 240Hz模式，在8K高分辨率与4K超高刷新率间灵活选择。
+- 8K 240Hz 超宽屏：三星G95NC是一款57英寸、分辨率达7680×2160（32:9超宽屏）的显示器，刷新率高达240Hz。虽然它的垂直分辨率（2160）与标准8K（4320）有差距，但其总像素量远超4K，可视为一种“准8K”高刷方案。</p>
+<p>在10-bit HDR、4:4:4色度采样下，无压缩传输8K 120Hz需要约 119.44 Gbps 的带宽。而目前顶级的HDMI 2.1接口，有效带宽仅约 42.6 Gbps；DisplayPort 2.1（UHBR20）的有效带宽也“仅”为 77.4 Gbps，两者都喂不饱它。所以必须开启DSC。DSC是一种视觉无损的压缩技术，压缩比可达3:1左右，能把数据量大幅降低，8K 120Hz的信号才走得通现有接口。有分析指出，即便是“残血版”的DP 2.1接口，在开启DSC后也能实现8K 120Hz输出。</p>
+<h3 id="_5">带宽不够时，系统会怎么"降级"？</h3>
+<p>很多设备不会直接拒绝你，而是<strong>悄悄降级</strong>，顺序通常是：</p>
+<pre><code class="language-text">先保分辨率与帧率
+  ↓ 带宽还紧张？
+降色度采样（4:4:4 → 4:2:2 → 4:2:0）
+  ↓ 还紧张？
+降色深（10bit → 8bit）
+  ↓ 还紧张？
+降刷新率或分辨率
+  ↓ 最后的办法
+开 DSC 压缩
+</code></pre>
+<p>你"看起来没动任何设置"，HDR 却莫名变成 8bit 或 4:2:0，原因就在这儿：链路在带宽压力下自己做了取舍。想知道实际跑在什么档位，去显卡控制面板或显示器信息页看<strong>当前实际输出格式（分辨率/刷新率/色深/色度采样）</strong>，别只看包装盒宣传。</p>
+<figure><img alt="图 14-6　带宽不足时的降级顺序，以及一次降级能省多少带宽" src="build/img_opt/14/f6_degrade_flow.jpg" /><figcaption>图 14-6　带宽不足时的降级顺序，以及一次降级能省多少带宽</figcaption></figure>
+<hr />
+<h2 id="_6">五、线材认证：别拿旧线当新线</h2>
+<p>水管口径再好，<strong>线本身也必须是那根粗管</strong>。这就是所谓"高带宽认证线"的意义：</p>
+<ul>
+<li><strong>HDMI Ultra High Speed（超高速）</strong>：对应 HDMI 2.1 的高带宽能力，认证线才能稳跑 48 Gbps 级别的规格。</li>
+<li><strong>DP 认证（如 DP80）</strong>：对应 DP 2.x 的高带宽档位。</li>
+</ul>
+<p>还有一条要提醒：<strong>旧线不等于新线</strong>。HDMI 2.0 那代的线，插到 HDMI 2.1 口上，带宽上限依然是旧的，"接口明明支持 4K120，实际只能 60Hz 甚至闪屏"的情况很常见。遇到"接口标得很高、实际跑不满"，先换一根认证过的高带宽线试试。线也不宜太长（通常 2 米以内更稳），劣质长线是 HDR 掉线的常见元凶。</p>
+<h2 id="_7">六、选线选口的实操清单</h2>
+<p>把前面的知识变成一张能照着做的清单：</p>
+<ol>
+<li><strong>先定目标</strong>：写清楚你要的"分辨率 + 刷新率 + 色深 + 色度采样"（例如 4K120 10bit 4:4:4）。</li>
+<li><strong>再查带宽</strong>：用公式或速查表估个所需带宽，留一点余量。</li>
+<li><strong>对接口版本</strong>：HDMI 2.0（约 18 Gbps）/ 2.1（约 48 Gbps）；DP 1.4（有效约 25.9 Gbps）/ 2.x（最高约 80 Gbps）。</li>
+<li><strong>配认证线</strong>：HDMI 用 Ultra High Speed 认证线，DP 用对应高带宽认证线，长度控制在 2 米以内更稳。</li>
+<li><strong>直连优先</strong>：能直连就直连，中间少接切换器、老功放、廉价转接头。</li>
+<li><strong>验货再收工</strong>：开起来后查实际输出格式，确认真的跑在你想要的档位上，而不是被悄悄降级。</li>
+</ol>
+<p>最后收一句：<strong>接口负责"水管够不够粗"，但真正决定体验的是"内容+线+口+屏幕+设置"整条链路一起合格。</strong> 本章管的是前几环；后面几章把系统、映射和内容补齐。</p>
+<hr />
+<h2 id="_8">本章小结与常见误区</h2>
+<ul>
+<li>接口是水管，<strong>带宽是管径</strong>；HDR 高帧率、高色深是"同时要更多水"。</li>
+<li>主流版本带宽：HDMI 2.0 约 18 Gbps、HDMI 2.1 约 48 Gbps；DP 1.4 原始约 32.4 Gbps、有效约 25.9 Gbps；DP 2.x 最高约 80 Gbps。</li>
+<li>一条估算公式：<strong>像素总数/秒 × 每像素位数 × 开销因子</strong>；4K60 10bit 4:4:4 约需 18.7 Gbps，所以 HDMI 2.0 只能选"8bit 4:4:4"或"10bit 4:2:0"。</li>
+<li>USB-C 只是形状，<strong>能不能放 HDR 看它跑的协议</strong>（DP Alt Mode / 雷电）。</li>
+<li>高带宽必须配<strong>认证线</strong>；旧线、劣质长线是最常见的 HDR 掉链子点。</li>
+</ul>
+<p><strong>几个容易混淆的点：</strong></p>
+<ol>
+<li><strong>误区：接口标了 HDR 就一定支持 HDR。</strong> 实际上要 HDMI 2.0a 以上、且链路和你设的分辨率/帧率/色深组合真的放得下，才算数。</li>
+<li><strong>误区：拿旧 HDMI 线插 HDMI 2.1 口就能跑满。</strong> 线的带宽上限不会因为你换了大口而提升。</li>
+<li><strong>误区：看到"4K120"就以为是无条件原生。</strong> 很可能是靠 DSC 或 4:2:0 换来的，画质上仍各有取舍。</li>
+</ol>
+<h2 id="_9">下一章预告</h2>
+<p>水管通了还不够，两个设备还得"对上话"——下一章我们讲 EDID、元数据、HDCP 和 DSC，看看 HDR 是怎么在链路上握手成功的。</p>
+</main>
+<script src="file:///E:/Study/HDR技术/book/build/mermaid.min.js"></script>
+<script>try{mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',flowchart:{htmlLabels:true}});}catch(e){}</script>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="file:///E:/Study/HDR技术/book/build/tex-svg.js"></script>
+</body></html>

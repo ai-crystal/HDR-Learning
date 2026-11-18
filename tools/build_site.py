@@ -1,63 +1,32 @@
 # -*- coding: utf-8 -*-
-"""生成 docsify 在线阅读站点（#/ 路由），直接引用 book/ 下唯一的 Markdown 原稿。
+"""生成系列站点入口：根目录 docsify + 各册侧栏/首页（不复制任何 md）。"""
+import json, os, re
+from pathlib import Path
 
-输出到仓库根目录：
-  index.html      docsify 外壳
-  _sidebar.md     侧栏
-  _coverpage.md   封面
-  README.md       首页（同时作为 GitHub 仓库首页）
-  .nojekyll
-不复制 md / 图片；PDF 直接链接 output/HDR超详解.pdf。
-"""
-import os, re
-
-BASE = "E:/Study/HDR技术"
-BOOK = BASE + "/book"
-
-SECTIONS = [
-    dict(id="preface", title="前言", src="front/preface.md", kind="entry"),
-    dict(id="part1", title="第一篇　基础篇：为什么会有 HDR", src="front/part1.md", kind="part"),
-    dict(id="ch01", src="chapters/ch01.md"),
-    dict(id="ch02", src="chapters/ch02.md"),
-    dict(id="ch03", src="chapters/ch03.md"),
-    dict(id="part2", title="第二篇　色彩科学篇：颜色的物理与数学", src="front/part2.md", kind="part"),
-    dict(id="ch04", src="chapters/ch04.md"),
-    dict(id="ch05", src="chapters/ch05.md"),
-    dict(id="ch06", src="chapters/ch06.md"),
-    dict(id="ch07", src="chapters/ch07.md"),
-    dict(id="part3", title="第三篇　标准篇：HDR 世界的规则", src="front/part3.md", kind="part"),
-    dict(id="ch08", src="chapters/ch08.md"),
-    dict(id="ch09", src="chapters/ch09.md"),
-    dict(id="ch10", src="chapters/ch10.md"),
-    dict(id="part4", title="第四篇　硬件篇：光从哪里来", src="front/part4.md", kind="part"),
-    dict(id="ch11", src="chapters/ch11.md"),
-    dict(id="ch12", src="chapters/ch12.md"),
-    dict(id="ch13", src="chapters/ch13.md"),
-    dict(id="part5", title="第五篇　传输与系统篇：把 HDR 送到眼前", src="front/part5.md", kind="part"),
-    dict(id="ch14", src="chapters/ch14.md"),
-    dict(id="ch15", src="chapters/ch15.md"),
-    dict(id="ch16", src="chapters/ch16.md"),
-    dict(id="part6", title="第六篇　软件与实战篇：从会用到精通", src="front/part6.md", kind="part"),
-    dict(id="ch17", src="chapters/ch17.md"),
-    dict(id="ch18", src="chapters/ch18.md"),
-    dict(id="ch19", src="chapters/ch19.md"),
-    dict(id="ch20", src="chapters/ch20.md"),
-    dict(id="appendix-a", title="附录 A　术语速查表", src="appendix/appendix-a.md", kind="entry"),
-    dict(id="appendix-b", title="附录 B　参考文献", src="appendix/appendix-b.md", kind="entry"),
-    dict(id="afterword", title="后记", src="front/afterword.md", kind="entry"),
+REPO = Path(__file__).resolve().parents[1]
+SITE = "https://ai-crystal.github.io/HDR-Learning"
+BOOKS = [
+    dict(dir="beginner", name="入门篇", pdf="HDR-Basics.pdf", pages=214,
+         desc="从像素到眼睛的完整指南：SDR 的来历、亮度与色域、标准、硬件、接口、系统与实战。"),
+    dict(dir="color-science", name="色彩科学篇", pdf="HDR-ColorScience.pdf", pages=52,
+         desc="从颜色测量到色貌与色域映射：CIE 体系、均匀色彩空间、CIECAM02/CAM16、色域映射与 HDR 编码。"),
+    dict(dir="hdr-tech", name="HDR 技术篇", pdf="HDR-Technology.pdf", pages=50,
+         desc="传递函数、元数据、映射与显示：Barten CSF、PQ/HLG 数学、ST 2094、BT.2390、面板与测量。"),
 ]
 
-PDF = "../output/HDR超详解.pdf"   # 从 book/ 视角；站点里写 output/HDR超详解.pdf
+
+def read(p):
+    return Path(p).read_text(encoding="utf-8")
 
 
-def first_h1(path):
-    for line in open(path, encoding="utf-8"):
+def first_h1(p):
+    for line in read(p).splitlines():
         if line.startswith("# "):
             return line[2:].strip()
-    return os.path.splitext(os.path.basename(path))[0]
+    return Path(p).stem
 
 
-def short_title(t):
+def short(t):
     t = re.sub(r'^第\s*0?(\d+)\s*章\s*', r'第 \1 章 ', t)
     for sep in ("：", ":", "——", "（"):
         if sep in t:
@@ -65,143 +34,66 @@ def short_title(t):
     return t.strip()
 
 
-INDEX = r"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<title>HDR 超详解 · 从像素到眼睛的完整指南</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-<style>
-  :root{ --navy:#12233b; --accent:#1f4e79; }
-  body{ font-family:"Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",Georgia,serif; }
-  .sidebar{ font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; }
-  .markdown-section{ max-width:820px; font-size:16.5px; line-height:1.85; color:#1c2430; }
-  .markdown-section h1,.markdown-section h2,.markdown-section h3,.markdown-section h4{
-    font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; color:var(--navy); }
-  .markdown-section h1{ font-size:28px; border-bottom:2px solid var(--navy); padding-bottom:10px; }
-  .markdown-section h2{ font-size:21px; margin-top:34px; }
-  .markdown-section h3{ font-size:17.5px; color:var(--accent); }
-  .markdown-section blockquote{ border-left:3px solid var(--accent); background:#f5f8fb; color:#3d4b5a; }
-  .markdown-section table th{ background:#eef3f8; }
-  .markdown-section img{ border-radius:6px; }
-  .markdown-section pre{ border-radius:8px; }
-  .app-nav{ font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; }
-
-  .cover{ background: linear-gradient(180deg, rgba(5,7,13,.82) 0%, rgba(5,7,13,.35) 34%, rgba(5,7,13,.72) 62%, rgba(5,7,13,.97) 90%), url("book/images/logo/cover_bg.jpg") center 42%/cover no-repeat !important; }
-  .cover:before{ background: transparent !important; }
-  .cover .cover-main{ color:#fff; max-width:900px; background:rgba(5,7,13,.34); border-radius:18px; padding:34px 42px; box-shadow:0 10px 40px rgba(0,0,0,.35); }
-  .cover .cover-main h1, .cover .cover-main h1 a, .cover .cover-main h1 span{ color:#fff !important; }
-  .cover .cover-main h1{ font-family:"Georgia","Noto Serif SC",serif; font-size:clamp(46px,8vw,84px); letter-spacing:4px; color:#fff; margin:0; text-shadow:0 3px 24px rgba(0,0,0,.55); }
-  .cover .cover-main p{ color:#e8eef6; font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; }
-  .cover .cover-main blockquote{ color:#cfd9e6; border:none; background:none; margin:18px 0 26px; }
-  .cover .cover-main > p:last-child a{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.6); border-radius:999px; padding:10px 22px; margin:6px; }
-  .cover .cover-main > p:last-child a:first-child{ background:#fff; color:var(--navy); border-color:#fff; font-weight:700; }
-  .cover .cover-main > p:last-child a:hover{ opacity:.9; }
-  .cover .mask{ background:transparent; }
-</style>
-</head>
-<body>
-<div id="app">加载中…</div>
-<script>
-  window.$docsify = {
-    name: 'HDR 超详解',
-    loadSidebar: true,
-    subMaxLevel: 2,
-    coverpage: true,
-    homepage: 'README.md',
-    auto2top: true,
-    maxLevel: 2,
-    search: { maxAge: 86400000, paths: 'auto', placeholder: '搜索…', noData: '没有找到结果' },
-    copyCode: { buttonText: '复制', errorText: '复制失败' },
-    pagination: { previousText: '上一章', nextText: '下一章' },
-    plugins: [
-      function (hook) {
-        hook.beforeEach(function (md) {
-          var state = { open: true };
-          var parts = md.split(/(```[\s\S]*?```)/g);
-          return parts.map(function (seg, i) {
-            if (i % 2 === 1) return seg;
-            return seg.replace(/`[^`]*`|"/g, function (m) {
-              if (m !== '"') return m;
-              if (state.open) { state.open = false; return '“'; }
-              state.open = true; return '”';
-            });
-          }).join('');
-        });
-      }
-    ]
-  };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/pagination.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/copy-code.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docsify-katex@1/dist/docsify-katex.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docsify-mermaid@2/dist/docsify-mermaid.js"></script>
-</body>
-</html>
-"""
+def volume_info(b):
+    d = REPO / "books" / b["dir"]
+    cfg = json.loads(read(d / "book.json"))
+    st = json.loads(read(d / "structure.json"))["sections"]
+    chs = []
+    for s in st:
+        if s.get("toc") == "entry" and s["id"].startswith("ch"):
+            t = first_h1(d / s["src"])
+            chs.append((s["id"], t, f"books/{b['dir']}/{s['src']}"))
+    return cfg, chs
 
 
 def main():
-    for s in SECTIONS:
-        if not s.get("title"):
-            s["title"] = first_h1(os.path.join(BOOK, s["src"]))
+    # 各册侧栏与首页
+    for b in BOOKS:
+        cfg, chs = volume_info(b)
+        lines = [f"- [{cfg['volume'] or '本册'}首页](books/{b['dir']}/README.md)", ""]
+        for cid, t, link in chs:
+            lines.append(f"- [{short(t)}]({link})")
+        lines += ["", f"- [下载 PDF]({SITE}/output/{b['pdf']})",
+                  f"- [返回系列首页](README.md)"]
+        (REPO / "books" / b["dir"] / "_sidebar.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    # 侧栏
-    lines = ["- [前言](book/front/preface.md)", ""]
-    for s in SECTIONS:
-        if s["id"] == "preface":
-            continue
-        link = "book/" + s["src"]
-        if s.get("kind") == "part":
-            lines.append(f"- **{s['title']}**")
-        elif s["id"].startswith("ch"):
-            lines.append(f"  - [{short_title(s['title'])}]({link})")
-        else:
-            lines.append(f"- [{s['title']}]({link})")
-    open(BASE + "/_sidebar.md", "w", encoding="utf-8").write("\n".join(lines) + "\n")
+        toc = "\n".join(f"{i+1}. [{t}]({link})" for i, (cid, t, link) in enumerate(chs))
+        (REPO / "books" / b["dir"] / "README.md").write_text(
+            f"# {cfg['title']}\n\n> {cfg['subtitle']} · {cfg['volume']}\n\n{b['desc']}\n\n"
+            f"- 作者：{cfg['author']}\n- 页数：约 {b['pages']} 页\n"
+            f"- [**下载 PDF**]({SITE}/output/{b['pdf']})\n\n## 目录\n\n{toc}\n",
+            encoding="utf-8")
+
+    # 根侧栏
+    s = ["- [系列首页](README.md)", ""]
+    for b in BOOKS:
+        s.append(f"- **{b['name']}**　[{b['dir']}](books/{b['dir']}/README.md)")
+    s += ["", f"- [PDF 下载]({SITE}/output/HDR-Basics.pdf)"]
+    (REPO / "_sidebar.md").write_text("\n".join(s) + "\n", encoding="utf-8")
+
+    # 根首页
+    rows = []
+    for b in BOOKS:
+        rows.append(f"| {b['name']} | {b['desc']} | {b['pages']} | "
+                    f"[阅读](books/{b['dir']}/README.md) | [PDF]({SITE}/output/{b['pdf']}) |")
+    (REPO / "README.md").write_text(
+        "# HDR 技术系列\n\n> 从入门到专业的三册 · 作者：Dr. Dezeming\n\n"
+        "同一主题按读者目标拆成三册：入门篇负责把概念讲通，色彩科学篇与 HDR 技术篇分别深入色彩与工程细节。\n\n"
+        "- **在线阅读**：[" + SITE + "/](" + SITE + "/)\n\n"
+        "## 分册\n\n| 分册 | 内容 | 页数 | 在线阅读 | PDF |\n|---|---|---|---|---|\n"
+        + "\n".join(rows) + "\n\n"
+        "## 阅读建议\n\n入门篇可按顺序通读；两本专业分册可以按需查阅，交叉处（PQ、色域、元数据）有相互引用。\n\n"
+        "## 构建\n\n双击仓库根目录的 `build.cmd` 编译全部；`build.cmd beginner` 只编译入门篇。\n",
+        encoding="utf-8")
 
     # 封面
-    open(BASE + "/_coverpage.md", "w", encoding="utf-8").write(
-        "# HDR 超详解\n\n"
-        "> 从像素到眼睛的完整指南\n\n"
-        "- 6 篇 20 章 · 90 余张原创示意图\n"
-        "- 从光与颜色，到面板、接口、系统与调色\n\n"
-        "[开始阅读](book/chapters/ch01.md)\n"
-        "[下载 PDF](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)\n")
+    (REPO / "_coverpage.md").write_text(
+        "# HDR 技术系列\n\n> 从像素到眼睛，再到色彩科学与工程实现\n\n"
+        "- 入门篇 · 色彩科学篇 · HDR 技术篇\n- 三册共用一套术语与图示风格\n\n"
+        f"[开始阅读](books/beginner/chapters/ch01.md)\n[下载入门篇]({SITE}/output/HDR-Basics.pdf)\n",
+        encoding="utf-8")
 
-    # 首页
-    toc = []
-    for s in SECTIONS:
-        link = "book/" + s["src"]
-        if s.get("kind") == "part":
-            toc.append(f"- **{s['title']}**")
-        elif s["id"].startswith("ch"):
-            toc.append(f"  - [{s['title']}]({link})")
-        else:
-            toc.append(f"- [{s['title']}]({link})")
-    open(BASE + "/README.md", "w", encoding="utf-8").write(
-        "# HDR 超详解\n\n"
-        "> 从像素到眼睛的完整指南 · 作者：Dezeming\n\n"
-        "本书用最直白的方式讲清**高动态范围（HDR）**：从光与颜色的基础，到色域与传递函数，"
-        "到 HDR10、杜比视界、HDR10+ 与 HLG 的规则，再到面板、接口、操作系统、播放软件与调色，"
-        "最后落到选购、校准与排查。\n\n"
-        "- **6 篇 20 章**，配 90 余张原创示意图\n"
-        "- **在线阅读**：[https://ai-crystal.github.io/HDR-Learning/](https://ai-crystal.github.io/HDR-Learning/)\n"
-        "- 左侧目录逐章阅读，或 [**下载整本 PDF**](https://ai-crystal.github.io/HDR-Learning/output/HDR超详解.pdf)\n\n"
-        "## 目录\n\n" + "\n".join(toc) + "\n"
-        "\n## 构建与发布\n\n"
-        "- Windows 一键编译：双击仓库根目录的 `build.cmd`（或 `book/build/build.cmd`），生成 `output/HDR超详解.pdf`。\n"
-        "- 部署：GitHub **Settings → Pages**，Source 选 `main`，目录选 `/ (root)`。\n")
-
-    open(BASE + "/index.html", "w", encoding="utf-8").write(INDEX)
-    open(BASE + "/.nojekyll", "w", encoding="utf-8").write("")
-    print("site files written at repo root")
+    print("series site written")
 
 
 if __name__ == "__main__":
