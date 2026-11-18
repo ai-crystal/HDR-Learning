@@ -20,4 +20,4 @@
 
 ## 构建
 
-双击仓库根目录的 `build.cmd` 编译全部；`build.cmd beginner` 只编译入门篇。
+双击仓库根目录的 `build.bat` 编译全部；`build.bat beginner` 只编译入门篇。

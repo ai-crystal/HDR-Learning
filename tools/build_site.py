@@ -83,7 +83,7 @@ def main():
         "## 分册\n\n| 分册 | 内容 | 页数 | 在线阅读 | PDF |\n|---|---|---|---|---|\n"
         + "\n".join(rows) + "\n\n"
         "## 阅读建议\n\n入门篇可按顺序通读；两本专业分册可以按需查阅，交叉处（PQ、色域、元数据）有相互引用。\n\n"
-        "## 构建\n\n双击仓库根目录的 `build.cmd` 编译全部；`build.cmd beginner` 只编译入门篇。\n",
+        "## 构建\n\n双击仓库根目录的 `build.bat` 编译全部；`build.bat beginner` 只编译入门篇。\n",
         encoding="utf-8")
 
     # 封面
