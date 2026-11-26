@@ -10,4 +10,4 @@
 - [第 5 章　色域、色域体积与映射](/books/color-science/chapters/ch05.md)
 - [第 6 章　HDR/WCG 的色彩编码与测量](/books/color-science/chapters/ch06.md)
 
-- <a href="/output/HDR-ColorScience.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>
+<a href="output/v2-color-science.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>

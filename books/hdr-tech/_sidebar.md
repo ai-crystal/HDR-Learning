@@ -10,4 +10,4 @@
 - [第 5 章　显示硬件与 HDR 性能](/books/hdr-tech/chapters/ch05.md)
 - [第 6 章　HDR 测量、评价与制作](/books/hdr-tech/chapters/ch06.md)
 
-- <a href="/output/HDR-Technology.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>
+<a href="output/v3-hdr-tech.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>

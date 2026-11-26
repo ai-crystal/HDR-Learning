@@ -14,9 +14,9 @@
 
 | 册 | 书名 | 一句话 | 页数 | 在线阅读 | PDF |
 | --- | --- | --- | ---: | --- | --- |
-| 01 | [入门篇](books/beginner/README.md) | HDR 超详解：从像素到眼睛的完整指南 | 214 | [阅读](books/beginner/README.md) | <a href="output/HDR-Basics.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
-| 02 | [色彩科学篇](books/color-science/README.md) | 从颜色测量到色貌与色域映射 | 52 | [阅读](books/color-science/README.md) | <a href="output/HDR-ColorScience.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
-| 03 | [HDR 技术篇](books/hdr-tech/README.md) | 传递函数、元数据、映射与显示 | 50 | [阅读](books/hdr-tech/README.md) | <a href="output/HDR-Technology.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
+| 01 | [入门篇](books/beginner/README.md) | 从像素到眼睛的完整指南 | 214 | [阅读](books/beginner/README.md) | <a href="output/v1-beginner.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
+| 02 | [色彩科学篇](books/color-science/README.md) | 从颜色测量到色貌与色域映射 | 52 | [阅读](books/color-science/README.md) | <a href="output/v2-color-science.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
+| 03 | [HDR 技术篇](books/hdr-tech/README.md) | 传递函数、元数据、映射与显示 | 50 | [阅读](books/hdr-tech/README.md) | <a href="output/v3-hdr-tech.pdf" target="_blank" rel="noopener" data-router-ignore>下载</a> |
 
 ## 怎么读
 

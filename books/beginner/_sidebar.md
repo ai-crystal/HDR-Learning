@@ -28,4 +28,4 @@
   - [附录 A　术语速查表](/books/beginner/appendix/appendix-a.md)
   - [附录 B　参考文献](/books/beginner/appendix/appendix-b.md)
 
-- <a href="/output/HDR-Basics.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>
+<a href="output/v1-beginner.pdf" target="_blank" rel="noopener" data-router-ignore>下载 PDF</a>

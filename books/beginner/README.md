@@ -1,4 +1,4 @@
-# 入门篇
+# 
 
 > HDR 超详解：从像素到眼睛的完整指南
 
@@ -6,7 +6,7 @@
 
 共 20 章 · 214 页
 
-[从第 1 章开始](chapters/ch01.md)　·　<a href="../../output/HDR-Basics.pdf" target="_blank" rel="noopener" data-router-ignore>下载本册 PDF</a>
+[从第 1 章开始](chapters/ch01.md)　·　<a href="../../output/v1-beginner.pdf" target="_blank" rel="noopener" data-router-ignore>下载本册 PDF</a>
 
 ## 目录
 
