@@ -169,3 +169,102 @@ def cam02_ucs(res):
     Mp = np.log1p(0.0228 * res["M"]) / 0.0228
     h = np.radians(res["h"])
     return Jp, Mp * np.cos(h), Mp * np.sin(h)
+
+
+# ============  扩写补充：色相四分之一圆 H、逆变换、CAM16-UCS  ============
+
+def hue_quadrature(h):
+    """色相四分之一圆 H（0–400）。输入色相角 h（度）。CIE 159:2004 式 (7.11)。
+
+    标准里 h' 的取法：h < 20.14° 时 h' = h + 360°，落在最后一个区间
+    （红锚点 20.14° 与下一轮红锚点 380.14° 之间），这样 H 才能连续覆盖
+    0–400 而不出现负值。
+    """
+    h = np.asarray(h, dtype=float) % 360.0
+    hi = np.array([20.14, 90.00, 164.25, 237.53, 380.14])
+    ei = np.array([0.8, 0.7, 1.0, 1.2, 0.8])
+    Hi = np.array([0.0, 100.0, 200.0, 300.0, 400.0])
+    hp = np.where(h < hi[0], h + 360.0, h)
+    idx = np.clip(np.searchsorted(hi, hp, side="right") - 1, 0, 3)
+    num = (hp - hi[idx]) / ei[idx]
+    den = num + (hi[idx + 1] - hp) / ei[idx + 1]
+    return Hi[idx] + 100.0 * num / den
+
+
+def _compress_inv(rap, FL):
+    """锥响应压缩的逆：R_a -> R'（对负值做符号保持处理）。"""
+    rap = np.asarray(rap, dtype=float)
+    x = np.minimum(np.abs(rap - 0.1), 399.999)
+    base = 100.0 / FL * (27.13 * x / (400.0 - x)) ** (1.0 / 0.42)
+    return np.sign(rap - 0.1) * base
+
+
+def _view(XYZ_w, LA, Yb, surround):
+    F, c, Nc = SURROUND[surround]
+    FL = _luminance_level(LA)
+    Yw = XYZ_w[1]
+    D = float(np.clip(F * (1.0 - (1.0 / 3.6) * np.exp((-LA - 42.0) / 92.0)), 0.0, 1.0))
+    n = Yb / Yw
+    Nbb = Ncb = 0.725 * (1.0 / n) ** 0.2
+    z = 1.48 + np.sqrt(n)
+    return dict(F=F, c=c, Nc=Nc, FL=FL, Yw=Yw, D=D, n=n, Nbb=Nbb, Ncb=Ncb, z=z)
+
+
+def _ab_from_t(t, A, h, v, use_C=True):
+    """由 t（或 C）与 h 解出 a、b。v 为 _view() 的返回。"""
+    p1 = (50000.0 / 13.0) * v["Nc"] * v["Ncb"] * (0.25 * (np.cos(h + 2.0) + 3.8)) \
+        / np.maximum(t, 1e-12)
+    p2 = A / v["Nbb"] + 0.305
+    p3 = 21.0 / 20.0
+    s_h, c_h = np.sin(h), np.cos(h)
+    k1 = (2.0 + p3) * 460.0 / 1403.0
+    k2 = (2.0 + p3) * 220.0 / 1403.0
+    big = np.abs(s_h) >= np.abs(c_h)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        b_big = p2 * k1 / (p1 / s_h + k2 * c_h / s_h - 27.0 / 1403.0 + p3 * 6300.0 / 1403.0)
+        a_sml = p2 * k1 / (p1 / c_h + k2 - (27.0 / 1403.0 - p3 * 6300.0 / 1403.0) * s_h / c_h)
+    a = np.where(big, b_big * c_h / s_h, a_sml)
+    b = np.where(big, b_big, a_sml * s_h / c_h)
+    return np.where(np.isfinite(a), a, 0.0), np.where(np.isfinite(b), b, 0.0)
+
+
+def cam16_inverse(J, C, h, XYZ_w, LA=100.0, Yb=20.0, surround="average"):
+    """CAM16 逆变换：由 (J, C, h) 反解三刺激值 XYZ（0–100 标度）。"""
+    J = np.atleast_1d(np.asarray(J, dtype=float))
+    C = np.atleast_1d(np.asarray(C, dtype=float))
+    h = np.radians(np.atleast_1d(np.asarray(h, dtype=float)))
+    XYZ_w = np.asarray(XYZ_w, dtype=float)
+    v = _view(XYZ_w, LA, Yb, surround)
+
+    rgb_w = XYZ_w @ M_CAT16.T
+    scale = v["D"] * v["Yw"] / rgb_w + 1.0 - v["D"]
+    rp_w = _compress(rgb_w * scale, v["FL"])
+    Aw = (2.0 * rp_w[0] + rp_w[1] + rp_w[2] / 20.0 - 0.305) * v["Nbb"]
+
+    with np.errstate(divide="ignore", invalid="ignore"):
+        t = (C / (np.sqrt(J / 100.0) * (1.64 - 0.29 ** v["n"]) ** 0.73)) ** (1.0 / 0.9)
+    A = Aw * (J / 100.0) ** (1.0 / (v["c"] * v["z"]))
+    a, b = _ab_from_t(t, A, h, v)
+
+    p2 = A / v["Nbb"] + 0.305
+    Ra = (460.0 * p2 + 451.0 * a + 288.0 * b) / 1403.0
+    Ga = (460.0 * p2 - 891.0 * a - 261.0 * b) / 1403.0
+    Ba = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0
+    rp = np.stack([_compress_inv(Ra, v["FL"]),
+                   _compress_inv(Ga, v["FL"]),
+                   _compress_inv(Ba, v["FL"])], axis=-1)
+    rgb_c = rp / scale                       # CAM16 中适应与压缩在同一空间，直接除增益
+    return rgb_c @ np.linalg.inv(M_CAT16).T
+
+
+def cam16_ucs(res):
+    """CAM16-UCS（Li et al. 2017）：J'、a'、b'。"""
+    Jp = 1.7 * res["J"] / (1.0 + 0.007 * res["J"])
+    Mp = np.log1p(0.0228 * res["M"]) / 0.0228
+    h = np.radians(res["h"])
+    return Jp, Mp * np.cos(h), Mp * np.sin(h)
+
+
+def dE_ucs(p, q):
+    """UCS 上的欧氏色差（CAM16-UCS 或 CAM02-UCS 均可）。"""
+    return np.sqrt(sum((np.asarray(u) - np.asarray(w)) ** 2 for u, w in zip(p, q)))

@@ -97,9 +97,11 @@ def xyz_to_lab(XYZ, white=(0.95047, 1.0, 1.08883)):
 
 
 def deltaE_2000(lab1, lab2):
-    """CIEDE2000（kL = kC = kH = 1）。"""
-    L1, a1, b1 = lab1
-    L2, a2, b2 = lab2
+    """CIEDE2000（kL = kC = kH = 1），支持单个色对与数组。"""
+    lab1 = np.asarray(lab1, dtype=float)
+    lab2 = np.asarray(lab2, dtype=float)
+    L1, a1, b1 = lab1[..., 0], lab1[..., 1], lab1[..., 2]
+    L2, a2, b2 = lab2[..., 0], lab2[..., 1], lab2[..., 2]
     C1, C2 = np.hypot(a1, b1), np.hypot(a2, b2)
     Cm = 0.5 * (C1 + C2)
     G = 0.5 * (1 - np.sqrt(Cm ** 7 / (Cm ** 7 + 25.0 ** 7)))
@@ -128,3 +130,50 @@ def deltaE_2000(lab1, lab2):
     Rt = -np.sin(np.radians(2 * dtheta)) * Rc
     return np.sqrt((dLp / Sl) ** 2 + (dCp / Sc) ** 2 + (dHp / Sh) ** 2
                    + Rt * (dCp / Sc) * (dHp / Sh))
+
+
+# =====================  扩写补充：Jzazbz、绝对亮度 Lab、恒定亮度分析  =====================
+
+def _pq_xyz(v):
+    """Jzazbz 内部的 PQ 型压缩，输入已归一化到 10000。"""
+    b, g = 1.15, 0.66
+    c1, c2, c3 = 3424.0 / 4096.0, 2413.0 / 128.0, 2392.0 / 128.0
+    n, p = 2610.0 / 16384.0, 1.7 * 2523.0 / 32.0
+    x = np.clip(v, 0.0, None) ** n
+    return ((c1 + c2 * x) / (1.0 + c3 * x)) ** p
+
+
+def xyz_to_jzazbz(XYZ):
+    """Safdar et al. 2017 的 Jzazbz（输入 XYZ，Y 为绝对亮度 cd/m²）。"""
+    X, Y, Z = [np.asarray(c, dtype=float) for c in (XYZ[..., 0], XYZ[..., 1], XYZ[..., 2])]
+    b, g = 1.15, 0.66
+    d, d0 = -0.56, 1.6295499532821566e-11
+    Xp = b * X - (b - 1.0) * Z
+    Yp = g * Y - (g - 1.0) * X
+    Zp = Z
+    L = _pq_xyz(Xp / 10000.0)
+    M = _pq_xyz(Yp / 10000.0)
+    S = _pq_xyz(Zp / 10000.0)
+    Iz = 0.5 * (L + M)
+    az = 3.524000 * L - 4.066708 * M + 0.542708 * S
+    bz = 0.199076 * L + 1.096799 * M - 1.295875 * S
+    Jz = (1.0 + d) * Iz / (1.0 + d * Iz) - d0
+    return np.stack([Jz, az, bz], axis=-1)
+
+
+def deltaE_z(p, q):
+    """ΔEz（Safdar et al. 2017）：Jzazbz 平面上的欧氏差。"""
+    p = np.asarray(p, dtype=float)
+    q = np.asarray(q, dtype=float)
+    dJ = p[..., 0] - q[..., 0]
+    dC = np.hypot(p[..., 1], p[..., 2]) - np.hypot(q[..., 1], q[..., 2])
+    dh = np.arctan2(p[..., 2], p[..., 1]) - np.arctan2(q[..., 2], q[..., 1])
+    dHu = 2.0 * np.hypot(p[..., 1], p[..., 2]) * np.hypot(q[..., 1], q[..., 2]) \
+        * np.sin(dh / 2.0)
+    return np.sqrt(dJ ** 2 + dC ** 2 + dHu ** 2)
+
+
+def pq_step(nbit, nit):
+    """给定位深下，某个亮度处的相邻码值亮度差（cd/m²）。"""
+    code = pq_oetf(nit)
+    return pq_eotf(code + 1.0 / (2 ** nbit - 1)) - pq_eotf(code)

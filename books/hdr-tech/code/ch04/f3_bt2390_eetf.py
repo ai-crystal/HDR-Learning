@@ -49,10 +49,10 @@ for c, tgt in zip(colors, targets):
 ks = 1.5 * float(H.pq_oetf(1000)) - 0.5
 ks_nit = float(H.pq_eotf(ks))
 ax.plot([ks_nit], [ks_nit], marker="o", ms=5.5, color=H.RED, mec="white", mew=1.0, zorder=5)
-ax.annotate("拐点 $K_S$\n（此处曲率开始下降）", xy=(ks_nit, ks_nit),
-            xytext=(1.2, 120), fontsize=8.5, color=H.RED,
+ax.annotate("拐点 $K_S$（316 nit）\n此处曲率开始下降", xy=(ks_nit, ks_nit),
+            xytext=(1.5, 950), fontsize=8.5, color=H.RED,
             arrowprops=dict(arrowstyle="->", color=H.RED, lw=1.0,
-                            connectionstyle="arc3,rad=0.22"))
+                            connectionstyle="arc3,rad=0.28"))
 
 ax.set_xscale("log")
 ax.set_yscale("log")

@@ -62,6 +62,48 @@
    "toc": "entry"
   },
   {
+   "id": "ch07",
+   "kind": "numbered",
+   "src": "chapters/ch07.md",
+   "toc": "entry"
+  },
+  {
+   "id": "ch08",
+   "kind": "numbered",
+   "src": "chapters/ch08.md",
+   "toc": "entry"
+  },
+  {
+   "id": "ch09",
+   "kind": "numbered",
+   "src": "chapters/ch09.md",
+   "toc": "entry"
+  },
+  {
+   "id": "ch10",
+   "kind": "numbered",
+   "src": "chapters/ch10.md",
+   "toc": "entry"
+  },
+  {
+   "id": "ch11",
+   "kind": "numbered",
+   "src": "chapters/ch11.md",
+   "toc": "entry"
+  },
+  {
+   "id": "ch12",
+   "kind": "numbered",
+   "src": "chapters/ch12.md",
+   "toc": "entry"
+  },
+  {
+   "id": "appendix-b",
+   "kind": "numbered",
+   "src": "appendix/appendix-b.md",
+   "toc": "entry"
+  },
+  {
    "id": "afterword",
    "kind": "numbered",
    "src": "front/afterword.md",

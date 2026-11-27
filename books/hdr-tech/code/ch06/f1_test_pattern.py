@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-"""第 06 章 图 1：HDR 测试图案（代码生成）。
+"""第 06 章 图 1：合成 HDR 测试图案（用 numpy 直接生成像素，不是画框）。
 
-四个子图：
-  (a) 灰阶阶梯：11 级，标注 10 位码值与对应绝对亮度；
-  (b) 近黑阶梯：码值 0–64，检查黑位裁切与暗部层次；
-  (c) 窗口图案：面积 1%、2%、10% 的白块，用于测峰值亮度与 ABL（按比例绘制）；
-  (d) 色块：白、灰与六个饱和色（以 sRGB 近似显示，实际图案应在 Rec.2020 / PQ 域生成）。
+每个子图都是按 PQ 码值生成的像素阵列。预览时把码值映射到 8 位灰度，
+暗部两块（c 与 f）单独拉伸了显示范围，否则近黑台阶在预览里并成一片黑，
+标题里注明"已拉伸"，真实图案仍按 ST 2084 的绝对亮度输出。
+  (a) 灰阶斜坡 0–1023     看量化台阶与色带
+  (b) 灰阶阶梯 11 级       测灰阶跟踪
+  (c) 近黑阶梯 0–64 步进 8  查黑位裁切
+  (d) 窗口 10%/2%/1%       测峰值与 ABL
+  (e) 4×4 棋盘             测 ANSI 对比度
+  (f) PLUGE                调亮度与黑位
+  (g) 彩条                 查饱和度与色相
 """
 import sys
 sys.path.insert(0, "E:/Study/HDR技术/books/common")
@@ -15,83 +20,84 @@ import hdrfig as H
 H.set_book("hdr-tech")
 plt = H.plt
 
-
-def code_to_nit(code):
-    return float(H.pq_eotf(np.array([code / 1023.0]))[0])
+C_BLACK = float(H.pq_oetf(0.005)) * 1023.0
 
 
-fig = plt.figure(figsize=(7.4, 6.2))
-gs = fig.add_gridspec(2, 2, hspace=0.46, wspace=0.18,
-                      left=0.05, right=0.98, top=0.92, bottom=0.05)
+def ramp(n=900, h=90):
+    return np.tile(np.linspace(0, 1023, n), (h, 1))
 
-# ---------- (a) 灰阶阶梯 ----------
-axa = fig.add_subplot(gs[0, 0])
-codes_a = np.linspace(0, 1023, 11).astype(int)
-for i, c in enumerate(codes_a):
-    n = code_to_nit(c)
-    axa.add_patch(plt.Rectangle((i, 0), 1, 1, facecolor=str(c / 1023.0),
-                                edgecolor="#4a5666", lw=0.7))
-    axa.text(i + 0.5, -0.12, str(c), ha="center", va="top", fontsize=7.2)
-    axa.text(i + 0.5, 1.07, ("0" if n < 1 else f"{n:.0f}"), ha="center",
-             va="bottom", fontsize=6.8, color=H.NAVY)
-axa.set_xlim(0, 11)
-axa.set_ylim(-0.58, 1.42)
-axa.set_axis_off()
-axa.text(0, -0.44, "下排为 10 位码值，上排为对应亮度（nit）", fontsize=7.8, color=H.GRAY)
-axa.set_title("(a) 灰阶阶梯", fontsize=10, pad=2)
 
-# ---------- (b) 近黑阶梯 ----------
-axb = fig.add_subplot(gs[0, 1])
-codes_b = np.arange(0, 65, 8)
-for i, c in enumerate(codes_b):
-    n = code_to_nit(c)
-    axb.add_patch(plt.Rectangle((i, 0), 1, 1, facecolor=str(c / 1023.0),
-                                edgecolor="#4a5666", lw=0.7))
-    axb.text(i + 0.5, -0.12, str(c), ha="center", va="top", fontsize=7.2)
-    axb.text(i + 0.5, -0.46, f"{n:.3f}", ha="center", va="top", fontsize=6.4,
-             color=H.NAVY)
-axb.set_xlim(0, len(codes_b))
-axb.set_ylim(-0.78, 1.42)
-axb.set_axis_off()
-axb.text(0, -0.66, "码值 0–64（下排为亮度，nit）；这些层次只有在正确校准的显示器上才能分开",
-         fontsize=7.2, color=H.GRAY)
-axb.set_title("(b) 近黑阶梯", fontsize=10, pad=2)
+def steps(levels, n=11, h=140):
+    arr = np.zeros((h, n * 40))
+    for i, c in enumerate(levels):
+        arr[:, i * 40:(i + 1) * 40 - 2] = c
+    return arr
 
-# ---------- (c) 窗口图案 ----------
-axc = fig.add_subplot(gs[1, 0])
-axc.set_xlim(0, 1)
-axc.set_ylim(0, 1)
-axc.set_aspect("equal")
-axc.set_axis_off()
-for i, area in enumerate([1, 2, 10]):
-    x0 = 0.03 + i * 0.34
-    side = 0.26
-    axc.add_patch(plt.Rectangle((x0, 0.40), side, side, facecolor="#111111",
-                                edgecolor="#4a5666", lw=0.8))
-    s = side * np.sqrt(area / 100.0)
-    axc.add_patch(plt.Rectangle((x0 + side / 2 - s / 2, 0.40 + side / 2 - s / 2),
-                                s, s, facecolor="white", edgecolor="none"))
-    axc.text(x0 + side / 2, 0.33, f"{area}%", ha="center", va="top", fontsize=8)
-axc.text(0.03, 0.90, "白块面积与整屏面积之比 1%、2%、10%，按比例绘制",
-         fontsize=7.8, color=H.GRAY)
-axc.set_title("(c) 窗口图案", fontsize=10, pad=2)
 
-# ---------- (d) 色块 ----------
-axd = fig.add_subplot(gs[1, 1])
-patches = [("白", (1, 1, 1)), ("灰 50%", (0.5, 0.5, 0.5)),
-           ("R", (1, 0, 0)), ("G", (0, 1, 0)),
-           ("B", (0, 0, 1)), ("C", (0, 1, 1)),
-           ("M", (1, 0, 1)), ("Y", (1, 1, 0))]
-for i, (name, rgb) in enumerate(patches):
-    r, c = divmod(i, 4)
-    x0 = c * 0.25
-    y0 = 0.58 - r * 0.50
-    axd.add_patch(plt.Rectangle((x0 + 0.012, y0), 0.226, 0.34, facecolor=rgb,
-                                edgecolor="#4a5666", lw=0.7))
-    axd.text(x0 + 0.125, y0 - 0.05, name, ha="center", va="top", fontsize=7.8)
-axd.set_xlim(0, 1)
-axd.set_ylim(0, 1)
-axd.set_axis_off()
-axd.set_title("(d) 色块（饱和度检查）", fontsize=10, pad=2)
+def window_panel(areas=(10, 2, 1), w=460, h=180):
+    arr = np.full((h, w), C_BLACK)
+    for i, a in enumerate(areas):
+        side = int(h * 0.70 * np.sqrt(a / max(areas)))
+        x0 = int((i + 0.5) * w / len(areas) - side / 2)
+        y0 = (h - side) // 2
+        arr[y0:y0 + side, x0:x0 + side] = 1023
+    return arr
+
+
+def checker(n=4, size=45):
+    arr = np.zeros((n * size, n * size))
+    for r in range(n):
+        for c in range(n):
+            if (r + c) % 2 == 0:
+                arr[r * size:(r + 1) * size, c * size:(c + 1) * size] = 1023
+    return arr
+
+
+def pluge(w=560, h=110):
+    arr = np.full((h, w), C_BLACK)
+    arr[:, int(w * 0.16):int(w * 0.30)] = float(H.pq_oetf(0.0049)) * 1023.0
+    arr[:, int(w * 0.62):int(w * 0.76)] = float(H.pq_oetf(0.0051)) * 1023.0
+    return arr
+
+
+def color_bars(w=560, h=110):
+    cols = [(1023, 1023, 1023), (509, 509, 509), (1023, 0, 0), (0, 1023, 0),
+            (0, 0, 1023), (0, 1023, 1023), (1023, 0, 1023), (1023, 1023, 0)]
+    arr = np.zeros((h, w, 3))
+    bw = w // len(cols)
+    for i, c in enumerate(cols):
+        arr[:, i * bw:(i + 1) * bw - 3] = np.array(c) / 1023.0
+    return arr
+
+
+fig = plt.figure(figsize=(7.4, 5.4))
+gs = fig.add_gridspec(3, 3, height_ratios=[0.40, 1.0, 0.60],
+                      hspace=0.46, wspace=0.16,
+                      left=0.02, right=0.98, top=0.93, bottom=0.03)
+
+panels = [
+    (gs[0, :], ramp(), "(a) 灰阶斜坡 0–1023", (0, 1023)),
+    (gs[1, 0], steps(np.linspace(0, 1023, 11)), "(b) 灰阶阶梯 11 级", (0, 1023)),
+    (gs[1, 1], steps(range(0, 65, 8), n=9, h=140), "(c) 近黑阶梯 0–64（放大显示）", (0, 64)),
+    (gs[1, 2], window_panel(), "(d) 窗口 10% / 2% / 1%", (0, 1023)),
+    (gs[2, 0], checker(), "(e) 4×4 棋盘", (0, 1023)),
+    (gs[2, 1], pluge(), "(f) PLUGE 黑 ±2%（已拉伸）", (C_BLACK - 1.2, C_BLACK + 1.2)),
+    (gs[2, 2], color_bars(), "(g) 彩条", None),
+]
+
+for spec, arr, title, vlim in panels:
+    ax = fig.add_subplot(spec)
+    asp = "equal" if title.startswith("(d)") else "auto"
+    if arr.ndim == 3:
+        ax.imshow(arr, interpolation="nearest", aspect=asp)
+    else:
+        ax.imshow(arr, cmap="gray", vmin=vlim[0], vmax=vlim[1],
+                  interpolation="nearest", aspect=asp)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for s in ax.spines.values():
+        s.set_color("#7d8b9a")
+        s.set_linewidth(0.7)
+    ax.set_title(title, fontsize=8.4, pad=3)
 
 H.save(fig, 6, "f1_test_pattern")

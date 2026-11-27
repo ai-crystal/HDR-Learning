@@ -33,7 +33,7 @@ TEXT = {
     "static": [
         "调色台\nST 2086 母版显示参数\nMaxCLL / MaxFALL 统计",
         "HEVC SEI 137 / 144\nAV1 HDR_MDCV / HDR_CLL",
-        "MP4 mdcv / clli\nTS 描述符、HDMI InfoFrame",
+        "MP4 mdcv / clli\nTS 靠 SEI，HDMI InfoFrame",
         "读取峰值与色域\n建立静态映射曲线",
     ],
     "video": [

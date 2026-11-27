@@ -8,3 +8,10 @@ __pycache__/
 
 # 本地参考论文（不上传）
 papers/
+
+# 临时脚本与中间数据（绘图过程中的数值实验）
+__pycache__/
+_tmp/
+_numbers*.py
+_*.npy
+_*.npz
